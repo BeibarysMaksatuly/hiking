@@ -50,6 +50,10 @@ export default {
           to: "/tours"
         },
         {
+          name: 'Советы',
+          to: "/advices"
+        },
+        {
           name: 'Услуги',
           to: "/services"
         },

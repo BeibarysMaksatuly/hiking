@@ -8,18 +8,25 @@
         :key="idx">
           <input 
             type="checkbox" 
-            :value="option" 
-            :bind="checked"
-            @change="$emit('update:checked', $event.target.value)"
+            :value="option.id" 
+            v-model="localChecked"
             >
-          <label for="checkbox">{{ option }}</label>
+          <label for="checkbox">{{ option.name }}</label>
       </div>
     </div>
   </div>
 </template>
 <script>
 export default {
+  model: {
+    prop: 'checked',
+    event: 'change'
+  },
   props: {
+    checked: {
+      type: Array,
+      default: () => []
+    },
     label: {
       type: String,
       default: ""
@@ -28,15 +35,22 @@ export default {
       type: Array,
       default: () => []
     },
-    checked: {
-      type: Array,
-      required: true
-    },
   },
   data() {
     return {
     }
   },
+  computed: {
+    localChecked: {
+      get() {
+        return this.checked
+      },
+      set(value) {
+        console.log(value)
+        this.$emit('update:checked', value)
+      }
+    }
+  }
 
 }
 </script>

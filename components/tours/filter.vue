@@ -1,7 +1,12 @@
 <template>
   <div class="filter">
-    <UiCheckbox label="Страна" :options="countries" :checked.sync="chosenCountries" />
-    <UiCheckbox label="Страна" :options="countries" :checked.sync="chosenCountries" />
+    <UiCheckbox 
+      label="Страна" 
+      :options="countries" 
+      :checked="chosenCountries" 
+      @update-checked="chosenCountries = $event"
+    />
+    <UiCheckbox label="Сезон" :options="seasons" :checked.sync="chosenSeasons" />
     <UiSlider
       label="Продолжительность"
       :range.sync="rangeTime"
@@ -13,9 +18,9 @@
     />
     <UiSlider
       label="Бюджет"
-      :range.sync="rangeTime"
-      :max="maxTime"
-      :min="minTime"
+      :range.sync="moneyBudget"
+      :max="maxBudget"
+      :min="minBudget"
       :step="1"
       hide-details
       title="тг"
@@ -36,15 +41,30 @@
 export default {
   data() {
     return {
-      countries: [
-        'Казахстан', 'Россия', 'Монголия'
-      ],
+      countries: [],
       chosenCountries: [],
+      seasons: [],
+      chosenSeasons: [],
       rangeTime: [0, 5],
+      moneyBudget: [0, 10000],
       maxTime: 10,
       minTime: 2,
+      maxBudget: 100000,
+      minBudget: 10000,
       chosenType: ""
     }
+  },
+  async fetch() {
+    await this.getCountries()
+    await this.getSeasons()
+  },
+  methods: {
+    async getCountries() {
+      this.countries = await this.$axios.$get('/country-list/')
+    },
+    async getSeasons() {
+      this.seasons = await this.$axios.$get('/seasons/')
+    },
   }
 }
 </script>
