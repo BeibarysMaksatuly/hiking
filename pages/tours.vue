@@ -34,6 +34,9 @@ export default {
     width: 100%;
     display: flex;
     gap: 24px;
+    @include phone {
+      flex-direction: column;
+    }
   }
 } 
 .container-1 {

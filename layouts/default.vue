@@ -30,8 +30,4 @@ export default {
 </script>
 <style lang="scss">
 @import "@/assets/scss/layout.scss";
-
-.default {
-  min-height: 100vh;
-}
 </style>

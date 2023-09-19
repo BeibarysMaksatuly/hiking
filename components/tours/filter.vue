@@ -28,7 +28,7 @@
     <UiCheckbox label="Формат тура" :options="countries" :checked.sync="chosenCountries" />
     <UiCheckbox label="Тип размещения" :options="countries" :checked.sync="chosenCountries" />
     <UiCheckbox label="Занятия" :options="countries" :checked.sync="chosenCountries" />
-    <UiButton>Применить</UiButton>
+    <UiButton class="filter__apply">Применить</UiButton>
     <UiButton type="error">Сбросить</UiButton>
   </div>
 </template>
@@ -57,5 +57,13 @@ export default {
   align-items: flex-start;
   gap: 20px;
   background: #fff;
+
+  @include phone {
+    width: 100%;
+  }
+
+  &__apply {
+    margin-bottom: -5px;
+  }
 }
 </style>

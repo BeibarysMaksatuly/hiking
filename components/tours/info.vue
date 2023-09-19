@@ -10,7 +10,7 @@
     </div>
     <div :class="isGrid ? 'info__data' : 'info__data-row'">
       <template v-if="isGrid">
-        <ToursMini v-for="tour in tours" :key="tour.id" />
+        <ToursMini v-for="i in 6" :key="i" />
       </template>
     </div>
   </div>
@@ -40,6 +40,19 @@ export default {
     display: flex;
     align-items: center;
     margin-bottom: 30px;
+  }
+
+  &__data {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+
+    @include phone {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 10px;
+      row-gap: 30px;
+    }
   }
 }
 
