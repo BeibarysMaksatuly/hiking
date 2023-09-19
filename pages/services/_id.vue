@@ -208,6 +208,7 @@ export default {
     right: 0;
     width: 100%;
     height: 100%;
+    border-radius: 10px;
     background: linear-gradient(1deg, rgba(0, 0, 0, 0.54) -16.13%, rgba(255, 255, 255, 0.00) 75.69%);
   }
 
@@ -217,7 +218,7 @@ export default {
     height: 470px;
     border-radius: 10px;
     @include phone {
-      height: 305px;
+      height: 300px;
     }
   }
 }
@@ -233,7 +234,9 @@ export default {
     font-weight: 600;
     line-height: 26px;
     @include phone {
-      font-size: 14px;
+      bottom: 20px;
+      left: 10px;
+      font-size: 16px;
       font-style: normal;
       font-weight: 600;
       line-height: 130%;
