@@ -1,0 +1,12 @@
+<svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g id="controls / checkbox / active" clip-path="url(#clip0_1064_2254)">
+    <rect id="Rectangle 90" y="0.5" width="20" height="20" rx="3" fill="#FECC01" />
+    <path id="check" d="M5 11.5L7.92929 14.4293C7.96834 14.4683 8.03166 14.4683 8.07071 14.4293L15 7.5" stroke="white"
+      stroke-width="1.7" stroke-linecap="round" />
+  </g>
+  <defs>
+    <clipPath id="clip0_1064_2254">
+      <rect width="20" height="20" fill="white" transform="translate(0 0.5)" />
+    </clipPath>
+  </defs>
+</svg>

@@ -1,0 +1,32 @@
+<svg viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g id="2">
+    <g id="Rectangle 74">
+      <mask id="path-1-inside-1_1036_4036" fill="white">
+        <rect y="0.5" width="9" height="8" rx="0.5" />
+      </mask>
+      <rect y="0.5" width="9" height="8" rx="0.5" stroke="currentColor" stroke-width="4"
+        mask="url(#path-1-inside-1_1036_4036)" />
+    </g>
+    <g id="Rectangle 75">
+      <mask id="path-2-inside-2_1036_4036" fill="white">
+        <rect y="9.5" width="9" height="8" rx="0.5" />
+      </mask>
+      <rect y="9.5" width="9" height="8" rx="0.5" stroke="currentColor" stroke-width="4"
+        mask="url(#path-2-inside-2_1036_4036)" />
+    </g>
+    <g id="Rectangle 76">
+      <mask id="path-3-inside-3_1036_4036" fill="white">
+        <rect x="10" y="0.5" width="9" height="8" rx="0.5" />
+      </mask>
+      <rect x="10" y="0.5" width="9" height="8" rx="0.5" stroke="currentColor" stroke-width="4"
+        mask="url(#path-3-inside-3_1036_4036)" />
+    </g>
+    <g id="Rectangle 77">
+      <mask id="path-4-inside-4_1036_4036" fill="white">
+        <rect x="10" y="9.5" width="9" height="8" rx="0.5" />
+      </mask>
+      <rect x="10" y="9.5" width="9" height="8" rx="0.5" stroke="currentColor" stroke-width="4"
+        mask="url(#path-4-inside-4_1036_4036)" />
+    </g>
+  </g>
+</svg>
