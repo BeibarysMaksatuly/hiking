@@ -22,7 +22,7 @@
           <div>100 км</div>
         </div>
       </div>
-      <UiButton type="outlined">Краткая информация</UiButton>
+      <UiButton class="info__first" type="outlined">Краткая информация</UiButton>
       <UiButton>Просмотреть тур</UiButton>
     </div>
   </div>
@@ -90,6 +90,10 @@ export default {
       gap: 5px;
       align-items: flex-start;
     }
+  }
+
+  &__first {
+    margin-bottom: -5px;
   }
 
   &__map {

@@ -4,13 +4,16 @@
     <div class="info__description">
       <div class="descr__info">Какое-то долгое описание туров. Прям очень долгое описание туров. Сам тур классный</div>
       <div class="descr__icons">
-        <Window :class="isGrid && 'descr__icons-active'"/>
-        <Slider :class="!isGrid && 'descr__icons-active'"/>
+        <Window :class="isGrid && 'descr__icons-active'" @click="isGrid=true"/>
+        <Slider :class="!isGrid && 'descr__icons-active'" @click="isGrid=false"/>
       </div>
     </div>
     <div :class="isGrid ? 'info__data' : 'info__data-row'">
       <template v-if="isGrid">
         <ToursMini v-for="i in 6" :key="i" />
+      </template>
+      <template v-else>
+        <ToursRow v-for="i in 6" :key="i" />
       </template>
     </div>
   </div>
@@ -52,6 +55,12 @@ export default {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       column-gap: 10px;
       row-gap: 30px;
+    }
+
+    &-row {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
   }
 }
