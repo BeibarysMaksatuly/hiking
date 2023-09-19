@@ -5,7 +5,12 @@
         <UiBreadcrumbs :links="links" />
         <UiHeading class="advices__title">Советы</UiHeading>
         <div class="advices__container">
-          <div class="advices__category" v-for="category in categories" :key="category.id">
+          <div 
+            class="advices__category" 
+            v-for="category in categories" 
+            :key="category.id"
+            @click="$router.push(`/advices/${category.id}`)"
+          >
             <div class="category__title">{{ category.title }}</div>
             <div class="category__data">
               <div class="category__info" v-for="info in category.recommendations" :key="info.id">

@@ -19,6 +19,7 @@
 <style lang="scss" scoped>
 .tickets {
   position: relative;
+  background-color: #FFF;
 
   &__data {
     display: flex;
