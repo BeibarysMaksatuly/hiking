@@ -86,12 +86,22 @@ export default {
     font-weight: 700;
     line-height: 120%; /* 33.6px */
     letter-spacing: 0.084px;
+    @include phone {
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 120%; /* 24px */
+      letter-spacing: 0.06px;
+    }
   }
   &__data {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     column-gap: 20px;
     row-gap: 30px;
+    @include phone {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   &__info {
@@ -99,6 +109,9 @@ export default {
     background-color: #fff;
     height: 376px;
     border-radius: 15px 15px 0px 0px;
+    @include phone {
+      height: 305px;
+    }
   }
 }
 
@@ -108,6 +121,9 @@ export default {
     height: 220px;
     object-fit: cover;
     border-radius: 15px 15px 0px 0px;
+    @include phone {
+      height: 154px;
+    }
   }
 
   &__text {
@@ -115,6 +131,21 @@ export default {
     flex-direction: column;
     padding: 20px;
     margin-bottom: 2px;
+    @include phone {
+      padding: 10px;
+    }
+  }
+  &__title {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    @include phone {
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 130%;
+    }
   }
   &__subtitle {
     height: 72px;
@@ -124,6 +155,13 @@ export default {
 
     &::after {
       content: "..."
+    }
+    @include phone {
+      height: 90px;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 15px;
     }
   }
 }
