@@ -2,7 +2,7 @@
   <div class="select">
     <div class="select__label">{{ label }}</div>
     <div class="select__data">
-      <div class="select__model">{{ model }}</div>
+      <div class="select__model">{{ options.find(item => item.id === model)  && options.find(item => item.id === model).name }}</div>
       <ChevronBottom class="select__icon" @click="isSelectOpen = !isSelectOpen" />
     </div>
     <div class="select__options" v-if="isSelectOpen">
@@ -10,6 +10,7 @@
         class="select__option" 
         v-for="(option, idx) in options"
         :key="idx"
+        @click="choose(option)"
         >
         {{ option.name }}
       </div>
@@ -28,7 +29,7 @@ export default {
       default: ""
     },
     model: {
-      type: String,
+      type: [String, Number],
       default: ""
     },
     options: {
@@ -39,6 +40,12 @@ export default {
   data() {
     return {
       isSelectOpen: false
+    }
+  },
+  methods: {
+    choose(option) {
+      this.isSelectOpen = false;
+      this.$emit('update:model', option.id)
     }
   }
 }

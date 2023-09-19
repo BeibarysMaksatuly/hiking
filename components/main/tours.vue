@@ -12,7 +12,12 @@
     </div>
     <client-only>
       <swiper ref="mySwiper" class="mySwiper" :options="swiperOptions">
-        <swiper-slide v-for="tour in tours" :key="tour.id" class="tour">
+        <swiper-slide 
+          v-for="tour in tours" 
+          :key="tour.id" 
+          class="tour"
+          @click.native="findTours(tour)"
+          >
           <div class="tour__image">
             <img :src="tour.image" alt="tour image" />
           </div>
@@ -60,6 +65,14 @@ export default {
     async getTours() {
       this.tours = await this.$axios.$get('/countries/')
     },
+    findTours(tour) {
+      this.$router.push({
+        path: '/tours',
+        query: {
+          country: tour.id,
+        }
+      })
+    }
   }
 }
 </script>

@@ -5,11 +5,11 @@
         <div class="data__title">Оставьте заявку</div>
         <UiInput
           label="Ваше имя"
-          :model.sync="form.name"
+          :model.sync="form.full_name"
          />
          <UiInput
           label="Ваш номер телефона"
-          :model.sync="form.phone"
+          :model.sync="form.phone_number"
          />
          <UiInput
           label="Email"
@@ -20,7 +20,7 @@
           :required="false"
           :model.sync="form.comment"
          />
-         <UiButton class="data__button">Отправить заявку</UiButton>
+         <UiButton class="data__button" @click.native="postForm()">Отправить заявку</UiButton>
       </div>
       <div class="form__images">
         <img src="@/assets/images/form-bg.png" alt="form" class="form__images-main" />
@@ -35,11 +35,16 @@ export default {
   data() {
     return {
       form: {
-        name: '',
-        phone: '',
+        full_name: '',
+        phone_number: '',
         email: '',
         comment: ''
       }
+    }
+  },
+  methods: {
+    postForm() {
+      this.$axios.$post('/applications/', this.form)
     }
   }
 }

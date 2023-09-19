@@ -1,7 +1,9 @@
 <template>
   <div :class="['header', isMain && 'main-header']">
     <div class="container-1">
-      <Logo class="header__logo" />
+      <nuxt-link to="/">
+        <Logo class="header__logo" />
+      </nuxt-link>
       <div class="header__links">
         <nuxt-link 
           v-for="(link, idx) in headerLinks" 

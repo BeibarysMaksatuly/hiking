@@ -4,7 +4,7 @@
       {{ label }}
       <span class="red" v-if="required">*</span>
     </div>
-    <input class="input__text" v-model="model" />
+    <input class="input__text" :bind="model" @input="$emit('update:model', $event.target.value)" />
   </div>
 </template>
 <script>

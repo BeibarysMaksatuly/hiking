@@ -6,23 +6,23 @@
       </div>
       <div class="hero__search">
         <button class="button">
-          <input class="button__text" placeholder="Найти тур" />
+          <input class="button__text" placeholder="Найти тур" v-model="tourName" />
           <SearchInline class="button__search" />
         </button>
         <div class="hero__selects">
           <UiSelect 
-            :options="options" 
+            :options="countries" 
             :model.sync="country"
             label="Страна"
           />
           <UiSelect 
-            :options="options" 
+            :options="seasons" 
             :model.sync="season"
             label="Сезон"
           />
         </div>
         <div class="hero__button">
-          <UiButton>Найти</UiButton>
+          <UiButton @click.native="findTours()">Найти</UiButton>
         </div>
       </div>
     </div>
@@ -37,23 +37,37 @@ export default {
   },
   data() {
     return {
-      country: "Казахстан",
-      season: "Зима"
+      country: null,
+      countries: [],
+      seasons: [],
+      season: null,
+      tourName: ""
+    }
+  },
+  async fetch() {
+    await this.getCountries()
+    await this.getSeasons()
+  },
+  methods: {
+    async getCountries() {
+      this.countries = await this.$axios.$get('/country-list/')
+    },
+    async getSeasons() {
+      this.seasons = await this.$axios.$get('/seasons/')
+    },
+    findTours() {
+      this.$router.push({
+        path: '/tours',
+        query: {
+          country: this.country,
+          season: this.season,
+          name: this.tourName
+        }
+      })
     }
   },
   computed: {
-    options() {
-      return [
-        {
-          name: "Все туры",
-          id: 1,
-        },
-        {
-          name: "Казахстан",
-          id: 1,
-        },
-      ]
-    }
+
   }
 }
 </script>
