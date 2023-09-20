@@ -38,15 +38,8 @@
 </template>
 <script>
 import Swiper, { Navigation, Pagination } from 'swiper';
-import Arrow from 'icons/btn-left.svg?inline';
-import TourLogo from 'icons/tour-logo.svg?inline';
-import Map from 'icons/map.svg?inline';
-import Calendar from 'icons/calendar.svg?inline';
 Swiper.use([Navigation, Pagination])
 export default {
-  components: {
-    Arrow, TourLogo, Map, Calendar
-  },
   data() {
     return {
       service: {},

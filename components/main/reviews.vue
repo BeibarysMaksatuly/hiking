@@ -28,8 +28,8 @@
   </div>
 </template>
 <script>
-import Swiper, { Navigation } from 'swiper'
-import Arrow from 'icons/btn-left.svg?inline'
+import Swiper, { Navigation } from 'swiper';
+import Arrow from 'icons/btn-left.svg?inline';
 Swiper.use([Navigation])
 export default {
   components: {

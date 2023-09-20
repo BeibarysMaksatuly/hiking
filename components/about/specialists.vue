@@ -1,0 +1,206 @@
+<template>
+  <div class="specialists">
+    <div class="container-1">
+      <div class="specialists__title">Наши специалисты</div>
+      <div class="specialists__subtitle">Мы ценим нашу команду</div>
+      <client-only>
+        <div class="specialists__swiper" >
+          <div slot="button-prev" class="swiper-button-prev">
+            <Arrow />
+          </div>
+          <swiper ref="specialistsSwiper" :options="swiperOptions">
+            <swiper-slide v-for="(specialist, idx) in specialists" :key="idx" class="specialist">
+              <div class="specialist__data" v-for="spec in specialist" :key="spec.id">
+                <div class="specialist__info">
+                  <div class="specialist__name">{{ spec.name }}</div>
+                  <div class="specialist__work">Опыт работы: {{ spec.work }} лет</div>
+                  <div class="specialist__descr">{{ spec.description }}</div>
+                </div>
+                <div class="specialist__photo">
+                  <img src="@/assets/images/specialist.png" alt="specialist" />
+                </div>
+              </div>
+            </swiper-slide>
+          </swiper>
+          <div slot="button-next" class="swiper-button-next">
+            <Arrow />
+          </div>
+        </div>
+
+      </client-only>
+    </div>
+  </div>
+</template>
+<script>
+import Swiper, { Navigation, Pagination } from 'swiper';
+Swiper.use([Navigation, Pagination]);
+import Arrow from 'icons/chevron-right.svg?inline';
+export default {
+  components: {
+    Arrow
+  },
+  data() {
+    return {
+      swiperOptions: {
+        slidesPerView: 1,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      },
+    }
+  },
+  computed: {
+    specialists() {
+      return [
+        [{
+          id: 0,
+          name: "Станеслава Вожатая",
+          work: "10",
+          description: "Наш специалист по турам по Алтаю - настоящий эксперт и страстный поклонник этого уникального региона. Он обладает обширными знаниями о природе, культуре, истории и туристических маршрутах Алтая."
+        },
+        {
+          id: 1,
+          name: "Игорь Алтайский",
+          work: "10",
+          description: "Наш специалист по турам по Алтаю горячо верит в важность устойчивого туризма и экологической ответственности. Он стремится минимизировать отрицательное воздействие на природу и активно пропагандирует понимание и сохранение уникальной экосистемы Алтая."
+        }],
+        [{
+          id: 2,
+          name: "Станеслава Вожатая 1",
+          work: "10",
+          description: "Наш специалист по турам по Алтаю - настоящий эксперт и страстный поклонник этого уникального региона. Он обладает обширными знаниями о природе, культуре, истории и туристических маршрутах Алтая."
+        },
+        {
+          id: 3,
+          name: "Станеслава Вожатая 2",
+          work: "10",
+          description: "Наш специалист по турам по Алтаю - настоящий эксперт и страстный поклонник этого уникального региона. Он обладает обширными знаниями о природе, культуре, истории и туристических маршрутах Алтая."
+        }],
+      ]
+    }
+  }
+}
+</script>
+<style lang="scss" scoped>
+.container-1 {
+  padding-top: 90px;
+  padding-bottom: 90px;
+
+  @include phone {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+}
+
+.specialists {
+  &__title {
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    margin-bottom: 20px;
+    text-align: center;
+    @include phone {
+      font-size: 24px;
+    }
+  }
+
+  &__subtitle {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    color: #7D92A1;
+    margin-bottom: 70px;
+    text-align: center;
+    @include phone {
+      font-size: 16px;
+      margin-bottom: 40px;
+    }
+  }
+  &__swiper {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    @include phone {
+      gap: 10px;
+    }
+  }
+}
+
+.specialist {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  &__data {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    border-radius: 5px;
+    background-color: #F6F8FA;
+    @include phone {
+      flex-direction: column-reverse;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__name {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+  &__work {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  &__descr {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  &__photo {
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+    flex-shrink: 0;
+    width: 300px;
+    height: 100%;
+
+    @include phone {
+      width: 100%;
+      height: 300px;
+    }
+  }
+}
+
+.swiper-button-prev, .swiper-button-next {
+  position: relative;
+  width: 42px;
+  height: 42px;
+}
+
+.swiper-button-prev {
+  transform: rotate(180deg);
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  display: none;
+}
+</style>
