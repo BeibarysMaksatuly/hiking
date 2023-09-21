@@ -130,6 +130,14 @@ export default {
       height: 240px;
       width: 100%;
     }
+
+    @include phone {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      img {
+        height: 117px;
+      }
+    }
   }
   &__text {
     font-size: 18px;
