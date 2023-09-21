@@ -71,13 +71,13 @@ export default {
       this.category = await this.$axios.$get(`/recommendation/${this.id}/`)
     },
     async otherCatgories() {
-      this.otherCategories = await this.$axios.$get('/exclude/', {recommendation_id: this.id })
+      this.otherCategories = await this.$axios.$get('/exclude/', { recommendation_id: this.id })
       console.log(this.otherCategories)
     }
   },
   computed: {
     id() {
-      return this.$route.params.id
+      return Number(this.$route.params.id)
     },
     links() {
       return [
