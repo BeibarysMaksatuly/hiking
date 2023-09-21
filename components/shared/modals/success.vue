@@ -90,6 +90,7 @@ export default {
 .text {
 
   &__title {
+    color: #324552;
     font-size: 20px;
     font-style: normal;
     font-weight: 600;
@@ -98,6 +99,7 @@ export default {
   }
 
   &__subtitle {
+    color: #324552;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
