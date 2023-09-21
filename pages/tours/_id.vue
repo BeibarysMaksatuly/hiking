@@ -106,6 +106,7 @@
       </div>
     </div>
     <SharedForm />
+    <SharedTickets />
     <SharedInstagram />
   </div>
 </template>
