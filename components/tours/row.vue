@@ -2,20 +2,26 @@
   <div class="row-1">
     <client-only>
       <swiper :pagination="true"  class="row-1Swiper" :options="swiperOptions">
-        <swiper-slide v-for="id in 3" :key="id" class="mini__photo">
-          <img src="@/assets/images/mini.png" alt="mini photo" />
+        <swiper-slide v-for="image in tour.images" :key="image.id" class="mini__photo">
+          <img :src="image.image" alt="mini photo" />
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination" />
         <TourLogo class="row-1__logo"/>
       </swiper>
     </client-only>
     <div class="row-1__data">
-      <div class="row-1__title">Восхождение на Эльбус с юга</div>
-      <div class="row-1__subtitle">Какое-то долгое описание тура. Прям очень долгое название тура. Сам тур классный</div>
+      <div class="row-1__title">{{ tour.name }}</div>
+      <div class="row-1__subtitle">{{ tour.short_description && tour.short_description.slice(0, 110) }}</div>
       <div class="row-1__places">
-        <div class="row-1__place" v-for="i in 3" :key="i">
+        <div class="row-1__place" v-for="country in tour.country" :key="country.id">
           <div class="circle"></div>
-          <div>Казахстан</div>
+          <div>{{ tour.country.name }}</div>
+        </div>
+      </div>
+      <div class="row-1__places">
+        <div class="row-1__place" v-for="tag in tour.tags" :key="tag.id">
+          <div class="circle"></div>
+          <div>{{ tag.name }}</div>
         </div>
       </div>
     </div>
@@ -23,16 +29,22 @@
       <div class="info__details">
         <div class="info__map">
           <Calendar />
-          <div>С 1 по 15 июня</div>
+          <div>С {{ tour.earliest_date }} по {{ tour.latest_date }}</div>
         </div>
         <div class="info__map">
           <Map />
           <div>100 км</div>
         </div>
       </div>
-      <div class="info__price">От 35 000 ₽</div>
-      <UiButton class="info__first" type="outlined">Краткая информация</UiButton>
-      <UiButton>Просмотреть тур</UiButton>
+      <div class="info__price">От {{ tour.lowest_price }}</div>
+      <UiButton 
+        class="info__first" 
+        type="outlined"
+        @click.native="$emit('open-modal', tour.id)"
+      >Краткая информация</UiButton>
+      <UiButton
+        @click.native="$router.push(`/tours/${tour.id}/`)"
+      >Просмотреть тур</UiButton>
     </div>
   </div>
 </template>
@@ -46,6 +58,12 @@ Swiper.use([Navigation, Pagination])
 export default {
   components: {
     Arrow, TourLogo, Map, Calendar
+  },
+  props: {
+    tour: {
+      type: Object,
+      default: () => {}
+    }
   },
   name: 'row',
   data() {
@@ -197,6 +215,9 @@ export default {
       width: 100%;
       object-fit: cover;
       border-radius: 15px; 
+      @include phone {
+        height: 140px;
+      }
     }
   }
 

@@ -2,12 +2,13 @@
   <div class="slider">
     <div class="slider__label" v-if="label">{{ label }}</div>
     <v-range-slider
-        v-model="range"
+        v-model="localRange"
         :max="max"
         :min="min"
         :step="1"
         color="#324552"
         hide-details
+        @change="() => $emit('input', localRange)"
     ></v-range-slider>
     <div class="slider__result">
       От <span>{{ range[0] }}</span> до <span>{{ range[1] }}</span> {{ title }}
@@ -36,6 +37,18 @@ export default {
     title: {
       type: String,
       default: ""
+    }
+  },
+  data() {
+    return {
+      localRange: this.range
+    }
+  },
+  watch: {
+    range: {
+      handler(val) {
+        this.localRange = val
+      }
     }
   }
 }

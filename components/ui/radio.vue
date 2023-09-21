@@ -8,10 +8,11 @@
         :key="idx">
           <input 
             type="radio" 
-            :value="option" 
-            v-model="checked"
+            :value="option.id" 
+            v-model="localDirection"
+            @change="() => $emit('input', localDirection)"
             >
-          <label for="radio">{{ option }}</label>
+          <label for="radio">{{ option.name }}</label>
       </div>
     </div>
   </div>
@@ -34,8 +35,16 @@ export default {
   },
   data() {
     return {
+      localDirection: 1
     }
   },
+  watch: {
+    checked: {
+      handler(val) {
+        this.localDirection = this.checked
+      }
+    }
+  }
 
 }
 </script>

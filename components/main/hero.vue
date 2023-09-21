@@ -59,9 +59,9 @@ export default {
       this.$router.push({
         path: '/tours',
         query: {
-          country: this.country,
-          season: this.season,
-          name: this.tourName
+          countries: this.country,
+          seasons: this.season,
+          search: this.tourName
         }
       })
     }

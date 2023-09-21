@@ -10,6 +10,7 @@
             type="checkbox" 
             :value="option.id" 
             v-model="localChecked"
+            @change="() => $emit('input', localChecked)"
             >
           <label for="checkbox">{{ option.name }}</label>
       </div>
@@ -18,10 +19,6 @@
 </template>
 <script>
 export default {
-  model: {
-    prop: 'checked',
-    event: 'change'
-  },
   props: {
     checked: {
       type: Array,
@@ -38,16 +35,13 @@ export default {
   },
   data() {
     return {
+      localChecked: []
     }
   },
-  computed: {
-    localChecked: {
-      get() {
-        return this.checked
-      },
-      set(value) {
-        console.log(value)
-        this.$emit('update:checked', value)
+  watch: {
+    checked: {
+      handler(val) {
+        this.localChecked = val
       }
     }
   }

@@ -2,28 +2,34 @@
   <div class="mini">
     <client-only>
       <swiper :pagination="true"  class="miniSwiper" :options="swiperOptions">
-        <swiper-slide v-for="i in 3" :key="i" class="mini__photo">
-          <img src="@/assets/images/mini.png" alt="mini photo" />
+        <swiper-slide v-for="image in tour.images" :key="image.id" class="mini__photo">
+          <img :src="image.image" alt="mini photo" />
         </swiper-slide>
-        <div class="swiper-pagination" slot="pagination" />
+      <div class="swiper-pagination" slot="pagination" />
       </swiper>
     </client-only>
     <TourLogo class="mini__logo"/>
     <div class="mini__info">
-      <div class="info__title">Восхождение на Эльбус с юга</div>
-      <div class="info__price">От 35 000 ₽</div>
+      <div class="info__title">{{  tour.name }}</div>
+      <div class="info__price">От {{ tour.lowest_price }}</div>
       <div class="info__details">
         <div class="info__map">
           <Calendar />
-          <div>С 1 по 15 июня</div>
+          <div>С {{ tour.earliest_date }} по {{ tour.latest_date }}</div>
         </div>
         <div class="info__map">
           <Map />
           <div>100 км</div>
         </div>
       </div>
-      <UiButton class="info__first" type="outlined">Краткая информация</UiButton>
-      <UiButton>Просмотреть тур</UiButton>
+      <UiButton 
+        class="info__first" 
+        type="outlined" 
+        @click.native="$emit('open-modal', tour.id)"
+      >
+        Краткая информация
+      </UiButton>
+      <UiButton @click.native="$router.push(`/tours/${tour.id}/`)">Просмотреть тур</UiButton>
     </div>
   </div>
 </template>
@@ -39,6 +45,12 @@ export default {
     Arrow, TourLogo, Map, Calendar
   },
   name: 'Mini',
+  props: {
+    tour: {
+      type: Object,
+      default: () => {}
+    }
+  },
   data() {
     return {
       photos: [],
@@ -127,11 +139,19 @@ export default {
 
   &__photo {
     width: 100%;
+    height: 100%;
+    border-radius: 15px; 
     img {
+
       width: 100%;
+      height: 100%;
       object-fit: cover;
       border-radius: 15px; 
+      @include phone {
+        height: 140px;
+      }
     }
+
   }
 
   &__info {
@@ -155,6 +175,7 @@ export default {
   font-size: 12px !important;
 }
 .miniSwiper {
+  height: 100%;
 }
 :deep(.swiper-pagination) {
   bottom: auto;

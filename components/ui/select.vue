@@ -7,12 +7,13 @@
     </div>
     <div class="select__options" v-if="isSelectOpen">
       <div 
-        class="select__option" 
+        :class="['select__option', { 'select__option-active': option.id === model }]" 
         v-for="(option, idx) in options"
         :key="idx"
         @click="choose(option)"
         >
-        {{ option.name }}
+        <div class="option__name">{{ option.name }}</div>
+        <div v-if="idx+ 1 !== options.length" class="option__line"></div>
       </div>
     </div>
   </div>
@@ -89,7 +90,35 @@ export default {
 
   &__options {
     position: absolute;
+    width: 100%;
     top: 120%;
+    border-radius: 10px;
+    background: rgba(90, 148, 190, 0.80);
+    backdrop-filter: blur(7.5px);
+    padding: 10px;
+  }
+  &__option {
+    &-active {
+      color: #FFC107 !important;
+    }
+  }
+}
+
+.option {
+  &__name {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 21px; 
+
+  }
+  &__line {
+    background: #FFF;
+    height: 1px;
+    width: 100%;
+    flex-shrink: 0;
+    margin-top: 9px;
+    margin-bottom: 9px;
   }
 }
 </style>

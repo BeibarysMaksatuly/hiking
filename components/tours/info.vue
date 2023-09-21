@@ -10,10 +10,19 @@
     </div>
     <div :class="isGrid ? 'info__data' : 'info__data-row'">
       <template v-if="isGrid">
-        <ToursMini v-for="i in 6" :key="i" />
+        <ToursMini 
+          v-for="tour in tours" 
+          :key="tour.id" 
+          :tour="tour" 
+          @open-modal="openModal" />
       </template>
       <template v-else>
-        <ToursRow v-for="i in 6" :key="i" />
+        <ToursRow 
+          v-for="tour in tours" 
+          :key="tour.id" 
+          :tour="tour" 
+          @open-modal="openModal"
+        />
       </template>
     </div>
   </div>
@@ -26,9 +35,27 @@ export default {
     Window,
     Slider
   },
+  props: {
+    tours: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
       isGrid: true,
+    }
+  }, 
+  methods: {
+    openModal(id) {
+      this.$emit('open-modal', id)
+    }
+   },
+  watch: {
+    isGrid: {
+      handler(val) {
+        this.$emit('change', val ? 9 : 3)
+      }
     }
   }
 }
