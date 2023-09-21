@@ -8,7 +8,7 @@
           <div slot="button-prev" class="swiper-button-prev">
             <Arrow />
           </div>
-          <swiper ref="specialistsSwiper" :options="swiperOptions">
+          <swiper ref="specialistsSwiper" class="swiperSpec" :options="swiperOptions">
             <swiper-slide v-for="(specialist, idx) in computedSpecialists" :key="idx" class="specialist">
               <div class="specialist__data" v-for="spec in specialist" :key="spec.id">
                 <div class="specialist__info">
@@ -37,7 +37,7 @@ Swiper.use([Navigation, Pagination]);
 import Arrow from 'icons/chevron-right.svg?inline';
 export default {
   async fetch() {
-    await getSpecialists()
+    await this.getSpecialists()
   },
   components: {
     Arrow
@@ -57,7 +57,7 @@ export default {
   methods: {
     async getSpecialists() {
       try {
-        this.specialists= await this.$axios.$get('/specialists/')
+        this.specialists = await this.$axios.$get('/specialists/')
       } catch(e) {
         console.log(e)
       }
@@ -106,6 +106,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+
+.swiperSpec {
+  width: 100%;
+}
 .container-1 {
   padding-top: 90px;
   padding-bottom: 90px;
@@ -162,8 +166,11 @@ export default {
     display: flex;
     flex-direction: row;
     gap: 15px;
+    flex-shrink: 0;
     border-radius: 5px;
     background-color: #F6F8FA;
+    justify-content: space-between;
+    height: 300px;
     @include phone {
       flex-direction: column-reverse;
     }
@@ -197,6 +204,7 @@ export default {
 
   &__photo {
     img {
+      flex-shrink: 0;
       height: 100%;
       width: 100%;
       object-fit: cover;
