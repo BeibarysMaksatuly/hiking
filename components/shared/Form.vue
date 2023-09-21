@@ -27,6 +27,11 @@
         <img src="@/assets/images/form.png" alt="form" class="form__images-second" />
       </div>
     </div>
+    <SharedModalsSuccess 
+      v-if="completed" 
+      :success="success"
+      @close="completed=false"
+    />
   </div>
 </template>
 <script>
@@ -39,12 +44,23 @@ export default {
         phone_number: '',
         email: '',
         comment: ''
-      }
+      },
+      success: false,
+      completed: false,
     }
   },
   methods: {
-    postForm() {
-      this.$axios.$post('/applications/', this.form)
+    async postForm() {
+      try {
+        await this.$axios.$post('/applications/', this.form)
+        this.success = true;
+      } catch(e) {
+        console.log(e)
+        this.success = false;
+      } finally {
+        this.completed = true;
+      }
+
     }
   }
 }
