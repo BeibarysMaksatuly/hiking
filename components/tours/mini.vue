@@ -178,7 +178,7 @@ export default {
   height: 100%;
 }
 :deep(.swiper-pagination) {
-  bottom: auto;
+  bottom: auto !important;
   top: 50%;
   transform: translateY(-50%);
 
