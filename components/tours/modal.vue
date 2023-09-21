@@ -8,8 +8,15 @@
           <div class="circle"></div>
           <div>{{ tour.country.name }}</div>
         </div>
+        <div class="modal__place modal__place--green" v-for="(tag, idx) in tour.tags" :key="idx">
+          <div class="circle--green"></div>
+          <div>{{ tag.name }}</div>
+        </div>
       </div>
       <div class="modal__text">{{ tour.short_description }}</div>
+      <div class="modal__images">
+        <img v-for="(image, idx) in tour.images" :key="idx" :src="image.image" alt="image" />
+      </div>
       <UiButton>Отправить заявку</UiButton>
     </div>
   </div>
@@ -100,6 +107,10 @@ export default {
     border-radius: 10px;
     border: 2px solid rgba(239, 127, 26, 0.60);
 
+    &--green {
+      border: 2px solid  rgba(40, 167, 69, 0.60) !important;
+    }
+
     @include phone {
       font-size: 12px;
       font-style: normal;
@@ -107,11 +118,25 @@ export default {
       line-height: 15px;
     }
   }
+
+  &__images {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px;
+
+    img {
+      border-radius: 10px;
+      align-self: stretch;
+      height: 240px;
+      width: 100%;
+    }
+  }
   &__text {
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
     line-height: 21px;
+    white-space: pre-line;
 
     @include phone {
       font-size: 16px;
@@ -126,5 +151,12 @@ export default {
   height: 6px;
   border-radius: 50%;
   background-color: rgba(239, 127, 26, 0.60);
+
+  &--green {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: rgba(40, 167, 69, 0.60);
+  }
 }
 </style>

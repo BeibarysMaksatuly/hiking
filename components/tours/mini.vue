@@ -179,8 +179,8 @@ export default {
 }
 :deep(.swiper-pagination) {
   bottom: auto;
-  top: 48%;
-  transform: translateY(-48%);
+  top: 50%;
+  transform: translateY(-50%);
 
   @include phone {
     top: 58%;
