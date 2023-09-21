@@ -11,7 +11,11 @@
     <div class="container-1">
       <UiBreadcrumbs :links="links" />
       <div class="tours__data">
-        <ToursFilter @filter="applyFilter" @open-modal="openModal" />
+        <ToursFilter 
+          @filter="applyFilter" 
+          @open-modal="openModal"
+          :filters="query"
+           />
         <ToursInfo @change="changePagesize" :tours="tours" @open-modal="openModal"  />
       </div>
     </div>
@@ -33,17 +37,17 @@ export default {
         direction: 1,
         "page[number]": this.$route.query["page[number]"] || 1,
         "page[size]": 9,
-        budget: [1, 10000],
-        duration: [1, 5],
+        budget: [1, 100000000],
+        duration: [1, 10],
       }
     }
   },
   async fetch() {
-    if (this.$route.countries) {
-      this.query.countries.append(this.$route.countries)
+    if (this.$route.query.countries) {
+      this.query.countries.push(Number(this.$route.query.countries))
     }
-    if (this.$route.seasons) {
-      this.query.seasons.append(this.$route.seasons)
+    if (this.$route.query.seasons) {
+      this.query.seasons.push(Number(this.$route.query.seasons))
     }
     await this.getTours()
   },

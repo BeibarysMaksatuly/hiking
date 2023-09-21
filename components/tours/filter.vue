@@ -65,6 +65,12 @@
 </template>
 <script>
 export default {
+  props: {
+    filters: {
+      type: Object,
+      default: () => {}
+    }
+  },
   data() {
     return {
       chosenCountries: [],
@@ -72,8 +78,8 @@ export default {
       chosenFormats: [],
       chosenPlacements: [],
       chosenTags: [],
-      maxTime: 10,
-      minTime: 2,
+      maxTime: 50,
+      minTime: 0,
       maxBudget: 100000,
       minBudget: 0,
       query: {
@@ -93,6 +99,15 @@ export default {
     await this.getFormats()
     await this.getPlacements()
     await this.getTags() 
+    this.query = this.filters
+  },
+  watch: {
+    filters: {
+      handler(val) {
+        this.query = val
+      },
+      deep: true
+    }
   },
   methods: {
     async getCountries() {

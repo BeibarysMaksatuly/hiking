@@ -69,7 +69,7 @@ export default {
       this.$router.push({
         path: '/tours',
         query: {
-          country: tour.id,
+          countries: tour.id,
         }
       })
     }
