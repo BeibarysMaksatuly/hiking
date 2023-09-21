@@ -148,7 +148,7 @@ export default {
       object-fit: cover;
       border-radius: 15px; 
       @include phone {
-        height: 140px;
+        // height: 140px;
       }
     }
 
