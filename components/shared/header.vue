@@ -24,7 +24,7 @@
         <Call class="phone__icon" />
         <div class="phone__text">+7 (708) 454 - 55 - 55</div>
       </a>
-      <Drag class="header__drag" @click="$emit('open-mobile')" />
+      <Drag class="header__drag" v-if="input" @click="$emit('open-mobile')" />
     </div>
   </div>
 </template>
