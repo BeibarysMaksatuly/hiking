@@ -26,6 +26,7 @@
       </div>
     </div>
     <SharedTickets />
+    <SharedInstagram />
   </div>
 </template>
 <script>

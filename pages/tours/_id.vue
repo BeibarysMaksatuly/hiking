@@ -106,6 +106,7 @@
       </div>
     </div>
     <SharedForm />
+    <SharedInstagram />
   </div>
 </template>
 <script>

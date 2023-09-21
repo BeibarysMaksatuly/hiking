@@ -5,6 +5,7 @@
     <MainReviews />
     <SharedForm />
     <SharedTickets />
+    <SharedInstagram />
   </div>
 </template>
 
