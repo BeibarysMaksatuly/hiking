@@ -23,7 +23,7 @@
         </swiper>
       </client-only>
       <div class="advice__text" v-html="category.text"></div>
-      <div class="advice__other">
+      <div class="advice__other" v-if="otherCategories && otherCategories.length">
         <div class="category__title">Другие советы</div>
           <div class="category__data">
             <div class="category__info" 
@@ -71,7 +71,7 @@ export default {
       this.category = await this.$axios.$get(`/recommendation/${this.id}/`)
     },
     async otherCatgories() {
-      this.otherCategories = await this.$axios.$get('/exclude/', { recommendation_id: this.id })
+      this.otherCategories = await this.$axios.$get('/exclude/', { params: { recommendation_id: this.id } })
       console.log(this.otherCategories)
     }
   },
