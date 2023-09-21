@@ -51,6 +51,8 @@ export default {
 
 .modal {
   border-radius: 20px;
+  max-height: 90%;
+  overflow-y: scroll;
   background: #FFF;
   box-shadow: 0px 5px 15px 0px rgba(105, 112, 117, 0.10);
   position: relative;
