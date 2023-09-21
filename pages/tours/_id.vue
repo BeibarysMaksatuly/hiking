@@ -1,5 +1,13 @@
 <template>
   <div class="tour">
+    <v-overlay :value="$fetchState.pending" z-index="999999">
+        <v-progress-circular
+          :size="70"
+          :width="7"
+          color="#EF7F1A"
+          indeterminate
+      ></v-progress-circular>
+    </v-overlay>
     <UiBreadcrumbs :links="links" class="container-1" />
     <div class="tour__cont">
       <div class="tour__hero">

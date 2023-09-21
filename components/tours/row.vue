@@ -32,8 +32,8 @@
           <div>С {{ tour.earliest_date }} по {{ tour.latest_date }}</div>
         </div>
         <div class="info__map">
-          <Map />
-          <div>100 км</div>
+          <!-- <Map /> -->
+          <!-- <div>100 км</div> -->
         </div>
       </div>
       <div class="info__price">От {{ tour.lowest_price }}</div>

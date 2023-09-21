@@ -32,7 +32,9 @@ export default {
         placements: [],
         direction: 1,
         "page[number]": this.$route.query["page[number]"] || 1,
-        "page[size]": 9
+        "page[size]": 9,
+        budget: [1, 10000],
+        duration: [1, 5],
       }
     }
   },
@@ -72,7 +74,11 @@ export default {
         placements: this.query.placements.join(","),
         direction: 1,
         "page[number]": this.query["page[number]"],
-        "page[size]": this.query["page[size]"]
+        "page[size]": this.query["page[size]"],
+        duration_start: this.query.duration[0],
+        duration_end: this.query.duration[1],
+        budget_start: this.query.budget[0],
+        budget_end: this.query.budget[1],
       }} )
       this.tours = result.results
     },
