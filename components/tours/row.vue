@@ -18,9 +18,9 @@
           <div>{{ tour.country.name }}</div>
         </div>
       </div>
-      <div class="row-1__places">
+      <div class="row-1__places row-1__places--green">
         <div class="row-1__place" v-for="tag in tour.tags" :key="tag.id">
-          <div class="circle"></div>
+          <div class="circle--green"></div>
           <div>{{ tag.name }}</div>
         </div>
       </div>
@@ -152,6 +152,10 @@ export default {
     border-radius: 10px;
     border: 2px solid rgba(239, 127, 26, 0.60);
 
+    &--green {
+      border: 2px solid  rgba(40, 167, 69, 0.60) !important;
+    }
+
     @include phone {
       font-size: 12px;
       font-style: normal;
@@ -167,6 +171,13 @@ export default {
   height: 6px;
   border-radius: 50%;
   background-color: rgba(239, 127, 26, 0.60);
+
+  &--green {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: rgba(40, 167, 69, 0.60);
+  }
 }
 .row-1Swiper {
   position: relative;
