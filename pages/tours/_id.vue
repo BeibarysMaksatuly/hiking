@@ -57,7 +57,7 @@
         <div class="tour__info">
           <div class="tour__marsh">
             <Calendar class="tour__svg" />
-            <div class="tour__titled">Маршрут тура:</div>
+            <div class="tour__titled">Даты заезда:</div>
           </div>
           <ul class="tour__data texti">
             <li v-for="(tt, idx) in tour.dates" :key="idx">
