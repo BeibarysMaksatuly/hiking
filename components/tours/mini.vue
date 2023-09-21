@@ -183,8 +183,8 @@ export default {
   transform: translateY(-50%);
 
   @include phone {
-    top: 58%;
-    transform: translateY(-58%);
+    top: 49%;
+  transform: translateY(-49%);
   }
 }
 :deep(.swiper-pagination-bullet-active) {
