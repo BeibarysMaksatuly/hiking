@@ -11,7 +11,9 @@
             v-for="(link, idx) in headerLinks" 
             :to="link.to"
             :key="idx" 
-            class="mobile-header__link">
+            class="mobile-header__link"
+            @click.native="close()"
+            >
             {{ link.name }}
           </nuxt-link>
         </div>
@@ -58,6 +60,11 @@ export default {
         },
       ]
     }
+  },
+  methods: {
+    close() {
+      this.$emit('close-mobile')
+    }
   }
 }
 </script>
@@ -75,6 +82,7 @@ export default {
     position: fixed;
     width: 100vw;
     height: 100vh;
+    z-index: 10000;
     top: 0;
     left: 0;
     background: rgba(21, 21, 21, 0.41);

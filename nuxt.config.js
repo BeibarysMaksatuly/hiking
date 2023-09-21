@@ -2,6 +2,10 @@ import colors from 'vuetify/es5/util/colors'
 import { resolve } from 'path'
 
 export default {
+  loading: {
+    color: 'orange',
+    height: '5px'
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   ssr: true,
   head: {

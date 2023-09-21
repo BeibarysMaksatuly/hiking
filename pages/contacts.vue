@@ -126,6 +126,9 @@ export default {
   background-size: 100% 100%;
   position: relative;
   color: #fff;
+  @include phone {
+    background-size: cover;
+  }
   &__overlay {
     background: radial-gradient(620.68% 100% at 0% 23.36%, rgba(2, 49, 70, 0.50) 0%, rgba(2, 49, 70, 0.00) 25.66%, rgba(2, 49, 70, 0.00) 73.96%, rgba(2, 49, 70, 0.50) 100%);
     position: absolute;
@@ -151,7 +154,12 @@ export default {
   }
   &__container {
     display: flex;
+    flex-direction: row;
     gap: 85px;
+    @include phone {
+      flex-direction: column;
+      gap: 80px;
+    }
   }
 
   &__join {
@@ -188,6 +196,9 @@ export default {
     font-weight: 400;
     line-height: 21px;
     margin-bottom: 97px;
+    @include phone {
+      margin-bottom: 38px;
+    }
   }
   &__add-title {
     font-size: 18px;
@@ -222,6 +233,7 @@ export default {
     gap: 20px;
     @include phone {
       width: 100%;
+      margin-top: 0;
     }
   }
 }

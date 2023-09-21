@@ -14,7 +14,7 @@
     />
     <UiSlider
       label="Продолжительность"
-      :range="duration"
+      :range="query.duration"
       :max="maxTime"
       :min="minTime"
       :step="1"
@@ -24,7 +24,7 @@
     />
     <UiSlider
       label="Бюджет"
-      :range="budget"
+      :range="query.budget"
       :max="maxBudget"
       :min="minBudget"
       :step="1"
@@ -72,10 +72,8 @@ export default {
       chosenFormats: [],
       chosenPlacements: [],
       chosenTags: [],
-      duration: [1, 5],
       maxTime: 10,
       minTime: 2,
-      budget: [1, 10000],
       maxBudget: 100000,
       minBudget: 0,
       query: {
@@ -84,6 +82,8 @@ export default {
         tags: [],
         placements: [],
         direction: 1,
+        budget: [1, 10000],
+        duration: [1, 5],
       }
     }
   },
@@ -129,10 +129,10 @@ export default {
       this.query.direction = value
     },
     changeDuration(value) {
-      this.duration = value
+      this.query.duration = value
     },
     changeBudget(value) {
-      this.budget = value
+      this.query.budget = value
     },
     reset() {
       this.query.countries = []

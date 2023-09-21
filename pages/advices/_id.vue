@@ -1,5 +1,13 @@
 <template>
   <div class="advice">
+    <v-overlay :value="$fetchState.pending" z-index="999999">
+        <v-progress-circular
+          :size="70"
+          :width="7"
+          color="#EF7F1A"
+          indeterminate
+      ></v-progress-circular>
+    </v-overlay>
     <UiBreadcrumbs :links="links" class="container-1" />
     <div class="advice__hero">
       <img :src="category.image" alt="category image" />
@@ -18,7 +26,11 @@
       <div class="advice__other">
         <div class="category__title">Другие советы</div>
           <div class="category__data">
-            <div class="category__info" v-for="info in otherCategories" :key="info.id">
+            <div class="category__info" 
+              v-for="info in otherCategories" 
+              :key="info.id"
+              @click="$router.push(`/advices/${info.id}`)"
+            >
               <img :src="info.image" alt="info image" class="info__image" />
               <div class="info__text">
                 <div class="info__title">{{ info.title }}</div>
@@ -105,7 +117,7 @@ export default {
 
   &__photo {
     width: 100%;
-    height: 300px;
+    height: 171px;
     border-radius: 10px;
     @include phone {
       height: 150px;

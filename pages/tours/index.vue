@@ -1,5 +1,13 @@
 <template>
   <div class="tours">
+    <v-overlay :value="$fetchState.pending" z-index="999999">
+        <v-progress-circular
+          :size="70"
+          :width="7"
+          color="#EF7F1A"
+          indeterminate
+      ></v-progress-circular>
+    </v-overlay>
     <div class="container-1">
       <UiBreadcrumbs :links="links" />
       <div class="tours__data">
@@ -29,6 +37,12 @@ export default {
     }
   },
   async fetch() {
+    if (this.$route.countries) {
+      this.query.countries.append(this.$route.countries)
+    }
+    if (this.$route.seasons) {
+      this.query.seasons.append(this.$route.seasons)
+    }
     await this.getTours()
   },
   computed: {

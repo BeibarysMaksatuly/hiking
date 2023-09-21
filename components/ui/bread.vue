@@ -2,11 +2,12 @@
   <div class="bread">
     <div class="bread__header">
       <div class="bread__title"><slot name="title"></slot></div>
-      <Chevron class="bread__svg" @click.native="isOpen = !isOpen" />
+      <Chevron :class="['bread__svg', isOpen && 'bread__svg-open']" @click="isOpen = !isOpen" />
     </div>
     <div class="bread__data" v-if="isOpen">
       <slot name="data" />
     </div>
+    <slot name="line"/>
   </div>
 </template>
 <script>
@@ -24,7 +25,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .bread {
+  transition: all 0.3s ease;
   &__header{
+    transition: all 0.5s ease;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -40,6 +43,12 @@ export default {
   }
   &__data {
     margin-top: 21px;
+  }
+
+  &__svg {
+    &-open {
+      transform: rotate(180deg) !important;
+    }
   }
 }
 </style>

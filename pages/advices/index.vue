@@ -1,5 +1,13 @@
 <template>
   <div>
+    <v-overlay :value="$fetchState.pending" z-index="999999">
+        <v-progress-circular
+          :size="70"
+          :width="7"
+          color="#EF7F1A"
+          indeterminate
+      ></v-progress-circular>
+    </v-overlay>
     <div class="advices">
       <div class="container-1">
         <UiBreadcrumbs :links="links" />

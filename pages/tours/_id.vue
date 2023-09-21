@@ -12,6 +12,10 @@
           <div class="circle"></div>
           <div>{{ tour.country.name }}</div>
         </div>
+        <div class="tour__place tour__place--green" v-for="(tag, idx) in tour.tags" :key="idx">
+          <div class="circle"></div>
+          <div>{{ tag.name }}</div>
+        </div>
       </div>
       <div class="tour__text container-1" v-html="tour.description"></div>
       <div class="container-1 tour__images">
@@ -58,23 +62,68 @@
     <div class="tour__program container-1">
       <UiHeading class="program__title">Программа тура</UiHeading>
       <div class="program__data">
-        <UiBread v-for="data in tour.programs"></UiBread>
+        <UiBread v-for="(data,d) in tour.programs" :key="d">
+          <template #title>{{ data.day }} день</template>
+          <template #data>
+            <div class="program__cont">
+              <client-only>
+                <swiper :pagination="true"  class="program__swiper" :options="swiperOptions">
+                  <swiper-slide v-for="(file, idd) in data.images" :key="idd" class="program__photo">
+                    <img :src="file.image" alt="mini photo" />
+                  </swiper-slide>
+                  <div class="swiper-pagination" slot="pagination" />
+                </swiper>
+              </client-only>
+              <div class="program__road">
+                <Location class="program__svg" />
+                <div>{{ data.route }}</div>
+              </div>
+              <div class="program__road">
+                <Food class="program__svg" />
+                <div>{{ data.food }}</div>
+              </div>
+              <div class="program__text">{{ data.description }}</div>
+            </div>
+          </template>
+          <template #line v-if="d + 1 !== tour.programs.length">
+            <div class="program__line"></div>
+          </template>
+        </UiBread>
       </div>
     </div>
+    <div class="tour__need">
+      <div class="container-1">
+        <UiHeading class="need__title">Важно знать</UiHeading>
+        <div class="need__text">{{ tour.must_know }}</div>
+      </div>
+    </div>
+    <SharedForm />
   </div>
 </template>
 <script>
 import Map from '@/assets/icons/map-1.svg?inline';
 import Calendar from '@/assets/icons/calendar-1.svg?inline';
 import CreditCard from '@/assets/icons/credit-card-1.svg?inline';
+import Swiper, { Navigation, Pagination } from 'swiper';
+import Location from '@/assets/icons/location.svg?inline';
+import Food from '@/assets/icons/food.svg?inline';
+Swiper.use([Navigation, Pagination])
 export default {
-  components: {
-    Map, Calendar, CreditCard
-  },
   data() {
     return {
-      tour: {}
+      tour: {},
+      swiperOptions: {
+        slidesPerView: 1,
+        pagination: {
+          el: ".swiper-pagination",
+          type: "bullets",
+          clickable: true,
+          },
+        },
     }
+  },
+  components: {
+    Map, Calendar, CreditCard, Location, Food
   },
   async fetch() {
     await this.getTour()
@@ -101,16 +150,111 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+
+:deep(.swiper-pagination) {
+  bottom: 20px;
+
+  @include phone {
+    bottom: 20px;
+  }
+}
+:deep(.swiper-pagination-bullet-active) {
+  background: $c-orange !important;
+}
+:deep(.swiper-pagination-bullet) {
+  background: $c-white ;
+  opacity: 1;
+}
 .program {
+
+  &__line {
+    height: 1px;
+    flex-shrink: 0;
+    width: 100%;
+    background: #DDE1E6;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  &__svg {
+    display: flex;
+    width: 64px;
+    height: 64px;
+    padding: 13px 12px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;border-radius: 200px;
+    background: #FFF;
+  }
+
+  &__text {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+  }
+  &__cont {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  &__swiper {
+    width: 100%;
+  }
+  &__road {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  &__photo {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    @include phone {
+      height: 150px;
+    }
+    img {
+      border-radius: 10px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.need {
+  &__text {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px; 
+  }
 }
 .tour {
   background-color: #F8FAFB;
+
+  &__need {
+    background-color: #FFF;
+
+    > .container-1 {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+  }
 
   &__program {
     margin-top: 160px;
     display: flex;
     flex-direction: column;
     gap: 40px;
+    padding-bottom: 80px;
   }
   &__hero {
     width: 100%;
@@ -177,6 +321,10 @@ export default {
     border-radius: 10px;
     border: 2px solid rgba(239, 127, 26, 0.60);
 
+    &--green {
+      border: 2px solid  rgba(40, 167, 69, 0.60) !important;
+    }
+
     @include phone {
       font-size: 12px;
       font-style: normal;
@@ -200,6 +348,14 @@ export default {
       align-self: stretch;
       height: 240px;
       width: 100%;
+    }
+
+    @include phone {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      img {
+        aspect-ratio: 2/1;
+      }
     }
   }
 
@@ -236,6 +392,9 @@ export default {
     display: flex;
     flex-direction: row;
     gap: 40px;
+    @include phone {
+      flex-direction: column;
+    }
   }
 
   &__number {
@@ -287,5 +446,19 @@ export default {
   font-weight: 600;
   line-height: 24px;
   margin-left: 40px;
+}
+
+.circle {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: rgba(239, 127, 26, 0.60);
+
+  &--green {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: rgba(40, 167, 69, 0.60);
+  }
 }
 </style>

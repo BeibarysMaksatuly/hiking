@@ -9,15 +9,15 @@
             <Arrow />
           </div>
           <swiper ref="specialistsSwiper" :options="swiperOptions">
-            <swiper-slide v-for="(specialist, idx) in specialists" :key="idx" class="specialist">
+            <swiper-slide v-for="(specialist, idx) in computedSpecialists" :key="idx" class="specialist">
               <div class="specialist__data" v-for="spec in specialist" :key="spec.id">
                 <div class="specialist__info">
-                  <div class="specialist__name">{{ spec.name }}</div>
-                  <div class="specialist__work">Опыт работы: {{ spec.work }} лет</div>
+                  <div class="specialist__name">{{ spec.full_name }}</div>
+                  <div class="specialist__work">Опыт работы: {{ spec.experience }} лет</div>
                   <div class="specialist__descr">{{ spec.description }}</div>
                 </div>
                 <div class="specialist__photo">
-                  <img src="@/assets/images/specialist.png" alt="specialist" />
+                  <img :src="spec.image" alt="specialist" />
                 </div>
               </div>
             </swiper-slide>
@@ -36,11 +36,15 @@ import Swiper, { Navigation, Pagination } from 'swiper';
 Swiper.use([Navigation, Pagination]);
 import Arrow from 'icons/chevron-right.svg?inline';
 export default {
+  async fetch() {
+    await getSpecialists()
+  },
   components: {
     Arrow
   },
   data() {
     return {
+      specialists: [],
       swiperOptions: {
         slidesPerView: 1,
         navigation: {
@@ -50,35 +54,54 @@ export default {
       },
     }
   },
-  computed: {
-    specialists() {
-      return [
-        [{
-          id: 0,
-          name: "Станеслава Вожатая",
-          work: "10",
-          description: "Наш специалист по турам по Алтаю - настоящий эксперт и страстный поклонник этого уникального региона. Он обладает обширными знаниями о природе, культуре, истории и туристических маршрутах Алтая."
-        },
-        {
-          id: 1,
-          name: "Игорь Алтайский",
-          work: "10",
-          description: "Наш специалист по турам по Алтаю горячо верит в важность устойчивого туризма и экологической ответственности. Он стремится минимизировать отрицательное воздействие на природу и активно пропагандирует понимание и сохранение уникальной экосистемы Алтая."
-        }],
-        [{
-          id: 2,
-          name: "Станеслава Вожатая 1",
-          work: "10",
-          description: "Наш специалист по турам по Алтаю - настоящий эксперт и страстный поклонник этого уникального региона. Он обладает обширными знаниями о природе, культуре, истории и туристических маршрутах Алтая."
-        },
-        {
-          id: 3,
-          name: "Станеслава Вожатая 2",
-          work: "10",
-          description: "Наш специалист по турам по Алтаю - настоящий эксперт и страстный поклонник этого уникального региона. Он обладает обширными знаниями о природе, культуре, истории и туристических маршрутах Алтая."
-        }],
-      ]
+  methods: {
+    async getSpecialists() {
+      try {
+        this.specialists= await this.$axios.$get('/specialists/')
+      } catch(e) {
+        console.log(e)
+      }
     }
+  },
+  computed: {
+    computedSpecialists() {
+      const arr = [];
+      for (let i = 0; i < this.specialists.length; i+= 2) {
+        const hey =[];
+        hey.push(this.specialists[i])
+        if (this.specialists[i + 1]) hey.push(this.specialists[i + 1])
+        arr.push(hey)
+      }
+      return arr
+    }
+    // specialists() {
+    //   return [
+    //     [{
+    //       id: 0,
+    //       name: "Станеслава Вожатая",
+    //       work: "10",
+    //       description: "Наш специалист по турам по Алтаю - настоящий эксперт и страстный поклонник этого уникального региона. Он обладает обширными знаниями о природе, культуре, истории и туристических маршрутах Алтая."
+    //     },
+    //     {
+    //       id: 1,
+    //       name: "Игорь Алтайский",
+    //       work: "10",
+    //       description: "Наш специалист по турам по Алтаю горячо верит в важность устойчивого туризма и экологической ответственности. Он стремится минимизировать отрицательное воздействие на природу и активно пропагандирует понимание и сохранение уникальной экосистемы Алтая."
+    //     }],
+    //     [{
+    //       id: 2,
+    //       name: "Станеслава Вожатая 1",
+    //       work: "10",
+    //       description: "Наш специалист по турам по Алтаю - настоящий эксперт и страстный поклонник этого уникального региона. Он обладает обширными знаниями о природе, культуре, истории и туристических маршрутах Алтая."
+    //     },
+    //     {
+    //       id: 3,
+    //       name: "Станеслава Вожатая 2",
+    //       work: "10",
+    //       description: "Наш специалист по турам по Алтаю - настоящий эксперт и страстный поклонник этого уникального региона. Он обладает обширными знаниями о природе, культуре, истории и туристических маршрутах Алтая."
+    //     }],
+    //   ]
+    // }
   }
 }
 </script>
