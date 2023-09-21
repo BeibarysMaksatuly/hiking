@@ -4,7 +4,7 @@
       <nuxt-link to="/">
         <Logo class="header__logo" />
       </nuxt-link>
-      <div class="header__links">
+      <div class="header__links" v-if="input">
         <nuxt-link 
           v-for="(link, idx) in headerLinks" 
           :to="link.to"
@@ -13,7 +13,13 @@
           {{ link.name }}
         </nuxt-link>
       </div>
-      <Search class="header__search" />
+      <div v-if="!input" class="hey">
+        <UiInput :model.sync="search" >
+      </UiInput>
+      <UiButton @click.native="searchYandex">Готово</UiButton>
+      </div>
+
+      <Search class="header__search" v-if="input" @click="showInput" />
       <a class="header__phone" href="" target="_blank">
         <Call class="phone__icon" />
         <div class="phone__text">+7 (708) 454 - 55 - 55</div>
@@ -33,6 +39,21 @@ export default {
     isMain: {
       type: Boolean,
       default: false
+    }
+  },
+  data() {
+    return {
+      input: true,
+      search: ""
+    }
+  },
+  methods: {
+    showInput() {
+      this.input = !this.input
+    },
+    searchYandex() {
+      window.open(`https://yandex.ru/search/?text=${this.search}&?url:http://86.107.45.254/`)
+      this.showInput()
     }
   },
   components: {
@@ -71,6 +92,17 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.hey {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex: 1;
+  align-items: center;
+
+  button {
+    width: 90px;
+  }
+}
 
 .main-header {
   background-color: transparent !important;

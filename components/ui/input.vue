@@ -5,6 +5,7 @@
       <span class="red" v-if="required">*</span>
     </div>
     <input class="input__text" :bind="model" @input="$emit('update:model', $event.target.value)" />
+    <slot name="icon"></slot>
   </div>
 </template>
 <script>
