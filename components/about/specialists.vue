@@ -173,6 +173,7 @@ export default {
     height: 300px;
     @include phone {
       flex-direction: column-reverse;
+      height: max-content;
     }
   }
 
