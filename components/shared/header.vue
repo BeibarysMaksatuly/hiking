@@ -143,7 +143,7 @@ export default {
   align-items: center;
 
   button {
-    width: 90px;
+    width: max-content;
   }
 }
 .container-1 {
