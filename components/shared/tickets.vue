@@ -116,10 +116,9 @@ export default {
   &__iframe {
     width: 100%; 
     min-width: 280px; 
-    min-height: 535px;
+    min-height: 500px;
     border: none; 
     overflow: hidden; 
-    padding: 30px 40px;
     border-radius: 10px;
     @include phone {
       padding: 0;
