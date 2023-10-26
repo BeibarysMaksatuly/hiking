@@ -117,7 +117,7 @@ export default {
         },
         {
           name: this.$t("header.kazakh"),
-          id: "kz"
+          id: "kk"
         },
         {
           name: this.$t("header.english"),

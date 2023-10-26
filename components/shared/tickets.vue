@@ -6,7 +6,7 @@
           {{ $t("main.tickets.buyTicketsTitle") }}
         </UiHeading>
         <iframe 
-          src="https://aviata.kz/static/widget/search/widget.html?lang=ru" 
+          :src="`https://aviata.kz/static/widget/search/widget.html?lang=${locale}`" 
           class="data__iframe"
         />
       </div>
@@ -16,6 +16,15 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  computed: {
+    locale() {
+      return this.$i18n.locale
+    }
+  }
+}
+</script>
 <style lang="scss" scoped>
 .tickets {
   position: relative;
