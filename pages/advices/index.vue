@@ -11,13 +11,13 @@
     <div class="advices">
       <div class="container-1">
         <UiBreadcrumbs :links="links" />
-        <UiHeading class="advices__title">Советы</UiHeading>
+        <UiHeading class="advices__title">{{ $t("header.advices") }}</UiHeading>
         <div class="advices__container">
           <div 
             class="advices__category" 
             v-for="category in categories" 
             :key="category.id"
-            @click="$router.push(`/advices/${category.id}`)"
+            @click="$router.push(localePath(`/advices/${category.id}`))"
           >
             <div class="category__title">{{ category.title }}</div>
             <div class="category__data">
@@ -57,11 +57,11 @@ export default {
     links() {
       return [
         {
-          title: 'Главная',
+          title: this.$t("header.main"),
           url: '/'
         },
         {
-          title: 'Советы',
+          title: this.$t("header.advices"),
           url: '/advices'
         }
       ]

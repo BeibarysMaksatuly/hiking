@@ -13,7 +13,7 @@
       <img :src="category.image" alt="category image" />
     </div>
     <div class="container-1">
-      <UiHeading class="advice__title">Советы</UiHeading>
+      <UiHeading class="advice__title">{{ $t("header.advices") }}</UiHeading>
       <client-only>
         <swiper :pagination="true"  class="adviceSwiper" :options="swiperOptions">
           <swiper-slide v-for="file in category.files" :key="file.id" class="advice__photo">
@@ -24,12 +24,12 @@
       </client-only>
       <div class="advice__text" v-html="category.text"></div>
       <div class="advice__other" v-if="otherCategories && otherCategories.length">
-        <div class="category__title">Другие советы</div>
+        <div class="category__title">{{ $t("advices.otherAdvices") }}</div>
           <div class="category__data">
             <div class="category__info" 
               v-for="info in otherCategories" 
               :key="info.id"
-              @click="$router.push(`/advices/${info.id}`)"
+              @click="$router.push(localePath(`/advices/${info.id}`))"
             >
               <img :src="info.image" alt="info image" class="info__image" />
               <div class="info__text">
@@ -82,11 +82,11 @@ export default {
     links() {
       return [
         {
-          title: 'Главная',
+          title: this.$t("header.main"),
           url: '/'
         },
         {
-          title: 'Советы',
+          title: this.$t("header.advices"),
           url: '/advices'
         }
       ]

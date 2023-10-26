@@ -10,8 +10,8 @@
     </v-overlay>
     <div class="container-1">
       <UiBreadcrumbs :links="links" />
-      <UiHeading class="services__title">Услуги</UiHeading>
-      <div class="services__subtitle">Какое-то долгое описание услуг. Прям очень долгое описание услуг. Сами услуги классные</div>
+      <UiHeading class="services__title">{{ $t("header.services") }}</UiHeading>
+      <div class="services__subtitle">{{ $t("services.description") }}</div>
       <div class="services__container">
         <div 
           class="services__service" 

@@ -77,5 +77,34 @@ export default {
     "teamSubtitle": "With unity in our hearts and professionalism in our souls, we admire Altai together!",
     "specialistsTitle": "Our Specialists",
     "specialistsSubtitle": "We value our team"
+  },
+  "tours": {
+    "country": "Country",
+    "season": "Season",
+    "duration": "Duration",
+    "budget": "Budget",
+    "type": "Tour Type",
+    "group": "Group",
+    "individual": "Individual",
+    "format": "Tour Format",
+    "placement": "Accommodation Type",
+    "tags": "Activities",
+    "apply": "Apply",
+    "reset": "Reset",
+    "toursDescription": "Some long tour description. Very long tour description. The tour itself is great.",
+    "aboutTour": "About the Tour",
+    "marshrut": "Tour Route",
+    "prices": "Tour Pricing Options",
+    "dates": "Departure Dates",
+    "program": "Tour Program",
+    "important": "Important Information",
+    "day": "day"
+  },
+  "services": {
+    "description": "Some long service description. Very long service description. The services themselves are great.",
+    "otherServices": "Other Services",
+  },
+  "advices": {
+    "otherAdvices": "Other Advice",
   }
 }

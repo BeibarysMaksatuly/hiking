@@ -26,13 +26,13 @@
           <div class="service__text" v-html="service.text"></div>
         </div>
         <div class="service__other">
-          <div class="category__title">Другие услуги</div>
+          <div class="category__title">{{ $t("services.otherServices") }}</div>
             <div class="category__data">
               <div 
                 class="category__info" 
                 v-for="info in otherServices" 
                 :key="info.id"
-                @click="$router.push(`/services/${info.id}`)"
+                @click="$router.push(localePath(`/services/${info.id}`))"
               >
                 <img :src="info.image" alt="info image" class="info__image" />
                 <div class="category__overlay"></div>
@@ -83,11 +83,11 @@ export default {
     links() {
       return [
         {
-          title: 'Главная',
+          title: this.$t("header.main"),
           url: '/'
         },
         {
-          title: 'Услуги',
+          title: this.$t("header.services"),
           url: '/services'
         }
       ]
