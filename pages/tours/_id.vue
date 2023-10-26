@@ -14,7 +14,7 @@
         <img :src="tour.main_image" alt="main image" class="tour__image" />
         <div class="tour__title">{{ tour.name }}</div>
       </div>
-      <UiHeading class="tour__heading container-1">О Туре</UiHeading>
+      <UiHeading class="tour__heading container-1">{{ $t("tours.aboutTour") }}</UiHeading>
       <div class="tour__places container-1">
         <div class="tour__place" v-for="country in tour.country" :key="country.id">
           <div class="circle"></div>
@@ -32,7 +32,7 @@
       <div class="tour__info container-1">
         <div class="tour__marsh">
           <Map class="tour__svg" />
-          <div class="tour__titled">Маршрут тура:</div>
+          <div class="tour__titled">{{ $t("tours.marshrut") }}:</div>
         </div>
         <div class="tour__data">
           {{ tour.route }}
@@ -42,7 +42,7 @@
         <div class="tour__info">
           <div class="tour__marsh">
             <CreditCard class="tour__svg" />
-            <div class="tour__titled">Варианты стоимости тура:</div>
+            <div class="tour__titled">{{ $t("tours.prices") }}:</div>
           </div>
           <div class="tour__prices">
             <div class="tour__price" v-for="(td, idx) in tour.prices" :key="idx">
@@ -57,7 +57,7 @@
         <div class="tour__info">
           <div class="tour__marsh">
             <Calendar class="tour__svg" />
-            <div class="tour__titled">Даты заезда:</div>
+            <div class="tour__titled">{{ $t("tours.dates") }}:</div>
           </div>
           <ul class="tour__data texti">
             <li v-for="(tt, idx) in tour.dates" :key="idx">
@@ -68,10 +68,10 @@
       </div>
     </div>
     <div class="tour__program container-1">
-      <UiHeading class="program__title">Программа тура</UiHeading>
+      <UiHeading class="program__title">{{ $t("tours.program") }}</UiHeading>
       <div class="program__data">
         <UiBread v-for="(data,d) in tour.programs" :key="d">
-          <template #title>{{ data.day }} день</template>
+          <template #title>{{ data.day }} {{ $t("tours.day") }}</template>
           <template #data>
             <div class="program__cont">
               <client-only>
@@ -101,7 +101,7 @@
     </div>
     <div class="tour__need">
       <div class="container-1">
-        <UiHeading class="need__title">Важно знать</UiHeading>
+        <UiHeading class="need__title">{{ $t("tours.important") }}</UiHeading>
         <div class="need__text">{{ tour.must_know }}</div>
       </div>
     </div>
@@ -147,11 +147,11 @@ export default {
     links() {
       return [
         {
-          title: 'Главная',
+          title: this.$t("header.main"),
           url: '/'
         },
         {
-          title: 'Туры',
+          title: this.$t("header.tours"),
           url: '/tours'
         }
       ]

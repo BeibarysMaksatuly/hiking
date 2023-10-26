@@ -17,7 +17,7 @@
           class="services__service" 
           v-for="service in services" 
           :key="service.id"
-          @click="$router.push(`/services/${service.id}`)"
+          @click="$router.push(localePath(`/services/${service.id}`))"
         >
           <img :src="service.image" alt="service image" />
           <div class="service__overlay"></div>
@@ -48,11 +48,11 @@ export default {
     links() {
       return [
         {
-          title: 'Главная',
+          title: this.$t("header.main"),
           url: '/'
         },
         {
-          title: 'Услуги',
+          title: this.$t("header.services"),
           url: '/services'
         }
       ]

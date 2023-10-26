@@ -1,19 +1,19 @@
 <template>
   <div class="filter">
     <UiCheckbox 
-      label="Страна" 
+      :label="$t('tours.country')" 
       :options="chosenCountries" 
       :checked="query.countries" 
       @input="choseInput"
     />
     <UiCheckbox 
-      label="Сезон" 
+      :label="$t('tours.season')" 
       :options="chosenSeasons" 
       :checked="query.seasons" 
       @input="choseSeasonInput"
     />
     <UiSlider
-      label="Продолжительность"
+      :label="$t('tours.duration')"
       :range="query.duration"
       :max="maxTime"
       :min="minTime"
@@ -23,7 +23,7 @@
       @input="changeDuration"
     />
     <UiSlider
-      label="Бюджет"
+      :label="$t('tours.budget')"
       :range="query.budget"
       :max="maxBudget"
       :min="minBudget"
@@ -33,34 +33,31 @@
       @input="changeBudget"
     />
     <UiRadio 
-      label="Тип тура" 
-      :options="[{id: 1, name: 'Групповой'}, {
-        id: 2,
-        name: 'Индивидуальный'
-      } ]" 
+      :label="$t('tours.type')" 
+      :options="toursType" 
       :checked="query.direction" 
       @input="choseDirection"
     />
     <UiCheckbox 
-      label="Формат тура" 
+      :label="$t('tours.format')" 
       :options="chosenFormats" 
       :checked="query.formats" 
       @input="choseFormat"
     />
     <UiCheckbox 
-      label="Тип размещения" 
+      :label="$t('tours.placement')" 
       :options="chosenPlacements" 
       :checked="query.placements" 
       @input="chosePlacements"
     />
     <UiCheckbox 
-      label="Занятия" 
+      :label="$t('tours.tags')" 
       :options="chosenTags" 
       :checked="query.tags"
       @input="choseTags" 
     />
-    <UiButton class="filter__apply" @click.native="$emit('filter', query)">Применить</UiButton>
-    <UiButton type="error" @click.native="reset">Сбросить</UiButton>
+    <UiButton class="filter__apply" @click.native="$emit('filter', query)">{{ $t("tours.apply") }}</UiButton>
+    <UiButton type="error" @click.native="reset">{{ $t("tours.reset") }}</UiButton>
   </div>
 </template>
 <script>
@@ -107,6 +104,14 @@ export default {
         this.query = val
       },
       deep: true
+    }
+  },
+  computed: {
+    toursType() {
+      return [
+        { id: 1, name: this.$t('tours.group') }, 
+        { id: 2, name: this.$t('tours.individual') } 
+      ]
     }
   },
   methods: {

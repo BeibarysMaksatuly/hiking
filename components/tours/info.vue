@@ -1,8 +1,8 @@
 <template>
   <div class="info">
-    <UiHeading class="info__title">Туры</UiHeading>
+    <UiHeading class="info__title">{{ $t("header.tours") }}</UiHeading>
     <div class="info__description">
-      <div class="descr__info">Какое-то долгое описание туров. Прям очень долгое описание туров. Сам тур классный</div>
+      <div class="descr__info">{{ $t("tours.toursDescription") }}</div>
       <div class="descr__icons">
         <Window :class="isGrid && 'descr__icons-active'" @click="isGrid=true"/>
         <Slider :class="!isGrid && 'descr__icons-active'" @click="isGrid=false"/>
