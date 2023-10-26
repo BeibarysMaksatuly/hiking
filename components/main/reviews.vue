@@ -1,14 +1,14 @@
 <template>
   <div class="reviews container-1">
-    <UiHeading class="reviews__heading">Отзывы</UiHeading>
+    <UiHeading class="reviews__heading">{{ $t("main.reviews") }}</UiHeading>
     <div class="reviews__data">
       <img src="@/assets/images/reviews.png" alt="reviews" class="reviews__img" />
       <client-only>
         <swiper ref="reviewSwiper" class="reviewSwiper" :options="swiperOptions">
           <swiper-slide v-for="review in reviews" :key="review.id" class="review">
             <div class="review__data">
-              <div class="review__name">{{ review.author }}, {{ review.author_age }} лет</div>
-              <div class="review__tour"> Тур: <span>{{ review.tour.name }}</span></div>
+              <div class="review__name">{{ review.author }}, {{ review.author_age }} {{ $t("main.age") }}</div>
+              <div class="review__tour"> {{ $t("main.tour") }}: <span>{{ review.tour.name }}</span></div>
               <div class="review__text">{{ review.text }}</div>
             </div>
           </swiper-slide>
