@@ -144,6 +144,7 @@ export default {
 
   &__tab {
     flex: 1;
+    cursor: pointer;
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: center;
