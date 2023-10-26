@@ -1,6 +1,6 @@
 <template>
   <div class="breadcrumbs">
-    <nuxt-link v-for="(link, idx) in links" :key="idx" :to="link.url" tag="a">
+    <nuxt-link v-for="(link, idx) in links" :key="idx" :to="localePath(link.url)" tag="a">
       <div class="flexy">
         <p class="" :class="{ textChange: links.length == idx + 1 }">
           {{ link.title }}

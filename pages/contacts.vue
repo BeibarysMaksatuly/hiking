@@ -26,26 +26,26 @@
           <div class="form__data">
             <UiInput
               class="input"
-              label="Ваше имя"
+              :label="$t('main.form.name')"
               :model.sync="form.full_name"
             />
             <UiInput
-            class="input"
-              label="Ваш номер телефона"
+              class="input"
+              :label="$t('main.form.phone')"
               :model.sync="form.phone_number"
             />
             <UiInput
-            class="input"
-              label="Email"
+              class="input"
+              :label="$t('main.form.email')"
               :model.sync="form.email"
             />
             <UiInput
-            class="input"
-              label="Комментарий"
+              class="input"
+              :label="$t('main.form.comment')"
               :required="false"
               :model.sync="form.comment"
             />
-            <UiButton class="data__button" @click.native="postForm()">Отправить заявку</UiButton>
+            <UiButton class="data__button" @click.native="postForm()">{{ $t("main.form.sendRequest") }}</UiButton>
           </div>
           <div class="contacts__contact">
             <div class="contact__cont">
