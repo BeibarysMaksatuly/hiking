@@ -52,6 +52,9 @@ export default {
     border-radius: 10px;
     padding: 10px 15px;
     background-color: #F6F8FA;
+    &:focus {
+        outline: none;
+    }
     &::placeholder {
       font-size: 18px;
       font-style: normal;
