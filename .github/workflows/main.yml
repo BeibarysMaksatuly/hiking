@@ -35,23 +35,23 @@ jobs:
       - name: Send all materials
         uses: appleboy/scp-action@master
         with:
-          host: '86.107.45.254'
-          username: 'root'
+          host: '194.110.54.147'
+          username: 'ubuntu'
           password: 'Behappy7+'
           port: '22'
           source: ".nuxt,assets,layouts,static,package.json,nuxt.config.js"
-          target: '/var/www/front'
+          target: 'front'
 
       - name: Connect to server
         uses: appleboy/ssh-action@master
         with:
-          host: '86.107.45.254'
-          username: 'root'
+          host: '194.110.54.147'
+          username: 'ubuntu'
           password: 'Behappy7+'
           port: "22"
           script: |
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            cd /var/www/front
+            cd front
             yarn install
             pm2 start
