@@ -193,7 +193,7 @@ export default {
     cursor: pointer;
     
     &:hover {
-      color: $c-orange;
+      color: $c-orange !important;
     }
   }
 
