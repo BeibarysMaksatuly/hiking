@@ -18,7 +18,8 @@ export default {
       "season": "Тауарал",
       "selectCountry": "Елді таңдаңыз",
       "selectSeason": "Тауаралды таңдаңыз",
-      "find": "Табу"
+      "find": "Табу",
+      "findTour": "Турды табу",
     },
     "tours": {
       "selectTour": "Сіздің турыңызды таңдаңыз",

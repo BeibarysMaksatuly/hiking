@@ -18,7 +18,8 @@ export default {
       "season": "Season",
       "selectCountry": "Select a country",
       "selectSeason": "Select a season",
-      "find": "Find"
+      "find": "Find",
+      "findTour": "Find a tour",
     },
     "tours": {
       "selectTour": "Select your tour",

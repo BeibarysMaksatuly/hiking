@@ -14,7 +14,11 @@
       </div>
       <div class="hero__search">
         <button class="button">
-          <input class="button__text" placeholder="Найти тур" v-model="tourName" />
+          <input 
+            class="button__text" 
+            :placeholder="$t('main.hero.findTour')" 
+            v-model="tourName" 
+          />
           <SearchInline class="button__search" />
         </button>
         <div class="hero__selects">

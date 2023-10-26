@@ -18,7 +18,8 @@ export default {
       "season": "Сезон",
       "selectCountry": "Выберите страну",
       "selectSeason": "Выберите сезон",
-      "find": "Найти"
+      "find": "Найти",
+      "findTour": "Найти тур",
     },
     "tours": {
       "selectTour": "Выберите ваш тур",
