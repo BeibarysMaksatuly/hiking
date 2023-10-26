@@ -1,57 +1,81 @@
 export default {
   "header": {
-    "main": "Главная",
-    "tours": "Туры",
-    "advices": "Советы",
-    "services": "Услуги",
-    "about": "О нас",
-    "contacts": "Контакты",
-    "done": "Готово",
-    "russian": "Русский",
-    "kazakh": "Казахский",
-    "english": "Английский"
+    "main": "Main",
+    "tours": "Tours",
+    "advices": "Advice",
+    "services": "Services",
+    "about": "About Us",
+    "contacts": "Contacts",
+    "done": "Done",
+    "russian": "Russian",
+    "kazakh": "Kazakh",
+    "english": "English"
   },
   "main": {
     "hero": {
-      "title": "Погрузись в дивный мир Алтая – прикоснись к природе сердцем.",
-      "country": "Страна",
-      "season": "Сезон",
-      "selectCountry": "Выберите страну",
-      "selectSeason": "Выберите сезон",
-      "find": "Найти"
+      "title": "Immerse yourself in the marvelous world of Altai - touch the heart of nature.",
+      "country": "Country",
+      "season": "Season",
+      "selectCountry": "Select a country",
+      "selectSeason": "Select a season",
+      "find": "Find"
     },
     "tours": {
-      "selectTour": "Выберите ваш тур",
-      "selectCountry": "Выберите страну для путешествия и воплотите мечту в реальность"
+      "selectTour": "Select your tour",
+      "selectCountry": "Choose a country to travel to and make your dream come true."
     },
-    "reviews": "Отзывы",
-    "age": "лет",
-    "tour": "Тур",
+    "reviews": "Reviews",
+    "age": "years",
+    "tour": "Tour",
     "form": {
-      "leaveRequest": "Оставьте заявку",
-      "name": "Ваше имя",
-      "phone": "Ваш номер телефона",
+      "leaveRequest": "Leave a Request",
+      "name": "Your Name",
+      "phone": "Your Phone Number",
       "email": "Email",
-      "comment": "Комментарий",
-      "sendRequest": "Отправить заявку",
+      "comment": "Comment",
+      "sendRequest": "Send Request"
     },
     "tickets": {
-      "buyTicketsTitle": "Купить билеты до Алтая"
+      "buyTicketsTitle": "Buy Tickets to Altai"
     },
     "instagram": {
-      "ourInsta": "Наш инстаграм",
-      "subscribe": "Подписывайтесь на наш инстаграм, чтобы быть в курсе всех событий!"
+      "ourInsta": "Our Instagram",
+      "subscribe": "Follow our Instagram to stay updated on all events!"
     }
   },
   "contacts": {
-    "contact": "Связаться с нами",
-    "form": "Форма обратной связи",
-    "formDescription": "Мы искренне благодарны вам за вопросы, отзывы и предложения. Ваше сообщение будет направлено  отдел по работе с клиентами, и мы обязательно ответим вам в ближайщее время",
-    "join": "Присоединяйтесь",
-    "contacts": "Контакты",
-    "address": "Адрес",
-    "workingHours": "Часы работы",
-    "withoutDayoffs": "Без выходных",
-    "messengers": "Мы в мессенджерах"
+    "contact": "Contact Us",
+    "form": "Contact Form",
+    "formDescription": "We sincerely thank you for your questions, feedback, and suggestions. Your message will be forwarded to the customer service department, and we will respond to you as soon as possible.",
+    "join": "Join Us",
+    "contacts": "Contacts",
+    "address": "Address",
+    "workingHours": "Opening Hours",
+    "withoutDayoffs": "Open Seven Days a Week",
+    "messengers": "Find Us on Messengers"
+  },
+  "about": {
+    "title": "Immerse yourself in the world of adventure: create unforgettable moments forever!",
+    "aboutUs": "A Bit About Us",
+    "partner": "Your Reliable Partner in Altai Tours",
+    "company": "A company specializing in Altai tours, an expert in organizing trips to this beautiful region. Altai is a unique place located in a mountain range in the southeast of Russia, known for its beautiful nature, rich ecosystems, and cultural heritage.",
+    "description1": "The company offers a variety of tours that allow travelers to enjoy all the charms of Altai.",
+    "description2": "The company has experienced and professional guides who accompany groups and ensure safety and comfort during the journey.",
+    "description3": "Guides share knowledge about the nature of Altai, its history, culture, and local customs, making each tour unforgettable and informative.",
+    "history": "Our History",
+    "partner1": "Your Reliable Partner in Altai Tours",
+    "templeText": "The company is not only involved in tour organization but actively promotes the beauty of Altai, its ecological and cultural values through social media, blogs, and other communication channels. This helps attract more people interested in visiting this unique region. Thus, the company specializing in Altai tours is a reliable partner for anyone who wants to explore this beautiful corner of nature, enjoy outdoor activities, and immerse themselves in local culture and traditions.",
+    "securitySubtitle": "Your Reliable Partner in Altai Tours",
+    "securityTitle": "Safety. Quality. Care.",
+    "securityNumber": "5500",
+    "securityDescription": "Tours Conducted",
+    "securityRow1": "If you're looking for an unforgettable adventure, immersing in beautiful mountain landscapes, and experiencing unique culture, then an Altai tour is exactly what you need!",
+    "securityNumber1": "+1M",
+    "securityDescription1": "Satisfied Customers",
+    "securityDescription2": "Our customers' smiles are our best reviews!",
+    "teamTitle": "Our Team",
+    "teamSubtitle": "With unity in our hearts and professionalism in our souls, we admire Altai together!",
+    "specialistsTitle": "Our Specialists",
+    "specialistsSubtitle": "We value our team"
   }
 }

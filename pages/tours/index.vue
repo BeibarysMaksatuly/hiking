@@ -55,11 +55,11 @@ export default {
     links() {
       return [
         {
-          title: 'Главная',
+          title: this.$t("header.main"),
           url: '/'
         },
         {
-          title: 'Туры',
+          title: this.$t("header.tours"),
           url: '/tours'
         }
       ]
