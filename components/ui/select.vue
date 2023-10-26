@@ -113,7 +113,11 @@ export default {
     padding: 10px;
   }
   &__option {
+    cursor: pointer;
     &-active {
+      color: #FFC107 !important;
+    }
+    &:hover {
       color: #FFC107 !important;
     }
   }
