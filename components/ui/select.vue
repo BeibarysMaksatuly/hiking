@@ -1,8 +1,8 @@
 <template>
-  <div class="select">
-    <div class="select__label">{{ label }}</div>
+  <div :class="['select', isMain && 'select-main']">
+    <div class="select__label" v-if="label">{{ label }}</div>
     <div class="select__data">
-      <div class="select__model">{{ options.find(item => item.id === model)  && options.find(item => item.id === model).name }}</div>
+      <div class="select__model">{{ options.find(item => item.id === model)  && options.find(item => item.id === model).name  || placeholder}}</div>
       <ChevronBottom class="select__icon" @click="isSelectOpen = !isSelectOpen" />
     </div>
     <div class="select__options" v-if="isSelectOpen">
@@ -29,9 +29,17 @@ export default {
       type: String,
       default: ""
     },
+    placeholder: {
+      type: String,
+      default: ""
+    },
     model: {
       type: [String, Number],
       default: ""
+    },
+    isMain: {
+      type: Boolean,
+      default: false
     },
     options: {
       type: Array,
@@ -52,6 +60,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+
+.select-main {
+  .select__model {
+    color: $c-main !important;
+  }
+}
 .select {
   width: 100%;
   position: relative;
@@ -72,6 +86,7 @@ export default {
     justify-content: space-between;
     gap: 8px;
     align-items: center;
+    cursor: pointer;
   }
 
   &__model {

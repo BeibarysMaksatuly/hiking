@@ -1,8 +1,10 @@
 <template>
   <div class="tours container-1">
     <div class="tours__data">
-      <div class="tours__title">Выберите ваш тур</div>
-      <div class="tours__subtitle">Выберите страну для путешествия и воплотите мечту в реальность</div>
+      <div class="tours__title">
+        {{ $t('main.tours.selectTour') }}
+      </div>
+      <div class="tours__subtitle">{{ $t('main.tours.selectCountry') }}</div>
       <div slot="button-prev" class="swiper-button-prev">
         <Arrow />
       </div>
@@ -66,12 +68,12 @@ export default {
       this.tours = await this.$axios.$get('/countries/')
     },
     findTours(tour) {
-      this.$router.push({
+      this.$router.push(this.localeLocation({
         path: '/tours',
         query: {
           countries: tour.id,
         }
-      })
+      }))
     }
   }
 }

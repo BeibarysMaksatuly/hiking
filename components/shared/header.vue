@@ -7,7 +7,7 @@
       <div class="header__links" v-if="input">
         <nuxt-link 
           v-for="(link, idx) in headerLinks" 
-          :to="link.to"
+          :to="localePath(link.to)"
           :key="idx" 
           class="header__link">
           {{ link.name }}
@@ -16,7 +16,7 @@
       <div v-if="!input" class="hey">
         <UiInput :model.sync="search" >
       </UiInput>
-      <UiButton @click.native="searchYandex">Готово</UiButton>
+      <UiButton @click.native="searchYandex">{{ $t("header.done") }}</UiButton>
       </div>
 
       <Search class="header__search" v-if="input" @click="showInput" />
@@ -25,6 +25,14 @@
         <div class="phone__text">+7 (708) 454 - 55 - 55</div>
       </a>
       <Drag class="header__drag" v-if="input" @click="$emit('open-mobile')" />
+      <UiSelect 
+        class="header__lang"
+        :options="languages" 
+        :placeholder="LocaleName"
+        :isMain="!isMain"
+        :model="lang"
+        @update:model="changeLocale"
+      />
     </div>
   </div>
 </template>
@@ -44,7 +52,13 @@ export default {
   data() {
     return {
       input: true,
-      search: ""
+      search: "",
+      lang: ""
+    }
+  },
+  mounted() {
+    if (this.lang !== this.$i18n.locale) {
+      this.changeLocale(this.$i18n.locale)
     }
   },
   methods: {
@@ -54,6 +68,13 @@ export default {
     searchYandex() {
       window.open(`https://yandex.ru/search/?text=${this.search}&?url:http://86.107.45.254/`)
       this.showInput()
+    },
+    changeLocale(id) {
+      if (this.locale === id) { return }
+      this.lang = id
+      if (this.$route.path !== this.switchLocalePath(id)) {
+        this.$router.replace(this.switchLocalePath(id))
+      }
     }
   },
   components: {
@@ -63,32 +84,54 @@ export default {
     headerLinks() {
       return [
         {
-          name: 'Главная',
+          name: this.$t("header.main"),
           to: "/"
         },
         {
-          name: 'Туры',
+          name: this.$t("header.tours"),
           to: "/tours"
         },
         {
-          name: 'Советы',
+          name: this.$t("header.advices"),
           to: "/advices"
         },
         {
-          name: 'Услуги',
+          name: this.$t("header.services"),
           to: "/services"
         },
         {
-          name: 'О нас',
+          name: this.$t("header.about"),
           to: "/about"
         },
         {
-          name: 'Контакты',
+          name: this.$t("header.contacts"),
           to: "/contacts"
         },
       ]
+    },
+    languages() {
+      return [
+        {
+          name: this.$t("header.russian"),
+          id: "ru"
+        },
+        {
+          name: this.$t("header.kazakh"),
+          id: "kz"
+        },
+        {
+          name: this.$t("header.english"),
+          id: "en"
+        },
+      ]
+    },
+    locale() {
+      return this.$i18n.locale
+    },
+    LocaleName() {
+      return this.languages.find(item => item.id === this.locale).name
     }
-  }
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -102,17 +145,6 @@ export default {
   button {
     width: 90px;
   }
-}
-
-.main-header {
-  background-color: transparent !important;
-  :deep(.header__link) {
-    color: $c-white !important;
-  }
-  :deep(.phone__text) {
-    color: $c-white !important;
-  }
-  box-shadow: none !important;
 }
 .container-1 {
   display: flex;
@@ -138,6 +170,9 @@ export default {
       height: 26px;
     }
   }
+  &__lang {
+    width: 116px;
+  }
   &__links {
     display: flex;
     align-items: center;
@@ -153,7 +188,12 @@ export default {
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
-    line-height: 21px; 
+    line-height: 21px;
+    cursor: pointer;
+    
+    &:hover {
+      color: $c-orange;
+    }
   }
 
   &__phone {
@@ -184,6 +224,17 @@ export default {
       color: $c-yellow;
     }
   }
+}
+
+.main-header {
+  background-color: transparent !important;
+  .header__link {
+    color: #fff !important;
+  }
+  .phone__text {
+    color: #fff !important;
+  }
+  box-shadow: none !important;
 }
 
 .phone {

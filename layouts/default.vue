@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     isMainPage() {
-      return this.$route.path === '/'
+      return this.$route.name.includes("index")
     }
   }
 }

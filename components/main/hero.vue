@@ -10,7 +10,7 @@
     </v-overlay>
     <div class="container-1">
       <div class="hero__title">
-        Погрузись в дивный мир Алтая – прикоснись к природе сердцем.
+        {{ $t("main.hero.title") }}
       </div>
       <div class="hero__search">
         <button class="button">
@@ -21,16 +21,18 @@
           <UiSelect 
             :options="countries" 
             :model.sync="country"
-            label="Страна"
+            :label="$t('main.hero.country')"
+            :placeholder="$t('main.hero.selectCountry')"
           />
           <UiSelect 
             :options="seasons" 
             :model.sync="season"
-            label="Сезон"
+            :label="$t('main.hero.season')"
+            :placeholder="$t('main.hero.selectSeason')"
           />
         </div>
         <div class="hero__button">
-          <UiButton @click.native="findTours()">Найти</UiButton>
+          <UiButton @click.native="findTours()">{{ $t('main.hero.find') }}</UiButton>
         </div>
       </div>
     </div>

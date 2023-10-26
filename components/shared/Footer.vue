@@ -118,6 +118,7 @@ export default {
     font-style: normal;
     font-weight: 400;
     line-height: 21px; 
+    cursor: pointer;
   }
 
   &__contact {

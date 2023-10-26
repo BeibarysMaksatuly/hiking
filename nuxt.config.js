@@ -1,6 +1,10 @@
 import colors from 'vuetify/es5/util/colors'
 import { resolve } from 'path'
-
+const locales = [
+  { code: 'en', iso: 'en', file: 'en.js', name: 'English' },
+  { code: 'ru', iso: 'ru', file: 'ru.js', name: 'Russian' },
+  { code: 'kz', iso: 'kaz', file: 'kz.js', name: 'Kazakh' },
+]
 export default {
   loading: {
     color: 'orange',
@@ -52,13 +56,30 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/i18n',
     '@nuxtjs/axios',
     '@nuxtjs/style-resources',
     '@nuxtjs/svg'
   ],
 
   axios: {
-    baseURL: 'http://86.107.45.254/api'
+    baseURL: 'http://194.110.54.147/api'
+  },
+
+  i18n: {
+    locales,
+    langDir: '@/lang/',
+    defaultLocale: 'ru',
+    vueI18nLoader: true,
+    vueI18n: {
+      fallbackLocale: 'ru',
+      silentTranslationWarn: true,
+      silentFallbackWarn: true
+    },
+    detectBrowserLanguage: {
+      useCookie: false,
+      redirectOn: 'root',
+    }
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
