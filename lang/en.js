@@ -98,7 +98,11 @@ export default {
     "dates": "Departure Dates",
     "program": "Tour Program",
     "important": "Important Information",
-    "day": "day"
+    "day": "day",
+    "from": "From",
+    "to": "to",
+    "information": "Brief Information",
+    "seeTour": "View Tour"
   },
   "services": {
     "description": "Some long service description. Very long service description. The services themselves are great.",

@@ -29,22 +29,22 @@
       <div class="info__details">
         <div class="info__map">
           <Calendar />
-          <div>С {{ tour.earliest_date }} по {{ tour.latest_date }}</div>
+          <div>С {{ tour.earliest_date }} {{ $t("tours.to") }} {{ tour.latest_date }}</div>
         </div>
         <div class="info__map">
           <!-- <Map /> -->
           <!-- <div>100 км</div> -->
         </div>
       </div>
-      <div class="info__price">От {{ tour.lowest_price }}</div>
+      <div class="info__price">{{ $t("tours.from") }} {{ tour.lowest_price }}</div>
       <UiButton 
         class="info__first" 
         type="outlined"
         @click.native="$emit('open-modal', tour.id)"
-      >Краткая информация</UiButton>
+      >{{ $t("tours.information") }}</UiButton>
       <UiButton
-        @click.native="$router.push(`/tours/${tour.id}/`)"
-      >Просмотреть тур</UiButton>
+        @click.native="$router.push(localePath(`/tours/${tour.id}/`))"
+      >{{ $t("tours.seeTour") }}</UiButton>
     </div>
   </div>
 </template>
