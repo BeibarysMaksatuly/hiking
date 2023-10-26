@@ -1,8 +1,8 @@
 <template>
   <div class="specialists">
     <div class="container-1">
-      <div class="specialists__title">Наши специалисты</div>
-      <div class="specialists__subtitle">Мы ценим нашу команду</div>
+      <div class="specialists__title">{{ $t("about.specialistsTitle") }}</div>
+      <div class="specialists__subtitle">{{ $t("about.specialistsSubtitle") }}</div>
       <client-only>
         <div class="specialists__swiper" >
           <div slot="button-prev" class="swiper-button-prev">

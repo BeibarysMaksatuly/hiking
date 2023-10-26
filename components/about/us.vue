@@ -1,9 +1,9 @@
 <template>
   <div class="us container-1">
     <div class="us__container">
-      <div class="us__title">Немного о нас</div>
-      <div class="us__subtitle">Ваш надежный партнер в турах по Алтаю</div>
-      <div class="us__text">Компания, специализирующаяся на турах по Алтаю, является экспертом в организации путешествий в этот прекрасный регион. Алтай – это уникальное место, расположенное в горном массиве на юго-востоке России, известное своей красивой природой, богатыми экосистемами и культурным наследием.</div>
+      <div class="us__title">{{ $t("about.aboutUs") }}</div>
+      <div class="us__subtitle">{{ $t("about.partner") }}</div>
+      <div class="us__text">{{ $t("about.company") }}</div>
     </div>
     <div class="us__images">
       <div class="us__duo">
@@ -13,15 +13,15 @@
       <div class="us__three">
         <div>
           <img src="@/assets/images/image3.png" alt="1" />
-          <div class="us__descr">Компания предлагает разнообразные туры, которые позволяют путешественникам насладиться всеми прелестями Алтая.</div>
+          <div class="us__descr">{{ $t("about.description1") }}</div>
         </div>
         <div>
           <img src="@/assets/images/image4.png" alt="2" />
-          <div class="us__descr">Компания имеет опытных и профессиональных гидов, которые сопровождают группы и обеспечивают безопасность и комфорт во время путешествия.</div>
+          <div class="us__descr">{{ $t("about.description2") }}</div>
         </div>
         <div>
           <img src="@/assets/images/image5.png" alt="2" />
-          <div class="us__descr">Гиды делятся знаниями о природе Алтая, его истории, культуре и местных обычаях, делая каждый тур незабываемым и информативным.</div>
+          <div class="us__descr">{{ $t("about.description3") }}</div>
         </div>
       </div>
     </div>

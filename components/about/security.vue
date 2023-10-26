@@ -1,23 +1,23 @@
 <template>
   <div class="security container-1">
     <div class="security__cont">
-      <div class="security__subtitle">Ваш надежный партнер в турах по Алтаю</div>
-      <div class="security__title">Безопасность. Качество. Забота.</div>
+      <div class="security__subtitle">{{ $t("about.securitySubtitle") }}</div>
+      <div class="security__title">{{ $t("about.securityTitle") }}</div>
     </div>
     <div class="security__cont-1">
       <div class="security__div">
         <div class="security__row">
-          <div class="security__number">5500</div>
-          <div class="security__descr">Проведенных туров</div>
+          <div class="security__number">{{ $t("about.securityNumber") }}</div>
+          <div class="security__descr">{{ $t("about.securityDescription") }}</div>
         </div>
-        <div class="security__row-1">Если вы ищете незабываемое приключение, погружение в прекрасные горные пейзажи и уникальную культуру, то тур по Алтаю - это именно то, что вам нужно!</div>
+        <div class="security__row-1">{{ $t("about.securityRow1") }}</div>
       </div>
       <div class="security__div">
         <div class="security__row">
-          <div class="security__number">+1M</div>
-          <div class="security__descr">Довольных клиентов</div>
+          <div class="security__number">{{ $t("about.securityNumber1") }}</div>
+          <div class="security__descr">{{ $t("about.securityDescription1") }}</div>
         </div>
-          <div class="security__row-1">Улыбки наших клиентов – наш лучший отзыв!</div>
+          <div class="security__row-1">{{ $t("about.securityDescription2") }}</div>
       </div>
     </div>
   </div>

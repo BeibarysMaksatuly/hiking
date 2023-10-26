@@ -1,8 +1,8 @@
 <template>
   <div class="team">
     <div class="container-1">
-      <div class="team__title">Наша команда</div>
-      <div class="team__subtitle">С единством в сердце и профессионализмом в душе - вместе восхищаемся Алтаем!</div>
+      <div class="team__title">{{ $t("about.teamTitle") }}</div>
+      <div class="team__subtitle">{{ $t("about.teamSubtitle") }}</div>
       <img src="@/assets/images/team.png" alt="team photo" class="team__photo" />
     </div>
   </div>

@@ -6,7 +6,7 @@
       alt="about data"
       class="hero__image" 
       /> 
-    <div class="hero__text container-1">Погрузитесь в мир приключений: творите моменты, запоминающиеся навсегда!</div>
+    <div class="hero__text container-1">{{ $t("about.title") }}</div>
   </div>
 </template>
 <style lang="scss" scoped>
