@@ -104,6 +104,7 @@ export default {
     flex-shrink: 0;
     display: flex;
     align-items: center;
+    cursor: pointer;
     gap: 30px;
     svg {
       width: 20px;
