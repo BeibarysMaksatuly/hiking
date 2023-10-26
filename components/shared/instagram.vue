@@ -2,9 +2,9 @@
   <div class="instagram">
     <div class="hello">
       <UiHeading class="container-1">
-        <span>Наш инстаграм -</span><span class="instagram__title">@camping.life</span>
+        <span>{{ $t("main.instagram.ourInsta") }} -</span><span class="instagram__title">@camping.life</span>
       </UiHeading>
-      <div class="instagram__text container-1">Подписывайтесь на наш инстаграм, чтобы быть в курсе всех собыий!</div>
+      <div class="instagram__text container-1">{{ $t("main.instagram.subscribe") }}</div>
       <div class="instagram__images">
         <div class="instagram__image" v-for="i in 3" :key="i">
           <img src="@/assets/images/insta.png" alt="instagram image" />

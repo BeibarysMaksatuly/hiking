@@ -26,6 +26,21 @@ export default {
     },
     "reviews": "Отзывы",
     "age": "лет",
-    "tour": "Тур"
+    "tour": "Тур",
+    "form": {
+      "leaveRequest": "Оставьте заявку",
+      "name": "Ваше имя",
+      "phone": "Ваш номер телефона",
+      "email": "Email",
+      "comment": "Комментарий",
+      "sendRequest": "Отправить заявку",
+    },
+    "tickets": {
+      "buyTicketsTitle": "Купить билеты до Алтая"
+    },
+    "instagram": {
+      "ourInsta": "Наш инстаграм",
+      "subscribe": "Подписывайтесь на наш инстаграм, чтобы быть в курсе всех событий!"
+    }
   }
 }

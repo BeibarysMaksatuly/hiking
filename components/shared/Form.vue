@@ -2,25 +2,25 @@
   <div class="form">
     <div class="container-1">
       <div class="form__data">
-        <div class="data__title">Оставьте заявку</div>
+        <div class="data__title">{{ $t("main.form.leaveRequest") }}</div>
         <UiInput
-          label="Ваше имя"
+          :label="$t('main.form.name')"
           :model.sync="form.full_name"
          />
          <UiInput
-          label="Ваш номер телефона"
+          :label="$t('main.form.phone')"
           :model.sync="form.phone_number"
          />
          <UiInput
-          label="Email"
+          :label="$t('main.form.email')"
           :model.sync="form.email"
          />
          <UiInput
-          label="Комментарий"
+          :label="$t('main.form.comment')"
           :required="false"
           :model.sync="form.comment"
          />
-         <UiButton class="data__button" @click.native="postForm()">Отправить заявку</UiButton>
+         <UiButton class="data__button" @click.native="postForm()">{{ $t("main.form.sendRequest") }}</UiButton>
       </div>
       <div class="form__images">
         <img src="@/assets/images/form-bg.png" alt="form" class="form__images-main" />

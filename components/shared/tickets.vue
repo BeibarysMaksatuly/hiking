@@ -3,7 +3,7 @@
     <div class="container-1">
       <div class="tickets__data">
         <UiHeading class="data__title">
-          Купить билеты до Алтая
+          {{ $t("main.tickets.buyTicketsTitle") }}
         </UiHeading>
         <iframe 
           src="https://aviata.kz/static/widget/search/widget.html?lang=ru" 
