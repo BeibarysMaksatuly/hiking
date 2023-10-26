@@ -1,7 +1,9 @@
 <template>
     <div class="default" data-app>
       <SharedHeader @open-mobile="openMobileHeader" :isMain="isMainPage" />
-      <SharedMobileHeader v-if="isMobileHeaderOpen" @close-mobile="closeMobileHeader" />
+      <transition name="slide-fade" mode="out-in">
+        <SharedMobileHeader v-if="isMobileHeaderOpen" @close-mobile="closeMobileHeader" />
+      </transition>
       <Nuxt class="nuxt" />
       <SharedFooter />
     </div>
@@ -30,4 +32,16 @@ export default {
 </script>
 <style lang="scss">
 @import "@/assets/scss/layout.scss";
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .3s ease;
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 </style>
