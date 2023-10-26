@@ -17,7 +17,7 @@
       <div class="modal__images">
         <img v-for="(image, idx) in tour.images" :key="idx" :src="image.image" alt="image" />
       </div>
-      <UiButton>Отправить заявку</UiButton>
+      <UiButton>{{ $t("main.form.sendRequest") }}</UiButton>
     </div>
   </div>
 </template>
