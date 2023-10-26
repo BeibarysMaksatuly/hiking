@@ -212,6 +212,7 @@ export default {
     width: 24px;
     height: 24px;
     flex-shrink: 0;
+    cursor: pointer;
   }
 
   &__drag {
@@ -250,6 +251,10 @@ export default {
     font-style: normal;
     font-weight: 400;
     line-height: 21px;
+
+    &:hover {
+      color: $c-yellow;
+    }
   }
 }
 
