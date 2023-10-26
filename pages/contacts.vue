@@ -8,15 +8,15 @@
         <div class="contacts__container">
           <div class="contacts__join">
             <div class="contatcs__cont">
-              <div class="contacts__title">Связаться с нами</div>
+              <div class="contacts__title">{{ $t("contacts.contact") }}</div>
               <div class="contacts__subtitle">
-                <span>Форма обратной связи</span>
+                <span>{{ $t("contacts.form") }}</span>
                 <ArrowRight />
               </div>
-              <div class="contacts__description">Мы искренне благодарны вам за вопросы, отзывы и предложения. Ваше сообщение будет направлено  отдел по работе с клиентами, и мы обязательно ответим вам в ближайщее время</div>
+              <div class="contacts__description">{{ $t("contacts.formDescription") }}</div>
             </div>
             <div class="contacts__add">
-              <div class="contacts__add-title">Присоединяйтесь</div>
+              <div class="contacts__add-title">{{ $t("contacts.join") }}</div>
               <div class="contacts__add-socials">
                 <a href="" target="_blank"><Instagram1/></a>
                 <a href="" target="_blank"><Youtube1/></a>
@@ -49,21 +49,21 @@
           </div>
           <div class="contacts__contact">
             <div class="contact__cont">
-              <div class="contact__title">Контакты</div>
+              <div class="contact__title">{{ $t("contacts.contacts") }}</div>
               <div class="contact__data">camping.life@gmail.ru</div>
               <div class="contact__data">+7 (708) 454 - 55 - 55</div>
             </div>
             <div class="contact__cont">
-              <div class="contact__title">Адрес</div>
+              <div class="contact__title">{{ $t("contacts.address") }}</div>
               <div class="contact__data">Байзакова, 280</div>
             </div>
             <div class="contact__cont">
-              <div class="contact__title">Часы работы</div>
-              <div class="contact__data">Без выходных</div>
+              <div class="contact__title">{{ $t("contacts.workingHours") }}</div>
+              <div class="contact__data">{{ $t("contacts.withoutDayoffs") }}</div>
               <div class="contact__data">10.00 - 19.00</div>
             </div>
             <div class="contact__cont">
-              <div class="contact__title">Мы в мессенджерах</div>
+              <div class="contact__title">{{ $t("contacts.messengers") }}</div>
               <div class="contacts__add-socials">
                 <a href="" target="_blank"><Whatsapp1/></a>
                 <a href="" target="_blank"><Telegram1/></a>
@@ -127,11 +127,11 @@ export default {
     links() {
       return [
         {
-          title: 'Главная',
+          title: this.$t("header.main"),
           url: '/'
         },
         {
-          title: 'Контакты',
+          title: this.$t("header.contacts"),
           url: '/contacts'
         }
       ]

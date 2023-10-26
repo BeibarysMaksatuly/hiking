@@ -171,7 +171,7 @@ export default {
     }
   }
   &__lang {
-    width: 116px;
+    width: 116px !important;
   }
   &__links {
     display: flex;

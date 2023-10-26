@@ -1,9 +1,9 @@
 <template>
   <div :class="['select', isMain && 'select-main']">
     <div class="select__label" v-if="label">{{ label }}</div>
-    <div class="select__data">
+    <div class="select__data" @click="isSelectOpen = !isSelectOpen">
       <div class="select__model">{{ options.find(item => item.id === model)  && options.find(item => item.id === model).name  || placeholder}}</div>
-      <ChevronBottom class="select__icon" @click="isSelectOpen = !isSelectOpen" />
+      <ChevronBottom class="select__icon" />
     </div>
     <div class="select__options" v-if="isSelectOpen">
       <div 
