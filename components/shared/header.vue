@@ -160,6 +160,7 @@ export default {
 }
 .header {
   box-shadow: 0px 5px 15px 0px rgba(105, 112, 117, 0.10);
+  transition: all 0.3s ease;
 
   &__logo {
     width: 56px;
@@ -229,10 +230,10 @@ export default {
 .main-header {
   background-color: transparent !important;
   .header__link {
-    color: #fff !important;
+    color: #fff;
   }
   .phone__text {
-    color: #fff !important;
+    color: #fff;
   }
   box-shadow: none !important;
 }
