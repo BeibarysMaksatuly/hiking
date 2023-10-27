@@ -64,6 +64,7 @@ export default {
       if (this.$route.path !== this.switchLocalePath(id)) {
         this.$router.replace(this.switchLocalePath(id))
       }
+      this.$emit('close-modal-lang')
     }
   }
 }
