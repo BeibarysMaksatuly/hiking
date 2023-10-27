@@ -7,13 +7,16 @@
       </div>
       <div class="modal__text">
         <div class="text__title">
-          {{ success ? 'Ваша заявка была отправлена' : 'Что-то пошло не так :(' }}
+          {{ success ? $t("main.form.successTitle") : $t("main.form.failTitle") }}
         </div>
         <div class="text__subtitle">{{ success 
-        ? 'Заявка была отправлена - мы обязательно с вами свяжемся :)'  
-        : 'Не удалось отправить заявку, пожалуйста, повторите позже' }}</div>
+        ? $t("main.form.successText")   
+        : $t("main.form.failText") }}</div>
       </div>
-      <UiButton @click.native="$emit('close')" :class="['modal__button', !success && 'modal__button--fail']">{{ success ? 'Готово' : 'Хорошо' }}</UiButton>
+      <UiButton 
+        @click.native="$emit('close')" 
+        :class="['modal__button', !success && 'modal__button--fail']">{{ success ? $t("main.form.done") : $t("main.form.ok") }}
+      </UiButton>
     </div>
   </div>
 </template>

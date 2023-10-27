@@ -36,7 +36,13 @@ export default {
       "phone": "Your Phone Number",
       "email": "Email",
       "comment": "Comment",
-      "sendRequest": "Send Request"
+      "sendRequest": "Send Request",
+      "successTitle": "Your request has been sent",
+      "failTitle": "Something went wrong :(",
+      "successText": "The request has been sent - we will definitely contact you :)",
+      "failText": "Failed to send request, please try again later",
+      "done": "Done",
+      "ok": "Ok"
     },
     "tickets": {
       "buyTicketsTitle": "Buy Tickets to Altai"
