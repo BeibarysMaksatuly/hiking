@@ -2,7 +2,15 @@
     <div class="default" data-app>
       <SharedHeader @open-mobile="openMobileHeader" :isMain="isMainPage" />
       <transition name="slide-fade" mode="out-in">
-        <SharedMobileHeader v-if="isMobileHeaderOpen" @close-mobile="closeMobileHeader" />
+        <SharedMobileHeader 
+          v-if="isMobileHeaderOpen" 
+          @close-mobile="closeMobileHeader"
+          @open-lang-modal="openLangModal"
+        />
+        <SharedModalsLangModal
+          v-if="isLangModalOpen"
+          @close-modal-lang="closeLangModal"
+        />
       </transition>
       <Nuxt class="nuxt" />
       <SharedFooter />
@@ -12,7 +20,8 @@
 export default {
   data() {
     return {
-      isMobileHeaderOpen: false
+      isMobileHeaderOpen: false,
+      isLangModalOpen: false
     }
   },
   methods: {
@@ -21,6 +30,13 @@ export default {
     },
     closeMobileHeader() {
       this.isMobileHeaderOpen = false
+    },
+    openLangModal() {
+      this.isMobileHeaderOpen = false
+      this.isLangModalOpen = true
+    },
+    closeLangModal() {
+      this.isLangModalOpen = false
     }
   },
   computed: {
@@ -35,10 +51,10 @@ export default {
 /* Enter and leave animations can use different */
 /* durations and timing functions.              */
 .slide-fade-enter-active {
-  transition: all .3s ease;
+  transition: all .2s ease;
 }
 .slide-fade-leave-active {
-  transition: all .3s ease;
+  transition: all .2s ease;
 }
 .slide-fade-enter, .slide-fade-leave-to
 /* .slide-fade-leave-active below version 2.1.8 */ {

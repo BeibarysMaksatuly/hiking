@@ -9,7 +9,9 @@ export default {
     "done": "Аяқталды",
     "russian": "Орыс",
     "kazakh": "Қазақ",
-    "english": "Ағылшын"
+    "english": "Ағылшын",
+    "chooseLang": "Тілді таңдаңыз",
+    "save": "Сақтау"
   },
   "main": {
     "hero": {

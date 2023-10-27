@@ -9,7 +9,9 @@ export default {
     "done": "Готово",
     "russian": "Русский",
     "kazakh": "Казахский",
-    "english": "Английский"
+    "english": "Английский",
+    "chooseLang": "Выберите язык",
+    "save": "Сохранить"
   },
   "main": {
     "hero": {
@@ -111,5 +113,5 @@ export default {
   },
   "advices": {
     "otherAdvices": "Другие советы",
-  }
+  },
 }

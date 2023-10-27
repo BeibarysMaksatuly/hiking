@@ -9,7 +9,9 @@ export default {
     "done": "Done",
     "russian": "Russian",
     "kazakh": "Kazakh",
-    "english": "English"
+    "english": "English",
+    "chooseLang": "Choose Language",
+    "save": "Save"
   },
   "main": {
     "hero": {

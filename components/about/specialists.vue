@@ -225,6 +225,7 @@ export default {
   position: relative;
   width: 42px;
   height: 42px;
+  color: $c-orange;
 }
 
 .swiper-button-prev {

@@ -174,7 +174,7 @@ export default {
   &__lang {
     width: 116px !important;
     @include phone {
-      display: none;
+      display: none !important;
     }
   }
   &__links {

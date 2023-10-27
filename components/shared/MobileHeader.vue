@@ -9,7 +9,7 @@
         <div class="mobile-header__links">
           <nuxt-link 
             v-for="(link, idx) in headerLinks" 
-            :to="link.to"
+            :to="localePath(link.to)"
             :key="idx" 
             class="mobile-header__link"
             @click.native="close()"
@@ -18,10 +18,16 @@
           </nuxt-link>
         </div>
       </div>
-      <a class="mobile-header__phone" href="" target="_blank">
-        <Call class="phone__icon" />
-        <div class="phone__text">+7 (708) 454 - 55 - 55</div>
-      </a>
+      <div class=mobile-header__bottom>
+        <div class="mobile-header__lang" @click="openLangModal">
+          <div class="lang__lang">{{ LocaleName }}</div>
+          <Arrow />
+        </div>
+        <a class="mobile-header__phone" href="tel:87084545555" target="_blank">
+          <Call class="phone__icon" />
+          <div class="phone__text">+7 (708) 454 - 55 - 55</div>
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -30,40 +36,70 @@ import Logo from 'icons/logo.svg?inline';
 import Search from 'icons/search.svg?inline';
 import Call from 'icons/call.svg?inline';
 import Close from 'icons/close.svg?inline';
+import Arrow from 'icons/chevron-right.svg?inline';
 export default {
   name: 'SharedMobileHeader',
   components: {
-    Logo, Search, Call, Close
+    Logo, Search, Call, Close, Arrow
   },
   computed: {
     headerLinks() {
       return [
-        {
-          name: 'Главная',
+      {
+          name: this.$t("header.main"),
           to: "/"
         },
         {
-          name: 'Туры',
+          name: this.$t("header.tours"),
           to: "/tours"
         },
         {
-          name: 'Услуги',
+          name: this.$t("header.advices"),
+          to: "/advices"
+        },
+        {
+          name: this.$t("header.services"),
           to: "/services"
         },
         {
-          name: 'О нас',
+          name: this.$t("header.about"),
           to: "/about"
         },
         {
-          name: 'Контакты',
+          name: this.$t("header.contacts"),
           to: "/contacts"
         },
       ]
+    },
+    languages() {
+      return [
+        {
+          name: this.$t("header.russian"),
+          id: "ru"
+        },
+        {
+          name: this.$t("header.kazakh"),
+          id: "kk"
+        },
+        {
+          name: this.$t("header.english"),
+          id: "en"
+        },
+      ]
+    },
+    locale() {
+      return this.$i18n.locale
+    },
+    LocaleName() {
+      return this.languages.find(item => item.id === this.locale).name
     }
   },
   methods: {
     close() {
       this.$emit('close-mobile')
+    },
+    openLangModal() {
+      this.$emit('open-lang-modal')
     }
   }
 }
@@ -126,6 +162,24 @@ export default {
     align-items: center;
     justify-content: flex-start;
     gap: 5px;
+    cursor: pointer;
+  }
+  &__bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+  }
+  &__lang {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    svg {
+      width: 24px;
+      height: 24px;
+      color: #FECD15;
+    }
   }
 }
 
