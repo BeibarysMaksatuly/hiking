@@ -37,12 +37,13 @@ export default {
         direction: 1,
         "page[number]": this.$route.query["page[number]"] || 1,
         "page[size]": 9,
-        budget: [1, 100000000],
-        duration: [1, 10],
+        budget: [0, 0],
+        duration: [0, 0],
       }
     }
   },
   async fetch() {
+    await this.getMaxMinData()
     if (this.$route.query.countries) {
       this.query.countries.push(Number(this.$route.query.countries))
     }
@@ -66,6 +67,15 @@ export default {
     },
   },
   methods: {
+    async getMaxMinData() {
+      const data = await this.$axios.$get('/tour-filter-data/')
+      const maxTime = data.max_date || 0
+      const minTime = data.min_date || 0
+      const maxBudget = data.max_price || 0
+      const minBudget = data.min_price || 0
+      this.query.budget = [minBudget, maxBudget]
+      this.query.duration = [minTime, maxTime]
+    },
     openModal(id) {
       this.modalOpen = true;
       this.currentTour = this.tours.find(tour => tour.id === id);
@@ -76,7 +86,7 @@ export default {
         seasons: this.query.seasons.join(","),
         tags: this.query.tags.join(","),
         placements: this.query.placements.join(","),
-        direction: 1,
+        direction: this.query.direction,
         "page[number]": this.query["page[number]"],
         "page[size]": this.query["page[size]"],
         duration_start: this.query.duration[0],

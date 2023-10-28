@@ -111,7 +111,9 @@ export default {
     "from": "From",
     "to": "to",
     "information": "Brief Information",
-    "seeTour": "View Tour"
+    "seeTour": "View Tour",
+    "moreParameters": "More Parameters",
+    "lessParameters": "Hide Parameters",
   },
   "services": {
     "description": "Some long service description. Very long service description. The services themselves are great.",

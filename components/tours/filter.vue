@@ -1,67 +1,81 @@
 <template>
   <div class="filter">
-    <UiCheckbox 
-      :label="$t('tours.country')" 
-      :options="chosenCountries" 
-      :checked="query.countries" 
-      @input="choseInput"
-    />
-    <UiCheckbox 
-      :label="$t('tours.season')" 
-      :options="chosenSeasons" 
-      :checked="query.seasons" 
-      @input="choseSeasonInput"
-    />
-    <UiSlider
-      :label="$t('tours.duration')"
-      :range="query.duration"
-      :max="maxTime"
-      :min="minTime"
-      :step="1"
-      hide-details
-      title="дней"
-      @input="changeDuration"
-    />
-    <UiSlider
-      :label="$t('tours.budget')"
-      :range="query.budget"
-      :max="maxBudget"
-      :min="minBudget"
-      :step="1"
-      hide-details
-      title="тг"
-      @input="changeBudget"
-    />
-    <UiRadio 
-      :label="$t('tours.type')" 
-      :options="toursType" 
-      :checked="query.direction" 
-      @input="choseDirection"
-    />
-    <UiCheckbox 
-      :label="$t('tours.format')" 
-      :options="chosenFormats" 
-      :checked="query.formats" 
-      @input="choseFormat"
-    />
-    <UiCheckbox 
-      :label="$t('tours.placement')" 
-      :options="chosenPlacements" 
-      :checked="query.placements" 
-      @input="chosePlacements"
-    />
-    <UiCheckbox 
-      :label="$t('tours.tags')" 
-      :options="chosenTags" 
-      :checked="query.tags"
-      @input="choseTags" 
-    />
+    <div class="filter__data">
+        <div class="filter__main">
+          <UiCheckbox 
+            :label="$t('tours.country')" 
+            :options="chosenCountries" 
+            :checked="query.countries" 
+            @input="choseInput"
+          />
+          <UiCheckbox 
+            :label="$t('tours.season')" 
+            :options="chosenSeasons" 
+            :checked="query.seasons" 
+            @input="choseSeasonInput"
+          />
+          <UiSlider
+            :label="$t('tours.duration')"
+            :range="query.duration"
+            :max="maxTime"
+            :min="minTime"
+            :step="1"
+            hide-details
+            title="дней"
+            @input="changeDuration"
+          />
+        </div>
+        <div class="filter__add" v-if="isOpen || !isMobile">
+          <UiSlider
+            :label="$t('tours.budget')"
+            :range="query.budget"
+            :max="maxBudget"
+            :min="minBudget"
+            :step="1"
+            hide-details
+            title="тг"
+            @input="changeBudget"
+          />
+          <UiRadio 
+            :label="$t('tours.type')" 
+            :options="toursType" 
+            :checked="query.direction" 
+            @input="choseDirection"
+          />
+          <UiCheckbox 
+            :label="$t('tours.format')" 
+            :options="chosenFormats" 
+            :checked="query.formats" 
+            @input="choseFormat"
+          />
+          <UiCheckbox 
+            :label="$t('tours.placement')" 
+            :options="chosenPlacements" 
+            :checked="query.placements" 
+            @input="chosePlacements"
+          />
+          <UiCheckbox 
+            :label="$t('tours.tags')" 
+            :options="chosenTags" 
+            :checked="query.tags"
+            @input="choseTags" 
+          />
+        </div>
+    </div>
+    <div v-if="isMobile" @click="isOpen = !isOpen" :class="['filter__show-more-mobile']">
+      <div>{{ isOpen ? $t("tours.lessParameters") : $t("tours.moreParameters") }}</div>
+      <ChevronDown :class="['filter__down', isOpen && 'filter__down-open']" />
+    </div>
     <UiButton class="filter__apply" @click.native="$emit('filter', query)">{{ $t("tours.apply") }}</UiButton>
     <UiButton type="error" @click.native="reset">{{ $t("tours.reset") }}</UiButton>
   </div>
 </template>
 <script>
+import ChevronDown from 'icons/chevron-down.svg?inline';
 export default {
+  components: {
+    ChevronDown
+  },
   props: {
     filters: {
       type: Object,
@@ -70,6 +84,7 @@ export default {
   },
   data() {
     return {
+      isOpen: false,
       chosenCountries: [],
       chosenSeasons: [],
       chosenFormats: [],
@@ -113,6 +128,12 @@ export default {
         { id: 1, name: this.$t('tours.group') }, 
         { id: 2, name: this.$t('tours.individual') } 
       ]
+    },
+    isMobile() {
+      if (process.client) {
+        return window.innerWidth <= 960
+      }
+      return true
     }
   },
   methods: {
@@ -122,8 +143,6 @@ export default {
       this.minTime = data.min_date || 0
       this.maxBudget = data.max_price || 0
       this.minBudget = data.min_price || 0
-      this.budget = [this.minBudget, this.maxBudget]
-      this.duration = [this.minTime, this.maxTime]
     },
     async getCountries() {
       this.chosenCountries = await this.$axios.$get('/country-list/')
@@ -185,12 +204,53 @@ export default {
   gap: 20px;
   background: #fff;
 
+  &__data, &__main, &__add {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  &__data {
+    overflow-y: scroll;
+    max-height: 724px;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+      // height: 100px;
+      color: #DDE1E6;
+    }
+    @include phone {
+      height: auto;
+    }
+  }
+
   @include phone {
     width: 100%;
   }
 
   &__apply {
-    margin-bottom: -5px;
+    margin-bottom: -10px;
+  }
+
+  &__down {
+    width: 24px;
+    height: 24px;
+    &-open {
+      transform: rotate(180deg) !important;
+    }
+  }
+  &__show-more-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 21px;
+    color: $c-yellow;
+    margin-bottom: -10px;
   }
 }
 </style>

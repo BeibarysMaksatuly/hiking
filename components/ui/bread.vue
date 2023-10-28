@@ -46,6 +46,8 @@ export default {
   }
 
   &__svg {
+    width: 32px;
+    height: 32px;
     &-open {
       transform: rotate(180deg) !important;
     }
