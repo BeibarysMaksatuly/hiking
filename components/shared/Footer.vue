@@ -12,6 +12,15 @@
             {{ link.name }}
           </nuxt-link>
         </div>
+        <div class="footer__links">
+          <nuxt-link 
+            v-for="(document, idx) in documents" 
+            :to="`/documents/${document.id}`"
+            :key="idx" 
+            class="footer__link">
+            {{ document.title }}
+          </nuxt-link>
+        </div>
         <div class="footer__contact">
           <div class="contact__header">Контакты</div>
           <div class="contact__info">
@@ -49,6 +58,14 @@ export default {
   name: 'SharedFooter',
   components: {
     Logo, Facebook, Instagram, Linkedin, Youtube
+  },
+  data() {
+    return {
+      documents: []
+    }
+  },
+  async fetch() {
+    this.documents = await this.$axios.$get('/documents/')
   },
   computed: {
     headerLinks() {

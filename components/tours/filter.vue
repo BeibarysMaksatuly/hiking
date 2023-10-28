@@ -75,9 +75,9 @@ export default {
       chosenFormats: [],
       chosenPlacements: [],
       chosenTags: [],
-      maxTime: 50,
+      maxTime: 0,
       minTime: 0,
-      maxBudget: 100000,
+      maxBudget: 0,
       minBudget: 0,
       query: {
         countries: [],
@@ -85,12 +85,13 @@ export default {
         tags: [],
         placements: [],
         direction: 1,
-        budget: [1, 10000],
-        duration: [1, 5],
+        budget: [0, 0],
+        duration: [0, 0],
       }
     }
   },
   async fetch() {
+    await this.getMaxMinData()
     await this.getCountries()
     await this.getSeasons()
     await this.getFormats()
@@ -115,6 +116,15 @@ export default {
     }
   },
   methods: {
+    async getMaxMinData() {
+      const data = await this.$axios.$get('/tour-filter-data/')
+      this.maxTime = data.max_date || 0
+      this.minTime = data.min_date || 0
+      this.maxBudget = data.max_price || 0
+      this.minBudget = data.min_price || 0
+      this.budget = [this.minBudget, this.maxBudget]
+      this.duration = [this.minTime, this.maxTime]
+    },
     async getCountries() {
       this.chosenCountries = await this.$axios.$get('/country-list/')
     },
