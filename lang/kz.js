@@ -22,6 +22,8 @@ export default {
       "selectSeason": "Тауаралды таңдаңыз",
       "find": "Табу",
       "findTour": "Турды табу",
+      "tourFormat": "Тур пішімі",
+      "selectTourFormat": "Тур пішімін таңдаңыз"
     },
     "tours": {
       "selectTour": "Сіздің турыңызды таңдаңыз",

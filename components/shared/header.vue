@@ -31,6 +31,7 @@
         :placeholder="LocaleName"
         :isMain="!isMain"
         :model="lang"
+        isOptionsImages
         @update:model="changeLocale"
       />
     </div>
@@ -60,6 +61,7 @@ export default {
     if (this.lang !== this.$i18n.locale) {
       this.changeLocale(this.$i18n.locale)
     }
+    this.lang = this.$i18n.locale
   },
   methods: {
     showInput() {
@@ -172,7 +174,7 @@ export default {
     }
   }
   &__lang {
-    width: 116px !important;
+    width: 63px !important;
     @include phone {
       display: none !important;
     }

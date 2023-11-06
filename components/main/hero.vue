@@ -13,15 +13,21 @@
         {{ $t("main.hero.title") }}
       </div>
       <div class="hero__search">
-        <button class="button">
+        <!-- <button class="button">
           <input 
             class="button__text" 
             :placeholder="$t('main.hero.findTour')" 
             v-model="tourName" 
           />
           <SearchInline class="button__search" />
-        </button>
+        </button> -->
         <div class="hero__selects">
+          <UiSelect 
+            :options="formats" 
+            :model.sync="format"
+            :label="$t('main.hero.tourFormat')"
+            :placeholder="$t('main.hero.selectTourFormat')"
+          />
           <UiSelect 
             :options="countries" 
             :model.sync="country"
@@ -55,10 +61,13 @@ export default {
       countries: [],
       seasons: [],
       season: null,
-      tourName: ""
+      tourName: "",
+      formats: [],
+      format: "",
     }
   },
   async fetch() {
+    await this.getFormats()
     await this.getCountries()
     await this.getSeasons()
   },
@@ -69,15 +78,19 @@ export default {
     async getSeasons() {
       this.seasons = await this.$axios.$get('/seasons/')
     },
+    async getFormats() {
+      this.formats = await this.$axios.$get('/formats/')
+    },
     findTours() {
-      this.$router.push({
+      this.$router.push(
+        this.localeLocation({
         path: '/tours',
         query: {
           countries: this.country,
           seasons: this.season,
           search: this.tourName
         }
-      })
+      }))
     }
   },
   computed: {

@@ -22,6 +22,8 @@ export default {
       "selectSeason": "Select a season",
       "find": "Find",
       "findTour": "Find a tour",
+      "tourFormat": "Tour Format",
+      "selectTourFormat": "Select a tour format"
     },
     "tours": {
       "selectTour": "Select your tour",

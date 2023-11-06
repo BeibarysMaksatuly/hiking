@@ -22,6 +22,8 @@ export default {
       "selectSeason": "Выберите сезон",
       "find": "Найти",
       "findTour": "Найти тур",
+      "tourFormat": "Вид отдыха",
+      "selectTourFormat": "Выберите вид отдыха"
     },
     "tours": {
       "selectTour": "Выберите ваш тур",

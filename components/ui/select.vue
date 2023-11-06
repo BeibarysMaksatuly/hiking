@@ -2,8 +2,11 @@
   <div :class="['select', isMain && 'select-main']">
     <div class="select__label" v-if="label">{{ label }}</div>
     <div class="select__data" @click="isSelectOpen = !isSelectOpen">
-      <div class="select__model">{{ options.find(item => item.id === model)  && options.find(item => item.id === model).name  || placeholder}}</div>
-      <ChevronBottom class="select__icon" />
+      <div class="select__model" v-if="!isOptionsImages">{{ options.find(item => item.id === model)  && options.find(item => item.id === model).name  || placeholder}}</div>
+      <div v-else>
+        <component :is="getLangFlag(model)" />
+      </div>
+      <ChevronBottom :class="['select__icon',  isSelectOpen && 'select__icon-active']" />
     </div>
     <div class="select__options" v-if="isSelectOpen">
       <div 
@@ -12,7 +15,14 @@
         :key="idx"
         @click="choose(option)"
         >
-        <div class="option__name">{{ option.name }}</div>
+        <div v-if="!isOptionsImages" class="option__name">
+          {{ option.name }}
+          <Check class="option__check" v-if="option.id === model" /> 
+        </div>
+        <div v-else class="option__name">
+          <component :is="getLangFlag(option.id)" />
+          <Check class="option__check" v-if="option.id === model" /> 
+        </div>
         <div v-if="idx+ 1 !== options.length" class="option__line"></div>
       </div>
     </div>
@@ -20,9 +30,13 @@
 </template>
 <script>
 import ChevronBottom from 'icons/chevron-bottom.svg?inline';
+import ru from 'icons/russia.svg?inline';
+import kk from 'icons/kazakhstan.svg?inline';
+import en from 'icons/uk.svg?inline';
+import Check from 'icons/check.svg?inline';
 export default {
   components: {
-    ChevronBottom
+    ChevronBottom, ru, kk, en, Check
   },
   props: {
     label: {
@@ -44,6 +58,10 @@ export default {
     options: {
       type: Array,
       default: () => []
+    },
+    isOptionsImages: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -55,8 +73,11 @@ export default {
     choose(option) {
       this.isSelectOpen = false;
       this.$emit('update:model', option.id)
+    },
+    getLangFlag(lang) {
+      return (lang === 'ru' ? ru : lang === 'kk' ? kk : en) 
     }
-  }
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -67,6 +88,7 @@ export default {
   }
 }
 .select {
+  transition: all 0.3s ease;
   width: 100%;
   position: relative;
   display: flex;
@@ -101,6 +123,10 @@ export default {
     height: 16px;
     flex-shrink: 0;
     color: $c-yellow;
+
+    &-active {
+      transform: rotate(180deg);
+    }
   }
 
   &__options {
@@ -129,7 +155,9 @@ export default {
     font-style: normal;
     font-weight: 400;
     line-height: 21px; 
-
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
   &__line {
     background: #FFF;
@@ -138,6 +166,11 @@ export default {
     flex-shrink: 0;
     margin-top: 9px;
     margin-bottom: 9px;
+  }
+  &__check {
+    width: 16px;
+    height: 16px;
+    color: #FFC107;
   }
 }
 </style>

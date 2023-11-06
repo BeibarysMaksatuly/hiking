@@ -129,6 +129,12 @@ export default {
   height: 470px;
   position: relative;
   border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0px 8px 16px 0px rgba(18, 27, 33, 0.10);
+  }
   @include phone {
     height: 300px;
   }

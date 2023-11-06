@@ -2,6 +2,9 @@
   <div class="reviews container-1">
     <UiHeading class="reviews__heading">{{ $t("main.reviews") }}</UiHeading>
     <div class="reviews__data">
+      <div slot="button-prev" class="swiper-button-prev">
+        <Arrow />
+      </div>
       <img src="@/assets/images/reviews.png" alt="reviews" class="reviews__img" />
       <client-only>
         <swiper ref="reviewSwiper" class="reviewSwiper" :options="swiperOptions">
@@ -12,17 +15,14 @@
               <div class="review__text">{{ review.text }}</div>
             </div>
           </swiper-slide>
-          <div slot="button-prev" class="swiper-button-prev">
-            <Arrow />
-          </div>
-          <div slot="button-next" class="swiper-button-next">
-            <Arrow />
-          </div>
         </swiper>
       </client-only>
       <div class="reviews__squares">
         <div class="reviews__squares-top"></div>
         <div class="reviews__squares-bottom"></div>
+      </div>
+      <div slot="button-next" class="swiper-button-next">
+        <Arrow />
       </div>
     </div>
   </div>
@@ -170,16 +170,14 @@ export default {
 }
 .swiper-button-prev,
 .swiper-button-next {
+  position: relative;
   color: #fff;
-  bottom: 53px;
-  top: auto;
-  right: 0;
-  left: auto;
   width: 35px;
   height: 35px;
   flex-shrink: 0;
   color: #DDE1E6;
   border-radius: 130px;
+  align-self: center;
   cursor: pointer;
   @include phone {
     bottom: 0;
@@ -190,7 +188,7 @@ export default {
   transform: rotate(180deg);
 }
 
-.swiper-button-prev {
-  right: 42px;
-}
+// .swiper-button-prev {
+//   right: 42px;
+// }
 </style>
