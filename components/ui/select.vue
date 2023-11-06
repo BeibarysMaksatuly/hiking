@@ -1,5 +1,5 @@
 <template>
-  <div :class="['select', isMain && 'select-main']">
+  <div :class="['select', isMain && 'select-main']" v-click-outside="hideSelect">
     <div class="select__label" v-if="label">{{ label }}</div>
     <div class="select__data" @click="isSelectOpen = !isSelectOpen">
       <div class="select__model" v-if="!isOptionsImages">{{ options.find(item => item.id === model)  && options.find(item => item.id === model).name  || placeholder}}</div>
@@ -34,9 +34,13 @@ import ru from 'icons/russia.svg?inline';
 import kk from 'icons/kazakhstan.svg?inline';
 import en from 'icons/uk.svg?inline';
 import Check from 'icons/check.svg?inline';
+import vClickOutside from 'v-click-outside';
 export default {
   components: {
     ChevronBottom, ru, kk, en, Check
+  },
+  directives: {
+    clickOutside: vClickOutside.directive
   },
   props: {
     label: {
@@ -70,6 +74,9 @@ export default {
     }
   },
   methods: {
+    hideSelect() {
+      this.isSelectOpen = false
+    },
     choose(option) {
       this.isSelectOpen = false;
       this.$emit('update:model', option.id)

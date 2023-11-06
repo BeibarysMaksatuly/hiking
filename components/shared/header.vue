@@ -13,7 +13,7 @@
           {{ link.name }}
         </nuxt-link>
       </div>
-      <div v-if="!input" class="hey">
+      <div v-if="!input" class="hey" v-click-outside="hideInput">
         <UiInput :model.sync="search" >
       </UiInput>
       <UiButton @click.native="searchYandex">{{ $t("header.done") }}</UiButton>
@@ -42,8 +42,12 @@ import Logo from 'icons/logo.svg?inline';
 import Search from 'icons/search.svg?inline';
 import Call from 'icons/call.svg?inline';
 import Drag from 'icons/drag.svg?inline';
+import vClickOutside from 'v-click-outside';
 export default {
   name: 'SharedHeader',
+  directives: {
+    clickOutside: vClickOutside.directive
+  },
   props: {
     isMain: {
       type: Boolean,
@@ -66,6 +70,9 @@ export default {
   methods: {
     showInput() {
       this.input = !this.input
+    },
+    hideInput() {
+      this.input = true
     },
     searchYandex() {
       window.open(`https://yandex.ru/search/?text=${this.search}&?url:http://86.107.45.254/`)

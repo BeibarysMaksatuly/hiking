@@ -41,6 +41,7 @@ export default {
   plugins: [
     { src: '@/plugins/swiper.js', mode: 'client' },
     { src: '@/plugins/axios.js' },
+    { src: "@/plugins/vClickOutside.js",  mode: 'client' }
   ],
   alias: {
     icons: resolve(__dirname, 'assets/icons'),
