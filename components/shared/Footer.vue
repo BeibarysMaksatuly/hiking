@@ -136,6 +136,10 @@ export default {
     font-weight: 400;
     line-height: 21px; 
     cursor: pointer;
+
+    &:hover {
+      color: $c-orange;
+    }
   }
 
   &__contact {
@@ -183,6 +187,14 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 12px;
+
+    div {
+      cursor: pointer;
+    }
+
+    div:hover {
+      color: $c-orange;
+    }
   }
 
   &__socials {
