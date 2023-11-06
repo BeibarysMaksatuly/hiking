@@ -6,7 +6,7 @@
         <div class="footer__links">
           <nuxt-link 
             v-for="(link, idx) in headerLinks" 
-            :to="link.to"
+            :to="localePath(link.to)"
             :key="idx" 
             class="footer__link">
             {{ link.name }}
@@ -15,7 +15,7 @@
         <div class="footer__links" v-if="documents && documents.length">
           <nuxt-link 
             v-for="(document, idx) in documents" 
-            :to="`/documents/${document.id}`"
+            :to="localePath(`/documents/${document.id}`)"
             :key="idx" 
             class="footer__link">
             {{ document.title }}
