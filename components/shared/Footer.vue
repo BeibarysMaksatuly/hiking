@@ -12,7 +12,7 @@
             {{ link.name }}
           </nuxt-link>
         </div>
-        <div class="footer__links">
+        <div class="footer__links" v-if="documents && documents.length">
           <nuxt-link 
             v-for="(document, idx) in documents" 
             :to="`/documents/${document.id}`"
@@ -24,7 +24,7 @@
         <div class="footer__contact">
           <div class="contact__header">Контакты</div>
           <div class="contact__info">
-            <div>+7 712 333 33 33</div>
+            <a href="tel:7 712 333 33 33" target="_blank">+7 712 333 33 33</a>
             <div>Байзакова, 280</div>
           </div>
           <div class="contact__socials">
@@ -175,6 +175,12 @@ export default {
   }
 }
 
+a {
+  &:hover {
+    color: $c-orange;
+  }
+}
+
 .contact {
   &__header {
     font-size: 18px;
@@ -210,6 +216,10 @@ export default {
         width: 100%;
         height: 100%;
         color: $c-main;
+
+        &:hover {
+          color: $c-orange;
+        }
       }
     }
   }
