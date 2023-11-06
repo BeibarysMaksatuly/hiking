@@ -1,5 +1,5 @@
 <template>
-  <div :class="['header', isMain && 'main-header']">
+  <div :class="['header', {'main-header': isMain && !(scrollPosition > 600)}]">
     <div class="container-1">
       <nuxt-link to="/">
         <Logo class="header__logo" />
@@ -58,7 +58,8 @@ export default {
     return {
       input: true,
       search: "",
-      lang: ""
+      lang: "",
+      scrollPosition: null
     }
   },
   mounted() {
@@ -66,6 +67,7 @@ export default {
       this.changeLocale(this.$i18n.locale)
     }
     this.lang = this.$i18n.locale
+    window.addEventListener('scroll', this.updateScroll);
   },
   methods: {
     showInput() {
@@ -83,6 +85,12 @@ export default {
       this.lang = id
       if (this.$route.path !== this.switchLocalePath(id)) {
         this.$router.replace(this.switchLocalePath(id))
+      }
+    },
+    updateScroll() {
+      if (process.client) {
+        this.scrollPosition = window.scrollY
+        console.log(this.scrollPosition)
       }
     }
   },
@@ -170,6 +178,10 @@ export default {
 .header {
   box-shadow: 0px 5px 15px 0px rgba(105, 112, 117, 0.10);
   transition: all 0.3s ease;
+  background-color: #FFF;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 
   &__logo {
     width: 56px;
