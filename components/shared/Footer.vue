@@ -216,7 +216,7 @@ a {
         width: 100%;
         height: 100%;
         color: $c-main;
-
+        transition: 300ms linear all;
         &:hover {
           color: $c-orange;
         }

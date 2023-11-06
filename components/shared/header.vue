@@ -214,6 +214,7 @@ export default {
     font-weight: 400;
     line-height: 21px;
     cursor: pointer;
+    transition: 300ms linear all;
     
     &:hover {
       color: $c-orange !important;

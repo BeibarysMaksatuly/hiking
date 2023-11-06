@@ -8,24 +8,26 @@
       </div>
       <ChevronBottom :class="['select__icon',  isSelectOpen && 'select__icon-active']" />
     </div>
-    <div class="select__options" v-if="isSelectOpen">
-      <div 
-        :class="['select__option', { 'select__option-active': option.id === model }]" 
-        v-for="(option, idx) in options"
-        :key="idx"
-        @click="choose(option)"
-        >
-        <div v-if="!isOptionsImages" class="option__name">
-          {{ option.name }}
-          <Check class="option__check" v-if="option.id === model" /> 
+    <transition name="slide-fade" mode="out-in">
+      <div class="select__options" v-show="isSelectOpen">
+        <div 
+          :class="['select__option', { 'select__option-active': option.id === model }]" 
+          v-for="(option, idx) in options"
+          :key="idx"
+          @click="choose(option)"
+          >
+          <div v-if="!isOptionsImages" class="option__name">
+            {{ option.name }}
+            <Check class="option__check" v-if="option.id === model" /> 
+          </div>
+          <div v-else class="option__name">
+            <component :is="getLangFlag(option.id)" />
+            <Check class="option__check" v-if="option.id === model" /> 
+          </div>
+          <div v-if="idx+ 1 !== options.length" class="option__line"></div>
         </div>
-        <div v-else class="option__name">
-          <component :is="getLangFlag(option.id)" />
-          <Check class="option__check" v-if="option.id === model" /> 
-        </div>
-        <div v-if="idx+ 1 !== options.length" class="option__line"></div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 <script>
@@ -89,13 +91,23 @@ export default {
 </script>
 <style lang="scss" scoped>
 
+.slide-fade-enter-active {
+  transition: all 0.1s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.1s ease;
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 .select-main {
   .select__model {
     color: $c-main !important;
   }
 }
 .select {
-  transition: all 0.3s ease;
   width: 100%;
   position: relative;
   display: flex;
@@ -133,6 +145,7 @@ export default {
 
     &-active {
       transform: rotate(180deg);
+      transition: 300ms linear all;
     }
   }
 
@@ -144,6 +157,7 @@ export default {
     background: rgba(90, 148, 190, 0.80);
     backdrop-filter: blur(7.5px);
     padding: 10px;
+    transition: 300ms linear all;
   }
   &__option {
     cursor: pointer;

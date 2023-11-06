@@ -6,7 +6,7 @@ body {
 	font-weight: 400;
 	font-size: 18px;
 	line-height: 24px;
-	transition: all 0.3s ease;
+	transition: 300ms linear all;
 }
 .container-1 {
 	width: 100%;
@@ -38,4 +38,5 @@ a {
 	text-transform: none;
 	text-decoration: none;
 	color: inherit;
+	transition: 300ms linear all;
 }
