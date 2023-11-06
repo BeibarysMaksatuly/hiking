@@ -11,7 +11,7 @@
             <div :class="['tabs__tab' , tab == 2 && 'tabs__tab-active']" @click="tab = 2">Aviasales</div>
           </div>
           <iframe 
-            v-if="tab == 1"
+            v-show="tab == 1"
             :src="`https://aviata.kz/static/widget/search/widget.html?lang=${locale}`" 
             class="data__iframe"
           />
@@ -49,7 +49,7 @@ export default {
 
     // Append the script to the container
     const container = document.getElementById('aviasales-widget-container');
-    container.appendChild(script);
+    if (container) container.appendChild(script);
   },
   computed: {
     locale() {

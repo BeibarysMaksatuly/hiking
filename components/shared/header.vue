@@ -90,7 +90,6 @@ export default {
     updateScroll() {
       if (process.client) {
         this.scrollPosition = window.scrollY
-        console.log(this.scrollPosition)
       }
     }
   },
