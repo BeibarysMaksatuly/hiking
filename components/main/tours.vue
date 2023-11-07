@@ -134,6 +134,10 @@ export default {
 
   &:hover {
     box-shadow: 0px 8px 16px 0px rgba(18, 27, 33, 0.10);
+
+    &__name, &__services {
+      color: $c-orange;
+    }
   }
   @include phone {
     height: 300px;
