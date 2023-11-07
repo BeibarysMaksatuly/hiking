@@ -89,8 +89,6 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   gap: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
 
   @include phone {
     flex-direction: column;
@@ -107,6 +105,12 @@ export default {
     flex-direction: column;
     gap: 20px;
     padding-top: 20px;
+    flex: 1;
+
+    @include phone {
+      padding-right: 10px;
+      padding-left: 10px;
+    }
   }
 
   &__title {
@@ -241,10 +245,12 @@ export default {
     gap: 30px;
     padding-right: 20px;
     padding-bottom: 12px;
+    flex: 1;
 
     @include phone {
       gap: 20px;
-      padding-right: 0px;
+      padding-right: 10px;
+      padding-left: 10px;
       padding-bottom: 10px;
     }
   }
