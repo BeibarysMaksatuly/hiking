@@ -4,20 +4,22 @@
       <div class="footer__data">
         <Logo class="footer__logo" />
         <div class="footer__links">
-          <nuxt-link 
-            v-for="(link, idx) in headerLinks" 
+          <nuxt-link
+            v-for="(link, idx) in headerLinks"
             :to="localePath(link.to)"
-            :key="idx" 
-            class="footer__link">
+            :key="idx"
+            class="footer__link"
+          >
             {{ link.name }}
           </nuxt-link>
         </div>
         <div class="footer__links" v-if="documents && documents.length">
-          <nuxt-link 
-            v-for="(document, idx) in documents" 
+          <nuxt-link
+            v-for="(document, idx) in documents"
             :to="localePath(`/documents/${document.id}`)"
-            :key="idx" 
-            class="footer__link">
+            :key="idx"
+            class="footer__link"
+          >
             {{ document.title }}
           </nuxt-link>
         </div>
@@ -44,62 +46,68 @@
         </div>
       </div>
       <div class="footer__line"></div>
-      <a class="footer__policy" href="" target="_blank">Положение о конфиденциальности</a>
+      <a class="footer__policy" href="" target="_blank"
+        >Положение о конфиденциальности</a
+      >
     </div>
   </div>
 </template>
 <script>
-import Logo from 'icons/logo.svg?inline';
-import Facebook from 'icons/facebook.svg?inline';
-import Instagram from 'icons/instagram.svg?inline';
-import Linkedin from 'icons/linkedin.svg?inline';
-import Youtube from 'icons/youtube.svg?inline';
+import Logo from "icons/logo.svg?inline";
+import Facebook from "icons/facebook.svg?inline";
+import Instagram from "icons/instagram.svg?inline";
+import Linkedin from "icons/linkedin.svg?inline";
+import Youtube from "icons/youtube.svg?inline";
 export default {
-  name: 'SharedFooter',
+  name: "SharedFooter",
   components: {
-    Logo, Facebook, Instagram, Linkedin, Youtube
+    Logo,
+    Facebook,
+    Instagram,
+    Linkedin,
+    Youtube,
   },
   data() {
     return {
-      documents: []
-    }
+      documents: [],
+    };
   },
   async fetch() {
-    this.documents = await this.$axios.$get('/documents/')
+    this.documents = await this.$axios.$get("/documents/");
   },
   computed: {
     headerLinks() {
       return [
         {
-          name: 'Главная',
-          to: "/"
+          name: "Главная",
+          to: "/",
         },
         {
-          name: 'Туры',
-          to: "/tours"
+          name: "Туры",
+          to: "/tours",
         },
         {
-          name: 'Услуги',
-          to: "/services"
+          name: "Услуги",
+          to: "/services",
         },
         {
-          name: 'О нас',
-          to: "/about"
+          name: "О нас",
+          to: "/about",
         },
         {
-          name: 'Контакты',
-          to: "/contacts"
+          name: "Контакты",
+          to: "/contacts",
         },
-      ]
-    }
-  }
-}
+      ];
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .footer {
   margin-top: auto;
   background-color: $c-white;
-  box-shadow: 0px 5px 15px 0px rgba(105, 112, 117, 0.10);
+  box-shadow: 0px 5px 15px 0px rgba(105, 112, 117, 0.1);
 
   &__logo {
     width: 56px;
@@ -134,7 +142,7 @@ export default {
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
-    line-height: 21px; 
+    line-height: 21px;
     cursor: pointer;
 
     &:hover {
@@ -216,7 +224,7 @@ a {
         width: 100%;
         height: 100%;
         color: $c-main;
-        transition: 300ms linear all;
+        transition: 0.3s;
         &:hover {
           color: $c-orange;
         }

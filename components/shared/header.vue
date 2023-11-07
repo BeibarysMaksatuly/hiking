@@ -1,22 +1,26 @@
 <template>
-  <div :class="['header', {'main-header': isMain && !(scrollPosition > 600)}]">
+  <div
+    :class="['header', { 'main-header': isMain && !(scrollPosition > 600) }]"
+  >
     <div class="container-1">
       <nuxt-link to="/">
         <Logo class="header__logo" />
       </nuxt-link>
       <div class="header__links" v-if="input">
-        <nuxt-link 
-          v-for="(link, idx) in headerLinks" 
+        <nuxt-link
+          v-for="(link, idx) in headerLinks"
           :to="localePath(link.to)"
-          :key="idx" 
-          class="header__link">
+          :key="idx"
+          class="header__link"
+        >
           {{ link.name }}
         </nuxt-link>
       </div>
       <div v-if="!input" class="hey" v-click-outside="hideInput">
-        <UiInput :model.sync="search" >
-      </UiInput>
-      <UiButton @click.native="searchYandex">{{ $t("header.done") }}</UiButton>
+        <UiInput :model.sync="search"> </UiInput>
+        <UiButton @click.native="searchYandex">{{
+          $t("header.done")
+        }}</UiButton>
       </div>
 
       <Search class="header__search" v-if="input" @click="showInput" />
@@ -25,9 +29,9 @@
         <div class="phone__text">+7 (708) 454 - 55 - 55</div>
       </a>
       <Drag class="header__drag" v-if="input" @click="$emit('open-mobile')" />
-      <UiSelect 
+      <UiSelect
         class="header__lang"
-        :options="languages" 
+        :options="languages"
         :placeholder="LocaleName"
         :isMain="!isMain"
         :model="lang"
@@ -38,119 +42,137 @@
   </div>
 </template>
 <script>
-import Logo from 'icons/logo.svg?inline';
-import Search from 'icons/search.svg?inline';
-import Call from 'icons/call.svg?inline';
-import Drag from 'icons/drag.svg?inline';
-import vClickOutside from 'v-click-outside';
+import Logo from "icons/logo.svg?inline";
+import Search from "icons/search.svg?inline";
+import Call from "icons/call.svg?inline";
+import Drag from "icons/drag.svg?inline";
+import vClickOutside from "v-click-outside";
 export default {
-  name: 'SharedHeader',
+  name: "SharedHeader",
   directives: {
-    clickOutside: vClickOutside.directive
+    clickOutside: vClickOutside.directive,
   },
   props: {
     isMain: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       input: true,
       search: "",
       lang: "",
-      scrollPosition: null
-    }
+      scrollPosition: null,
+    };
   },
   mounted() {
     if (this.lang !== this.$i18n.locale) {
-      this.changeLocale(this.$i18n.locale)
+      this.changeLocale(this.$i18n.locale);
     }
-    this.lang = this.$i18n.locale
-    window.addEventListener('scroll', this.updateScroll);
+    this.lang = this.$i18n.locale;
+    window.addEventListener("scroll", this.updateScroll);
   },
   methods: {
     showInput() {
-      this.input = !this.input
+      this.input = !this.input;
     },
     hideInput() {
-      this.input = true
+      this.input = true;
     },
     searchYandex() {
-      window.open(`https://yandex.ru/search/?text=${this.search}&?url:http://86.107.45.254/`)
-      this.showInput()
+      window.open(
+        `https://yandex.ru/search/?text=${this.search}&?url:http://86.107.45.254/`
+      );
+      this.showInput();
     },
     changeLocale(id) {
-      if (this.locale === id) { return }
-      this.lang = id
+      if (this.locale === id) {
+        return;
+      }
+      this.lang = id;
       if (this.$route.path !== this.switchLocalePath(id)) {
-        this.$router.replace(this.switchLocalePath(id))
+        this.$router.replace(this.switchLocalePath(id));
       }
     },
     updateScroll() {
       if (process.client) {
-        this.scrollPosition = window.scrollY
+        this.scrollPosition = window.scrollY;
       }
-    }
+    },
   },
   components: {
-    Logo, Search, Call, Drag
+    Logo,
+    Search,
+    Call,
+    Drag,
   },
   computed: {
     headerLinks() {
       return [
         {
           name: this.$t("header.main"),
-          to: "/"
+          to: "/",
         },
         {
           name: this.$t("header.tours"),
-          to: "/tours"
+          to: "/tours",
         },
         {
           name: this.$t("header.advices"),
-          to: "/advices"
+          to: "/advices",
         },
         {
           name: this.$t("header.services"),
-          to: "/services"
+          to: "/services",
         },
         {
           name: this.$t("header.about"),
-          to: "/about"
+          to: "/about",
         },
         {
           name: this.$t("header.contacts"),
-          to: "/contacts"
+          to: "/contacts",
         },
-      ]
+      ];
     },
     languages() {
       return [
         {
           name: this.$t("header.russian"),
-          id: "ru"
+          id: "ru",
         },
         {
           name: this.$t("header.kazakh"),
-          id: "kk"
+          id: "kk",
         },
         {
           name: this.$t("header.english"),
-          id: "en"
+          id: "en",
         },
-      ]
+      ];
     },
     locale() {
-      return this.$i18n.locale
+      return this.$i18n.locale;
     },
     LocaleName() {
-      return this.languages.find(item => item.id === this.locale).name
-    }
+      return this.languages.find((item) => item.id === this.locale).name;
+    },
   },
-}
+};
 </script>
 <style lang="scss" scoped>
+svg {
+  cursor: pointer;
+  path {
+    transition: fill 0.3s ease;
+  }
+  &:hover {
+    path {
+      fill: $c-orange !important;
+    }
+  }
+}
 .hey {
   display: flex;
   flex-direction: row;
@@ -175,9 +197,9 @@ export default {
   }
 }
 .header {
-  box-shadow: 0px 5px 15px 0px rgba(105, 112, 117, 0.10);
+  box-shadow: 0px 5px 15px 0px rgba(105, 112, 117, 0.1);
   transition: all 0.3s ease;
-  background-color: #FFF;
+  background-color: #fff;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -214,8 +236,7 @@ export default {
     font-weight: 400;
     line-height: 21px;
     cursor: pointer;
-    transition: 300ms linear all;
-    
+    transition: 0.3s;
     &:hover {
       color: $c-orange !important;
     }
@@ -229,6 +250,14 @@ export default {
 
     @include phone {
       display: none;
+    }
+    &:hover {
+      .phone__text {
+        color: $c-orange !important;
+      }
+      path {
+        fill: $c-orange !important;
+      }
     }
   }
 
@@ -268,6 +297,7 @@ export default {
     width: 24px;
     height: 24px;
     flex-shrink: 0;
+    pointer-events: none;
   }
 
   &__text {
@@ -275,11 +305,7 @@ export default {
     font-style: normal;
     font-weight: 400;
     line-height: 21px;
-
-    &:hover {
-      color: $c-yellow;
-    }
+    transition: 0.3s;
   }
 }
-
 </style>
