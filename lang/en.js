@@ -23,7 +23,9 @@ export default {
       "find": "Find",
       "findTour": "Find a tour",
       "tourFormat": "Tour Format",
-      "selectTourFormat": "Select a tour format"
+      "selectTourFormat": "Select a tour format",
+      "month": "Month",
+      "selectMonth": "Select a month",
     },
     "tours": {
       "selectTour": "Select your tour",

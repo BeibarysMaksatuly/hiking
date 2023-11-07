@@ -23,7 +23,9 @@ export default {
       "find": "Табу",
       "findTour": "Турды табу",
       "tourFormat": "Тур пішімі",
-      "selectTourFormat": "Тур пішімін таңдаңыз"
+      "selectTourFormat": "Тур пішімін таңдаңыз",
+      "month": "Ай",
+      "selectMonth": "Айды таңдаңыз",
     },
     "tours": {
       "selectTour": "Сіздің турыңызды таңдаңыз",

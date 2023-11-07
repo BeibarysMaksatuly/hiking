@@ -40,6 +40,12 @@
             :label="$t('main.hero.season')"
             :placeholder="$t('main.hero.selectSeason')"
           />
+          <UiSelect 
+            :options="months" 
+            :model.sync="month"
+            :label="$t('main.hero.month')"
+            :placeholder="$t('main.hero.selectMonth')"
+          />
         </div>
         <div class="hero__button">
           <UiButton @click.native="findTours()">{{ $t('main.hero.find') }}</UiButton>
@@ -64,12 +70,15 @@ export default {
       tourName: "",
       formats: [],
       format: "",
+      months: [],
+      month: null,
     }
   },
   async fetch() {
     await this.getFormats()
     await this.getCountries()
     await this.getSeasons()
+    await this.getMonths()
   },
   methods: {
     async getCountries() {
@@ -81,6 +90,11 @@ export default {
     async getFormats() {
       this.formats = await this.$axios.$get('/formats/')
     },
+    async getMonths() {
+      this.months = await this.$axios.$get('/months/', {
+        season: this.season
+      })
+    },
     findTours() {
       this.$router.push(
         this.localeLocation({
@@ -88,6 +102,7 @@ export default {
         query: {
           countries: this.country,
           seasons: this.season,
+          month: this.month,
           search: this.tourName
         }
       }))

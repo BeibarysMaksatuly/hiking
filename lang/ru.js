@@ -23,7 +23,9 @@ export default {
       "find": "Найти",
       "findTour": "Найти тур",
       "tourFormat": "Вид отдыха",
-      "selectTourFormat": "Выберите вид отдыха"
+      "selectTourFormat": "Выберите вид отдыха",
+      "month": "Месяц",
+      "selectMonth": "Выберите месяц",
     },
     "tours": {
       "selectTour": "Выберите ваш тур",
