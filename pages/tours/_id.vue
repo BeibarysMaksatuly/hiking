@@ -358,6 +358,7 @@ export default {
       align-self: stretch;
       height: 240px;
       width: 100%;
+      object-fit: cover;
     }
 
     @include phone {
