@@ -18,8 +18,8 @@
           <div>{{ tour.country.name }}</div>
         </div>
       </div>
-      <div class="row-1__places row-1__places--green">
-        <div class="row-1__place" v-for="tag in tour.tags" :key="tag.id">
+      <div class="row-1__places">
+        <div class="row-1__place row-1__place--green" v-for="tag in tour.tags" :key="tag.id">
           <div class="circle--green"></div>
           <div>{{ tag.name }}</div>
         </div>
