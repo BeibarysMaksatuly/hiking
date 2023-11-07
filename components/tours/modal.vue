@@ -1,6 +1,6 @@
 <template>
   <div class="overlay">
-    <div class="modal">
+    <div class="modal" v-click-outside="closeModal">
       <Close @click="$emit('close-modal')" class="modal__close" />
       <div class="modal__title">{{ tour.name }}</div>
       <div class="modal__places">
@@ -23,6 +23,7 @@
 </template>
 <script>
 import Close from '@/assets/icons/close.svg?inline';
+import vClickOutside from 'v-click-outside';
 export default {
   props: {
     tour: {
@@ -30,9 +31,17 @@ export default {
       required: true
     }
   },
+  directives: {
+    clickOutside: vClickOutside.directive
+  },
   components: {
     Close
   },
+  methods: {
+    closeModal() {
+      this.$emit('close-modal')
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -73,6 +82,7 @@ export default {
     height: 24px;
     color: $c-yellow;
     margin-left: auto;
+    cursor: pointer;
   }
 
   &__title {
@@ -131,6 +141,7 @@ export default {
       align-self: stretch;
       height: 240px;
       width: 100%;
+      object-fit: cover;
     }
 
     @include phone {
