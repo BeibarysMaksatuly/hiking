@@ -2,9 +2,9 @@
   <div class="tours container-1">
     <div class="tours__data">
       <div class="tours__title">
-        {{ $t('main.tours.selectTour') }}
+        {{ $t("main.tours.selectTour") }}
       </div>
-      <div class="tours__subtitle">{{ $t('main.tours.selectCountry') }}</div>
+      <div class="tours__subtitle">{{ $t("main.tours.selectCountry") }}</div>
       <div slot="button-prev" class="swiper-button-prev">
         <Arrow />
       </div>
@@ -14,12 +14,12 @@
     </div>
     <client-only>
       <swiper ref="mySwiper" class="mySwiper" :options="swiperOptions">
-        <swiper-slide 
-          v-for="tour in tours" 
-          :key="tour.id" 
+        <swiper-slide
+          v-for="tour in tours"
+          :key="tour.id"
           class="tour"
           @click.native="findTours(tour)"
-          >
+        >
           <div class="tour__image">
             <img :src="tour.image" alt="tour image" />
           </div>
@@ -34,15 +34,15 @@
   </div>
 </template>
 <script>
-import Swiper, { Navigation } from 'swiper'
-import Arrow from 'icons/btn-left.svg?inline'
-Swiper.use([Navigation])
+import Swiper, { Navigation } from "swiper";
+import Arrow from "icons/btn-left.svg?inline";
+Swiper.use([Navigation]);
 export default {
   components: {
-    Arrow
+    Arrow,
   },
   async fetch() {
-    await this.getTours()
+    await this.getTours();
   },
   data() {
     return {
@@ -51,32 +51,34 @@ export default {
         slidesPerView: 2,
         spaceBetween: 15,
         navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
         },
         breakpoints: {
-          960: { 
+          960: {
             slidesPerView: 4,
             spaceBetween: 15,
           },
-        }
+        },
       },
-    }
+    };
   },
   methods: {
     async getTours() {
-      this.tours = await this.$axios.$get('/countries/')
+      this.tours = await this.$axios.$get("/countries/");
     },
     findTours(tour) {
-      this.$router.push(this.localeLocation({
-        path: '/tours',
-        query: {
-          countries: tour.id,
-        }
-      }))
-    }
-  }
-}
+      this.$router.push(
+        this.localeLocation({
+          path: "/tours",
+          query: {
+            countries: tour.id,
+          },
+        })
+      );
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .tours {
@@ -133,10 +135,10 @@ export default {
   transition: all 0.3s ease;
 
   &:hover {
-    box-shadow: 0px 8px 16px 0px rgba(18, 27, 33, 0.10);
-
-    &__name, &__services {
-      color: $c-orange;
+    box-shadow: 0px 8px 16px 0px rgba(18, 27, 33, 0.1);
+    .tour__name,
+    .tour__services {
+      color: #ffc107;
     }
   }
   @include phone {
@@ -173,7 +175,11 @@ export default {
     height: 100%;
     z-index: 1;
     border-radius: 10px;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.40) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
   }
   &__name {
     font-size: 20px;
@@ -181,6 +187,7 @@ export default {
     font-weight: 600;
     line-height: 26px;
     margin-bottom: 9px;
+    transition: 0.3s;
     @include phone {
       font-size: 16px;
       line-height: 21px;
@@ -192,12 +199,12 @@ export default {
     font-weight: 400;
     line-height: 21px;
     opacity: 0.7;
+    transition: 0.3s;
     @include phone {
       font-size: 14px;
       line-height: 130%;
     }
   }
-
 }
 
 .mySwiper {
@@ -210,7 +217,7 @@ export default {
 .swiper-button-prev.swiper-button-disabled,
 .swiper-button-next.swiper-button-disabled {
   opacity: 1;
-  background: #DDE1E6;
+  background: #dde1e6;
 }
 .swiper-button-prev,
 .swiper-button-next {
@@ -222,7 +229,7 @@ export default {
   width: 35px;
   height: 35px;
   flex-shrink: 0;
-  color: #DDE1E6;
+  color: #dde1e6;
   border-radius: 130px;
   cursor: pointer;
   @include phone {

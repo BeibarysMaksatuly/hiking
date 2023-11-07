@@ -3,7 +3,7 @@
     <div class="select__label" v-if="label">{{ label }}</div>
     <div class="select__data" @click="isSelectOpen = !isSelectOpen">
       <div class="select__model" v-if="!isOptionsImages">{{ options.find(item => item.id === model)  && options.find(item => item.id === model).name  || placeholder}}</div>
-      <div v-else>
+      <div v-else class="flag">
         <component :is="getLangFlag(model)" />
       </div>
       <ChevronBottom :class="['select__icon',  isSelectOpen && 'select__icon-active']" />
@@ -90,6 +90,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.flag {
+	display: flex;
+	align-items: center;
+}
 
 .slide-fade-enter-active {
   transition: all 0.1s ease;
