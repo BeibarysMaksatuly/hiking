@@ -140,6 +140,9 @@ export default {
     .tour__services {
       color: #ffc107;
     }
+    .tour__overlay:before {
+      opacity: 1;
+    }
   }
   @include phone {
     height: 300px;
@@ -180,6 +183,26 @@ export default {
       rgba(0, 0, 0, 0) 0%,
       rgba(0, 0, 0, 0.4) 100%
     );
+    &:before {
+      content: "";
+      display: block;
+
+      opacity: 0;
+      transition: opacity 0.3s;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      border-radius: 10px;
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.6) 100%
+      );
+    }
   }
   &__name {
     font-size: 20px;

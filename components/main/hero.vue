@@ -1,16 +1,18 @@
 <template>
-  <div class="hero" >
+  <div class="hero" :style="{ backgroundImage: backgroundImage }">
     <v-overlay :value="$fetchState.pending" z-index="999999">
-        <v-progress-circular
-          :size="70"
-          :width="7"
-          color="#EF7F1A"
-          indeterminate
+      <v-progress-circular
+        :size="70"
+        :width="7"
+        color="#EF7F1A"
+        indeterminate
       ></v-progress-circular>
     </v-overlay>
     <div class="container-1">
       <div class="hero__title">
         {{ $t("main.hero.title") }}
+        <span class="hero__highlight">{{ $t("main.hero.highlight") }}</span>
+        {{ $t("main.hero.end") }}
       </div>
       <div class="hero__search">
         <!-- <button class="button">
@@ -22,44 +24,46 @@
           <SearchInline class="button__search" />
         </button> -->
         <div class="hero__selects">
-          <UiSelect 
-            :options="formats" 
+          <UiSelect
+            :options="formats"
             :model.sync="format"
             :label="$t('main.hero.tourFormat')"
             :placeholder="$t('main.hero.selectTourFormat')"
           />
-          <UiSelect 
-            :options="countries" 
+          <UiSelect
+            :options="countries"
             :model.sync="country"
             :label="$t('main.hero.country')"
             :placeholder="$t('main.hero.selectCountry')"
           />
-          <UiSelect 
-            :options="seasons" 
+          <UiSelect
+            :options="seasons"
             :model.sync="season"
             :label="$t('main.hero.season')"
             :placeholder="$t('main.hero.selectSeason')"
           />
-          <UiSelect 
-            :options="months" 
+          <UiSelect
+            :options="months"
             :model.sync="month"
             :label="$t('main.hero.month')"
             :placeholder="$t('main.hero.selectMonth')"
           />
         </div>
         <div class="hero__button">
-          <UiButton @click.native="findTours()">{{ $t('main.hero.find') }}</UiButton>
+          <UiButton @click.native="findTours()">{{
+            $t("main.hero.find")
+          }}</UiButton>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import SearchInline from 'icons/search-inline.svg?inline';
+import SearchInline from "icons/search-inline.svg?inline";
 export default {
   name: "MainHero",
   components: {
-    SearchInline
+    SearchInline,
   },
   data() {
     return {
@@ -72,54 +76,75 @@ export default {
       format: "",
       months: [],
       month: null,
-    }
+      currentBackgroundIndex: 0,
+      backgroundImages: [
+        require("~/assets/images/bg.png"),
+        // require("~/assets/images/bg1.png"),
+      ],
+    };
+  },
+  created() {
+    this.startBackgroundRotation();
   },
   async fetch() {
-    await this.getFormats()
-    await this.getCountries()
-    await this.getSeasons()
-    await this.getMonths()
+    await this.getFormats();
+    await this.getCountries();
+    await this.getSeasons();
+    await this.getMonths();
   },
   methods: {
     async getCountries() {
-      this.countries = await this.$axios.$get('/country-list/')
+      this.countries = await this.$axios.$get("/country-list/");
     },
     async getSeasons() {
-      this.seasons = await this.$axios.$get('/seasons/')
+      this.seasons = await this.$axios.$get("/seasons/");
     },
     async getFormats() {
-      this.formats = await this.$axios.$get('/formats/')
+      this.formats = await this.$axios.$get("/formats/");
     },
     async getMonths() {
-      this.months = await this.$axios.$get('/months/', {
-        season: this.season
-      })
+      this.months = await this.$axios.$get("/months/", {
+        season: this.season,
+      });
     },
     findTours() {
       this.$router.push(
         this.localeLocation({
-        path: '/tours',
-        query: {
-          countries: this.country,
-          seasons: this.season,
-          month: this.month,
-          search: this.tourName
-        }
-      }))
-    }
+          path: "/tours",
+          query: {
+            countries: this.country,
+            seasons: this.season,
+            month: this.month,
+            search: this.tourName,
+          },
+        })
+      );
+    },
+    startBackgroundRotation() {
+      setInterval(() => {
+        // Обновление индекса фонового изображения
+        this.currentBackgroundIndex =
+          (this.currentBackgroundIndex + 1) % this.backgroundImages.length;
+      }, 5000); // Смена фона каждые 5 секунд
+    },
+    currentBackgroundImage() {
+      return this.backgroundImages[this.currentBackgroundIndex];
+    },
   },
   computed: {
-
-  }
-}
+    backgroundImage() {
+      return `url(${this.currentBackgroundImage()})`;
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .hero {
-  background-image: url('~/assets/images/bg.png');
   width: 100%;
   height: 796px;
   margin-top: -76px;
   background-size: cover;
+  transition: background-image 0.5s linear;
   @include phone {
     height: 820px;
   }
@@ -135,6 +160,11 @@ export default {
       font-size: 35px;
       font-weight: 700;
     }
+    span {
+      background: linear-gradient(268deg, #ef7f1a 18.8%, #fecc01 98.56%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
   }
 
   &__search {
@@ -145,7 +175,7 @@ export default {
     align-items: center;
     gap: 59px;
     border-radius: 10px;
-    background: rgba(90, 148, 190, 0.50);
+    background: rgba(90, 148, 190, 0.5);
     backdrop-filter: blur(7.5px);
 
     @include phone {
@@ -188,7 +218,7 @@ export default {
 
 .button {
   border-radius: 10px;
-  border: 1px solid #E1E1E1;
+  border: 1px solid #e1e1e1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -207,7 +237,8 @@ export default {
     font-style: normal;
     font-weight: 400;
     line-height: 21px;
-    &:focus, &:focus-visible {
+    &:focus,
+    &:focus-visible {
       outline: none;
     }
     &::placeholder {

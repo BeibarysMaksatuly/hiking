@@ -16,12 +16,14 @@
           {{ link.name }}
         </nuxt-link>
       </div>
-      <div v-if="!input" class="hey" v-click-outside="hideInput">
-        <UiInput :model.sync="search"> </UiInput>
-        <UiButton @click.native="searchYandex">{{
-          $t("header.done")
-        }}</UiButton>
-      </div>
+      <transition name="fade">
+        <div v-if="!input" class="hey" v-click-outside="hideInput">
+          <UiInput :model.sync="search"> </UiInput>
+          <UiButton @click.native="searchYandex">{{
+            $t("header.done")
+          }}</UiButton>
+        </div>
+      </transition>
 
       <Search class="header__search" v-if="input" @click="showInput" />
       <a class="header__phone" href="" target="_blank">
@@ -184,6 +186,17 @@ svg {
     width: max-content;
   }
 }
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter {
+  opacity: 0;
+}
+.fade-leave-to {
+  display: none;
+}
+
 .container-1 {
   display: flex;
   align-items: center;
