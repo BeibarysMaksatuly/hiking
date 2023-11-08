@@ -104,6 +104,7 @@ export default {
 
     &-second {
       position: absolute;
+			pointer-events: none;
       z-index: 10;
       bottom: 0;
       left: 50%;
