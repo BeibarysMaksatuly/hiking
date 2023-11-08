@@ -5,16 +5,34 @@
       <div slot="button-prev" class="swiper-button-prev">
         <Arrow />
       </div>
-      <img src="@/assets/images/reviews.png" alt="reviews" class="reviews__img" />
+      <img
+        src="@/assets/images/reviews.png"
+        alt="reviews"
+        class="reviews__img"
+      />
       <client-only>
-        <swiper ref="reviewSwiper" class="reviewSwiper" :options="swiperOptions">
-          <swiper-slide v-for="review in reviews" :key="review.id" class="review">
+        <swiper
+          ref="reviewSwiper"
+          class="reviewSwiper"
+          :options="swiperOptions"
+        >
+          <swiper-slide
+            v-for="review in reviews"
+            :key="review.id"
+            class="review"
+          >
             <div class="review__data">
-              <div class="review__name">{{ review.author }}, {{ review.author_age }} {{ $t("main.age") }}</div>
-              <div class="review__tour"> {{ $t("main.tour") }}: <span>{{ review.tour.name }}</span></div>
+              <div class="review__name">
+                {{ review.author }}, {{ review.author_age }}
+                {{ $t("main.age") }}
+              </div>
+              <div class="review__tour">
+                {{ $t("main.tour") }}: <span>{{ review.tour.name }}</span>
+              </div>
               <div class="review__text">{{ review.text }}</div>
             </div>
           </swiper-slide>
+          <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
       </client-only>
       <div class="reviews__squares">
@@ -28,16 +46,16 @@
   </div>
 </template>
 <script>
-import Swiper, { Navigation } from 'swiper';
-import Arrow from 'icons/btn-left.svg?inline';
-Swiper.use([Navigation])
+import Swiper, { Navigation, Pagination } from "swiper";
+import Arrow from "icons/btn-left.svg?inline";
+Swiper.use([Navigation, Pagination]);
 export default {
   components: {
-    Arrow
+    Arrow,
   },
-  name: 'MainReviews',
+  name: "MainReviews",
   async fetch() {
-    await this.getReviews()
+    await this.getReviews();
   },
   data() {
     return {
@@ -45,18 +63,23 @@ export default {
       swiperOptions: {
         slidesPerView: 1,
         navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+          type: "progressbar",
         },
       },
-    }
+    };
   },
   methods: {
     async getReviews() {
-      this.reviews = await this.$axios.$get('/reviews/')
-    }
-  }
-}
+      this.reviews = await this.$axios.$get("/reviews/");
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .reviews {
@@ -119,6 +142,12 @@ export default {
 
 .review {
   width: 100%;
+  height: auto;
+  margin-top: 39px;
+  color: #324552;
+  @include phone {
+    margin-top: 0;
+  }
   &__data {
     display: flex;
     flex-direction: column;
@@ -150,9 +179,6 @@ export default {
     font-weight: 400;
     line-height: 21px;
     white-space: pre-line;
-    @include phone {
-      margin-bottom: 60px;
-    }
   }
 }
 
@@ -166,29 +192,38 @@ export default {
 .swiper-button-prev.swiper-button-disabled,
 .swiper-button-next.swiper-button-disabled {
   opacity: 1;
-  background: #DDE1E6;
+  color: #dde1e6;
 }
 .swiper-button-prev,
 .swiper-button-next {
   position: relative;
-  color: #fff;
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   flex-shrink: 0;
-  color: #DDE1E6;
-  border-radius: 130px;
+  color: #fecc01;
+  border-radius: 50%;
   align-self: center;
   cursor: pointer;
   @include phone {
     bottom: 0;
   }
 }
-
 .swiper-button-next {
   transform: rotate(180deg);
 }
-
-// .swiper-button-prev {
-//   right: 42px;
-// }
+.swiper-button-prev {
+  left: 0;
+  right: auto;
+}
+.swiper-button-next {
+  right: 0px;
+  left: auto;
+}
+.swiper-container-horizontal > .swiper-pagination-progressbar,
+.swiper-container-vertical
+  > .swiper-pagination-progressbar.swiper-pagination-progressbar-opposite {
+  height: 2px;
+  top: unset;
+  bottom: 39px;
+}
 </style>

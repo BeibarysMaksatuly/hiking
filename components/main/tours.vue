@@ -5,10 +5,10 @@
         {{ $t("main.tours.selectTour") }}
       </div>
       <div class="tours__subtitle">{{ $t("main.tours.selectCountry") }}</div>
-      <div slot="button-prev" class="swiper-button-prev">
+      <div slot="button-prev" class="swiper-button-prev_tour">
         <Arrow />
       </div>
-      <div slot="button-next" class="swiper-button-next">
+      <div slot="button-next" class="swiper-button-next_tour">
         <Arrow />
       </div>
     </div>
@@ -51,8 +51,8 @@ export default {
         slidesPerView: 2,
         spaceBetween: 15,
         navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
+          nextEl: ".swiper-button-next_tour",
+          prevEl: ".swiper-button-prev_tour",
         },
         breakpoints: {
           960: {
@@ -188,7 +188,7 @@ export default {
       display: block;
 
       opacity: 0;
-      transition: opacity 0.3s;
+      transition: opacity 0.3s ease;
 
       position: absolute;
       top: 0;
@@ -237,34 +237,34 @@ export default {
 .swiper-button-next:after {
   display: none;
 }
-.swiper-button-prev.swiper-button-disabled,
-.swiper-button-next.swiper-button-disabled {
+.swiper-button-prev_tour.swiper-button-disabled,
+.swiper-button-next_tour.swiper-button-disabled {
   opacity: 1;
-  background: #dde1e6;
+  color: #dde1e6;
 }
-.swiper-button-prev,
-.swiper-button-next {
-  color: #fff;
-  bottom: 0;
+.swiper-button-prev_tour,
+.swiper-button-next_tour {
+	position: absolute;
   top: auto;
-  right: 0;
   left: auto;
+  bottom: 0;
+  right: 0;
+
   width: 35px;
   height: 35px;
   flex-shrink: 0;
-  color: #dde1e6;
-  border-radius: 130px;
+  color: #fecc01;
+  border-radius: 50%;
   cursor: pointer;
   @include phone {
     bottom: -55px;
   }
 }
-
-.swiper-button-next {
+.swiper-button-next_tour {
   transform: rotate(180deg);
 }
 
-.swiper-button-prev {
+.swiper-button-prev_tour {
   right: 42px;
 }
 </style>
