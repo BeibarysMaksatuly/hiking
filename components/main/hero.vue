@@ -29,24 +29,28 @@
             :model.sync="format"
             :label="$t('main.hero.tourFormat')"
             :placeholder="$t('main.hero.selectTourFormat')"
+            class="inputs"
           />
           <UiSelect
             :options="countries"
             :model.sync="country"
             :label="$t('main.hero.country')"
             :placeholder="$t('main.hero.selectCountry')"
+            class="inputs"
           />
           <UiSelect
             :options="seasons"
             :model.sync="season"
             :label="$t('main.hero.season')"
             :placeholder="$t('main.hero.selectSeason')"
+            class="inputs"
           />
           <UiSelect
             :options="months"
             :model.sync="month"
             :label="$t('main.hero.month')"
             :placeholder="$t('main.hero.selectMonth')"
+            class="inputs"
           />
         </div>
         <div class="hero__button">
@@ -92,19 +96,26 @@ export default {
     await this.getSeasons();
     await this.getMonths();
   },
+  watch: {
+    async season() {
+      await this.getMonths();
+    },
+  },
   methods: {
+    async getFormats() {
+      this.formats = await this.$axios.$get("/formats/");
+    },
     async getCountries() {
       this.countries = await this.$axios.$get("/country-list/");
     },
     async getSeasons() {
       this.seasons = await this.$axios.$get("/seasons/");
     },
-    async getFormats() {
-      this.formats = await this.$axios.$get("/formats/");
-    },
     async getMonths() {
       this.months = await this.$axios.$get("/months/", {
-        season: this.season,
+        params: {
+          season: this.season,
+        },
       });
     },
     findTours() {
@@ -173,7 +184,7 @@ export default {
     padding: 20px 40px;
     justify-content: space-between;
     align-items: center;
-    gap: 59px;
+    gap: 40px;
     border-radius: 10px;
     background: rgba(90, 148, 190, 0.5);
     backdrop-filter: blur(7.5px);
@@ -189,6 +200,7 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     gap: 30px;
     flex: 1;
     @include phone {
@@ -198,7 +210,7 @@ export default {
   }
 
   &__button {
-    width: 232px;
+    width: 200px;
 
     @include phone {
       width: 100%;
@@ -257,5 +269,9 @@ export default {
     color: $c-white;
     margin-right: 14px;
   }
+}
+.inputs {
+  min-width: 177px;
+  width: max-content;
 }
 </style>
