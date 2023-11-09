@@ -284,6 +284,6 @@ export default {
 }
 .inputs {
   min-width: 177px;
-  width: max-content;
+  width: max-content !important;
 }
 </style>

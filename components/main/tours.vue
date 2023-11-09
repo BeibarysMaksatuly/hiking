@@ -55,6 +55,14 @@ export default {
           prevEl: ".swiper-button-prev_tour",
         },
         breakpoints: {
+					0: {
+            slidesPerView: 1,
+            spaceBetween: 0,
+          },
+					375: {
+            slidesPerView: 2,
+            spaceBetween: 15,
+          },
           960: {
             slidesPerView: 4,
             spaceBetween: 15,
