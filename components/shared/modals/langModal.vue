@@ -3,71 +3,73 @@
     <div class="modal">
       <Close class="modal__close" @click="$emit('close-modal-lang')" />
       <div class="modal__title">{{ $t("header.chooseLang") }}</div>
-      <div class="modal__choices"> 
-        <div 
-          class="modal__choice" 
-          v-for="(option, idx) in languages" 
-          :key="idx">
-            <label for="radio">{{ option.name }}</label>
-            <input 
-              type="radio" 
-              :value="option.id" 
-              v-model="lang"
-              >
+      <div class="modal__choices">
+        <div
+          class="modal__choice"
+          v-for="(option, idx) in languages"
+          :key="idx"
+					@click="lang = option.id"
+        >
+          <label for="radio">{{ option.name }}</label>
+          <input type="radio" :value="option.id" v-model="lang" />
         </div>
       </div>
-      <UiButton @click.native="changeLocale(lang)" :class="['modal__button']">{{ $t("header.save") }}</UiButton>
+      <UiButton @click.native="changeLocale(lang)" :class="['modal__button']">{{
+        $t("header.save")
+      }}</UiButton>
     </div>
   </div>
 </template>
 <script>
-import Close from '@/assets/icons/close.svg?inline';
+import Close from "@/assets/icons/close.svg?inline";
 export default {
   components: {
-    Close
+    Close,
   },
   data() {
     return {
-      lang: ""
-    }
+      lang: "",
+    };
   },
   mounted() {
     if (!this.lang) {
-      this.lang = this.locale
+      this.lang = this.locale;
     }
   },
   computed: {
     locale() {
-      return this.$i18n.locale
+      return this.$i18n.locale;
     },
     languages() {
       return [
         {
           name: this.$t("header.russian"),
-          id: "ru"
+          id: "ru",
         },
         {
           name: this.$t("header.kazakh"),
-          id: "kk"
+          id: "kk",
         },
         {
           name: this.$t("header.english"),
-          id: "en"
+          id: "en",
         },
-      ]
+      ];
     },
   },
   methods: {
     changeLocale(id) {
-      if (this.locale === id) { return }
-      this.lang = id
-      if (this.$route.path !== this.switchLocalePath(id)) {
-        this.$router.replace(this.switchLocalePath(id))
+      if (this.locale === id) {
+        return;
       }
-      this.$emit('close-modal-lang')
-    }
-  }
-}
+      this.lang = id;
+      if (this.$route.path !== this.switchLocalePath(id)) {
+        this.$router.replace(this.switchLocalePath(id));
+      }
+      this.$emit("close-modal-lang");
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .overlay {
@@ -90,13 +92,13 @@ input[type="radio"] {
   outline: none;
   cursor: pointer;
   border-radius: 50%;
-  border: 2px solid #DFE0EB;
+  border: 2px solid #dfe0eb;
   width: 20px;
   height: 20px;
   &:checked {
     border: none;
     // border: 2px solid #F2C94C;
-    background-image: url('~/assets/icons/active.svg');
+    background-image: url("~/assets/icons/active.svg");
     background-position: center;
   }
   &:checked + label {
@@ -106,7 +108,7 @@ input[type="radio"] {
 
 .modal {
   border-radius: 10px;
-  background: #FFF;
+  background: #fff;
   position: relative;
   display: flex;
   width: 480px;
@@ -125,7 +127,7 @@ input[type="radio"] {
     height: 104px;
 
     &--fail {
-      color: #DC3545;
+      color: #dc3545;
     }
   }
 
@@ -136,7 +138,7 @@ input[type="radio"] {
     justify-content: space-between;
     padding: 20px 10px;
     &:not(:last-child) {
-      border-bottom: 1px solid #DFE0EB;
+      border-bottom: 1px solid #dfe0eb;
     }
   }
 
@@ -150,7 +152,7 @@ input[type="radio"] {
   &__close {
     width: 24px;
     height: 24px;
-    color: #FFC107;
+    color: #ffc107;
     margin-left: auto;
   }
 

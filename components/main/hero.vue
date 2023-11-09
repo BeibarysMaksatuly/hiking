@@ -64,8 +64,11 @@
 </template>
 <script>
 import SearchInline from "icons/search-inline.svg?inline";
+import widthAdapter from "~/mixins/widhtAdapter";
+
 export default {
   name: "MainHero",
+  mixins: [widthAdapter],
   components: {
     SearchInline,
   },
@@ -81,10 +84,7 @@ export default {
       months: [],
       month: null,
       currentBackgroundIndex: 0,
-      backgroundImages: [
-        require("~/assets/images/bg.png"),
-        // require("~/assets/images/bg1.png"),
-      ],
+      backgroundImages: [require("~/assets/images/bg.png")],
     };
   },
   created() {
@@ -99,6 +99,13 @@ export default {
   watch: {
     async season() {
       await this.getMonths();
+    },
+    mobileView() {
+      if (this.mobileView) {
+        this.backgroundImages = [require("~/assets/images/bg_mobile.png")];
+      } else {
+        this.backgroundImages = [require("~/assets/images/bg.png")];
+      }
     },
   },
   methods: {
@@ -181,7 +188,7 @@ export default {
   &__search {
     display: flex;
     width: 100%;
-    padding: 20px 40px;
+    padding: 20px 30px;
     justify-content: space-between;
     align-items: center;
     gap: 40px;
@@ -219,11 +226,16 @@ export default {
 }
 
 .container-1 {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 111px;
-  padding-top: 308px;
+  justify-content: flex-end;
+  gap: 141px;
+  padding-bottom: 85px;
   @include phone {
+    padding-bottom: 50px;
+    gap: 0;
+    justify-content: space-between;
     padding-top: 106px;
   }
 }
