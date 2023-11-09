@@ -128,4 +128,8 @@ export default {
 	"advices": {
 		"otherAdvices": "Другие советы",
 	},
+	"footer": {
+		"address": 'Улица Волочаевская, 443, Алматы',
+		"privacy": 'Положение о конфиденциальности'
+	}
 }

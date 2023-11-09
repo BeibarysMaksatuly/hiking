@@ -127,5 +127,9 @@ export default {
 	},
 	"advices": {
 		"otherAdvices": "Other Advice",
+	},
+	"footer": {
+		"address": 'Volochaevskaya Street, 443, Almaty',
+		"privacy": 'Privacy Statement'
 	}
 }

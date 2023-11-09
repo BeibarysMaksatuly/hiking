@@ -26,9 +26,9 @@
       </transition>
 
       <Search class="header__search" v-if="input" @click="showInput" />
-      <a class="header__phone" href="" target="_blank">
+      <a class="header__phone" href="tel:+7 (707) 617 - 41 - 89">
         <Call class="phone__icon" />
-        <div class="phone__text">+7 (708) 454 - 55 - 55</div>
+        <div class="phone__text">+7 (707) 617 - 41 - 89</div>
       </a>
       <Drag class="header__drag" v-if="input" @click="$emit('open-mobile')" />
       <UiSelect

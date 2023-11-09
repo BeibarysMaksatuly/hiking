@@ -127,5 +127,9 @@ export default {
 	},
 	"advices": {
 		"otherAdvices": "Басқа кеңестер",
+	},
+	"footer": {
+		"address": 'Улица Волочаевская, 443, Алматы',
+		"privacy": 'Құпиялылық туралы ереже'
 	}
 }
