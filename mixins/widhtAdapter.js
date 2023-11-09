@@ -1,6 +1,7 @@
 export default {
 	data: () => ({
 		mobileView: false,
+		mobileViewSwiper: false,
 	}),
 	mounted: function () {
 		this.$nextTick(function () {
@@ -11,6 +12,7 @@ export default {
 	methods: {
 		handleView() {
 			this.mobileView = window.innerWidth <= 515
+			this.mobileViewSwiper = window.innerWidth <= 960
 		},
 	}
 }

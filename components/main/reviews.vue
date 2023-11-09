@@ -2,7 +2,7 @@
   <div class="reviews container-1">
     <UiHeading class="reviews__heading">{{ $t("main.reviews") }}</UiHeading>
     <div class="reviews__data">
-      <div slot="button-prev" class="swiper-button-prev desc_btn">
+      <div slot="button-prev" class="swiper-button-prev">
         <Arrow />
       </div>
       <img
@@ -33,19 +33,13 @@
             </div>
           </swiper-slide>
           <div class="swiper-pagination" slot="pagination"></div>
-          <div slot="button-prev" class="swiper-button-prev mobile_btn">
-            <Arrow />
-          </div>
-          <div slot="button-next" class="swiper-button-next mobile_btn">
-            <Arrow />
-          </div>
         </swiper>
       </client-only>
       <div class="reviews__squares">
         <div class="reviews__squares-top"></div>
         <div class="reviews__squares-bottom"></div>
       </div>
-      <div slot="button-next" class="swiper-button-next desc_btn">
+      <div slot="button-next" class="swiper-button-next">
         <Arrow />
       </div>
     </div>
@@ -56,12 +50,9 @@ import Swiper, { Navigation, Pagination } from "swiper";
 import Arrow from "icons/btn-left.svg?inline";
 Swiper.use([Navigation, Pagination]);
 export default {
+  name: "MainReviews",
   components: {
     Arrow,
-  },
-  name: "MainReviews",
-  async fetch() {
-    await this.getReviews();
   },
   data() {
     return {
@@ -80,6 +71,9 @@ export default {
         },
       },
     };
+  },
+  async fetch() {
+    await this.getReviews();
   },
   methods: {
     async getReviews() {
@@ -105,6 +99,7 @@ export default {
     gap: 40px;
 
     @include phone {
+      position: relative;
       flex-direction: column;
     }
   }
@@ -156,7 +151,7 @@ export default {
   height: auto;
   margin-top: 39px;
   color: #324552;
-  @include phone {
+  @media (max-width: 1140px) {
     margin-top: 0;
   }
   &__data {
@@ -190,8 +185,11 @@ export default {
     font-weight: 400;
     line-height: 21px;
     white-space: pre-line;
+    @media (max-width: 1140px) {
+      margin-bottom: 10px;
+    }
     @include phone {
-      margin-bottom: 50px;
+      margin-bottom: 58px;
     }
   }
 }
@@ -220,7 +218,7 @@ export default {
   cursor: pointer;
   @include phone {
     position: absolute;
-    bottom: 0px;
+    bottom: 80px;
     top: unset;
     width: 35px;
     height: 35px;
@@ -243,23 +241,15 @@ export default {
   height: 2px;
   top: unset;
   bottom: 39px;
+  @media (max-width: 1140px) {
+    bottom: 0px;
+  }
   @include phone {
-    bottom: 16.5px;
+    bottom: 17.5px;
     width: calc(100% - 90px);
     margin: 0 auto;
     left: 0;
     right: 0;
-  }
-}
-.desc_btn {
-  @include phone {
-    display: none;
-  }
-}
-.mobile_btn {
-  display: none;
-  @include phone {
-    display: inline;
   }
 }
 </style>
