@@ -1,0 +1,33 @@
+.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
+	box-shadow: unset;
+}
+.v-text-field.v-input--dense:not(.v-text-field--outlined) .v-text-field__prefix,
+.v-text-field.v-input--dense:not(.v-text-field--outlined) .v-text-field__suffix,
+.v-text-field.v-input--dense:not(.v-text-field--outlined) input {
+	padding: 2px 0 2px !important;
+}
+.v-input {
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 21px;
+}
+.v-text-field fieldset,
+.v-text-field .v-input__control,
+.v-text-field .v-input__slot {
+	border-radius: 10px !important;
+}
+.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded) > .v-input__control > .v-input__slot,
+.v-text-field.v-text-field--enclosed .v-text-field__details {
+	padding: 0 20px !important;
+}
+.mdi-magnify::before {
+	color: rgba(254, 204, 1, 1);
+}
+.hey {
+	@include phone {
+		.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded) > .v-input__control > .v-input__slot,
+		.v-text-field.v-text-field--enclosed .v-text-field__details {
+			height: 39px !important;
+		}
+	}
+}

@@ -16,9 +16,17 @@
           {{ link.name }}
         </nuxt-link>
       </div>
-      <transition name="fade">
+      <transition name="search">
         <div v-if="!input" class="hey" v-click-outside="hideInput">
-          <UiInput :model.sync="search"> </UiInput>
+          <v-text-field
+            v-model="search"
+            placeholder="Поиск"
+            solo
+            dense
+            hide-details=""
+            height="46"
+            append-icon="mdi-magnify"
+          ></v-text-field>
           <UiButton @click.native="searchYandex">{{
             $t("header.done")
           }}</UiButton>
@@ -184,17 +192,27 @@ svg {
 
   button {
     width: max-content;
+    height: 46px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 21px;
+    text-align: center;
+    @include phone {
+      height: 39px;
+      font-size: 16px;
+    }
   }
 }
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
+.search-enter-active {
+  transition: all 0.3s linear;
 }
-.fade-enter {
+.search-leave {
   opacity: 0;
-}
-.fade-leave-to {
+  position: absolute;
   display: none;
+}
+.search-enter {
+  transform: translateY(-70px);
 }
 
 .container-1 {
@@ -220,10 +238,10 @@ svg {
   &__logo {
     width: 56px;
     height: 56px;
-    flex-shrink: 0;
     @include phone {
       width: 26px;
       height: 26px;
+			margin-top: 5px;
     }
   }
   &__lang {

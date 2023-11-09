@@ -7,18 +7,18 @@
           <Close class="header__close" @click="$emit('close-mobile')" />
         </div>
         <div class="mobile-header__links">
-          <nuxt-link 
-            v-for="(link, idx) in headerLinks" 
+          <nuxt-link
+            v-for="(link, idx) in headerLinks"
             :to="localePath(link.to)"
-            :key="idx" 
+            :key="idx"
             class="mobile-header__link"
             @click.native="close()"
-            >
+          >
             {{ link.name }}
           </nuxt-link>
         </div>
       </div>
-      <div class=mobile-header__bottom>
+      <div class="mobile-header__bottom">
         <div class="mobile-header__lang" @click="openLangModal">
           <div class="lang__lang">{{ LocaleName }}</div>
           <Arrow />
@@ -32,77 +32,81 @@
   </div>
 </template>
 <script>
-import Logo from 'icons/logo.svg?inline';
-import Search from 'icons/search.svg?inline';
-import Call from 'icons/call.svg?inline';
-import Close from 'icons/close.svg?inline';
-import Arrow from 'icons/chevron-right.svg?inline';
+import Logo from "icons/logo.svg?inline";
+import Search from "icons/search.svg?inline";
+import Call from "icons/call.svg?inline";
+import Close from "icons/close.svg?inline";
+import Arrow from "icons/chevron-right.svg?inline";
 export default {
-  name: 'SharedMobileHeader',
+  name: "SharedMobileHeader",
   components: {
-    Logo, Search, Call, Close, Arrow
+    Logo,
+    Search,
+    Call,
+    Close,
+    Arrow,
   },
   computed: {
     headerLinks() {
       return [
-      {
+        {
           name: this.$t("header.main"),
-          to: "/"
+          to: "/",
         },
         {
           name: this.$t("header.tours"),
-          to: "/tours"
+          to: "/tours",
         },
         {
           name: this.$t("header.advices"),
-          to: "/advices"
+          to: "/advices",
         },
         {
           name: this.$t("header.services"),
-          to: "/services"
+          to: "/services",
         },
         {
           name: this.$t("header.about"),
-          to: "/about"
+          to: "/about",
         },
         {
           name: this.$t("header.contacts"),
-          to: "/contacts"
+          to: "/contacts",
         },
-      ]
+      ];
     },
     languages() {
       return [
         {
           name: this.$t("header.russian"),
-          id: "ru"
+          id: "ru",
         },
         {
           name: this.$t("header.kazakh"),
-          id: "kk"
+          id: "kk",
         },
         {
           name: this.$t("header.english"),
-          id: "en"
+          id: "en",
         },
-      ]
+      ];
     },
     locale() {
-      return this.$i18n.locale
+      return this.$i18n.locale;
     },
     LocaleName() {
-      return this.languages.find(item => item.id === this.locale).name
-    }
+      return this.languages.find((item) => item.id === this.locale).name;
+    },
   },
   methods: {
     close() {
-      this.$emit('close-mobile')
+      this.$emit("close-mobile");
     },
     openLangModal() {
-      this.$emit('open-lang-modal')
-    }
-  }
-}
+      this.$emit("open-lang-modal");
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .mobile-header {
@@ -146,15 +150,21 @@ export default {
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
-    height: 294px;
-    width: 100%;
+    gap: 24.5px;
   }
 
   &__link {
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
-    line-height: 21px; 
+    line-height: 21px;
+  }
+
+  &__bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
   }
 
   &__phone {
@@ -164,12 +174,7 @@ export default {
     gap: 5px;
     cursor: pointer;
   }
-  &__bottom {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    width: 100%;
-  }
+	
   &__lang {
     display: flex;
     align-items: center;
@@ -178,7 +183,7 @@ export default {
     svg {
       width: 24px;
       height: 24px;
-      color: #FECD15;
+      color: #fecd15;
     }
   }
 }
