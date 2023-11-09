@@ -2,7 +2,7 @@
   <div class="reviews container-1">
     <UiHeading class="reviews__heading">{{ $t("main.reviews") }}</UiHeading>
     <div class="reviews__data">
-      <div slot="button-prev" class="swiper-button-prev">
+      <div slot="button-prev" class="swiper-button-prev desc_btn">
         <Arrow />
       </div>
       <img
@@ -33,13 +33,19 @@
             </div>
           </swiper-slide>
           <div class="swiper-pagination" slot="pagination"></div>
+          <div slot="button-prev" class="swiper-button-prev mobile_btn">
+            <Arrow />
+          </div>
+          <div slot="button-next" class="swiper-button-next mobile_btn">
+            <Arrow />
+          </div>
         </swiper>
       </client-only>
       <div class="reviews__squares">
         <div class="reviews__squares-top"></div>
         <div class="reviews__squares-bottom"></div>
       </div>
-      <div slot="button-next" class="swiper-button-next">
+      <div slot="button-next" class="swiper-button-next desc_btn">
         <Arrow />
       </div>
     </div>
@@ -61,6 +67,7 @@ export default {
     return {
       reviews: [],
       swiperOptions: {
+        autoHeight: true,
         slidesPerView: 1,
         navigation: {
           nextEl: ".swiper-button-next",
@@ -106,6 +113,10 @@ export default {
     width: 486px;
     height: 481px;
     object-fit: cover;
+    @media (max-width: 1140px) {
+      width: 386px;
+      height: 381px;
+    }
     @include phone {
       width: 100%;
       height: 339.471px;
@@ -179,6 +190,9 @@ export default {
     font-weight: 400;
     line-height: 21px;
     white-space: pre-line;
+    @include phone {
+      margin-bottom: 50px;
+    }
   }
 }
 
@@ -205,7 +219,11 @@ export default {
   align-self: center;
   cursor: pointer;
   @include phone {
-    bottom: 0;
+    position: absolute;
+    bottom: 0px;
+    top: unset;
+    width: 35px;
+    height: 35px;
   }
 }
 .swiper-button-next {
@@ -216,7 +234,7 @@ export default {
   right: auto;
 }
 .swiper-button-next {
-  right: 0px;
+  right: 0;
   left: auto;
 }
 .swiper-container-horizontal > .swiper-pagination-progressbar,
@@ -225,5 +243,23 @@ export default {
   height: 2px;
   top: unset;
   bottom: 39px;
+  @include phone {
+    bottom: 16.5px;
+    width: calc(100% - 90px);
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+  }
+}
+.desc_btn {
+  @include phone {
+    display: none;
+  }
+}
+.mobile_btn {
+  display: none;
+  @include phone {
+    display: inline;
+  }
 }
 </style>
