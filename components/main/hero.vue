@@ -285,5 +285,8 @@ export default {
 .inputs {
   min-width: 177px;
   width: max-content !important;
+  @include phone {
+    width: 100% !important;
+  }
 }
 </style>

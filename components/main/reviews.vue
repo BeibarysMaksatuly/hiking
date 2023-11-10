@@ -45,6 +45,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import Swiper, { Navigation, Pagination } from "swiper";
 import Arrow from "icons/btn-left.svg?inline";
@@ -82,6 +83,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss" scoped>
 .reviews {
   padding-top: 80px;

@@ -2,23 +2,35 @@
   <div class="instagram">
     <div class="hello">
       <UiHeading class="container-1">
-        <span>{{ $t("main.instagram.ourInsta") }} -</span><span class="instagram__title">@camping.life</span>
+        <span>{{ $t("main.instagram.ourInsta") }} - </span
+        ><a
+          href="https://instagram.com/campinglife.kz?igshid=enN5MWVnaG9mMWs="
+          target="_blank"
+          class="instagram__title"
+          >@campinglife.kz</a
+        >
       </UiHeading>
-      <div class="instagram__text container-1">{{ $t("main.instagram.subscribe") }}</div>
+      <div class="instagram__text container-1">
+        {{ $t("main.instagram.subscribe") }}
+      </div>
       <div class="instagram__images">
-        <div class="instagram__image" v-for="i in 3" :key="i">
-          <img src="@/assets/images/insta.png" alt="instagram image" />
-        </div>
+        <img
+          src="@/assets/images/insta.png"
+          alt="instagram image"
+          v-for="i in 3"
+          :key="i"
+        />
       </div>
     </div>
   </div>
 </template>
+
 <style lang="scss" scoped>
 .instagram {
-  background-color: #F8FAFB;
-
+  background-color: #f8fafb;
+  overflow: hidden;
   &__title {
-    background: linear-gradient(90deg, #EF7F1A 54.05%, #FECC01 99.86%);
+    background: linear-gradient(90deg, #ef7f1a 54.05%, #fecc01 99.86%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -26,6 +38,10 @@
     font-style: normal;
     font-weight: 700;
     line-height: 120%;
+
+    @include phone {
+      font-size: 24px;
+    }
   }
 
   &__text {
@@ -33,16 +49,21 @@
     font-style: normal;
     font-weight: 400;
     line-height: 21px;
+    margin: 30px 0;
+    @include phone {
+      margin: 20px 0 40px;
+    }
   }
 
   &__images {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px;
-
     img {
       width: 100%;
       height: 100%;
+      max-height: 320px;
+      object-fit: cover;
     }
   }
 }
@@ -51,6 +72,8 @@
   padding-bottom: 54px;
   display: flex;
   flex-direction: column;
-  gap: 30px; 
+  @include phone {
+    padding: 80px 0;
+  }
 }
 </style>
