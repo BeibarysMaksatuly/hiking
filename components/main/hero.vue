@@ -1,5 +1,6 @@
 <template>
-  <div class="hero" :style="{ backgroundImage: backgroundImage }">
+  <div class="hero">
+    <!-- <div class="hero" :style="{ backgroundImage: backgroundImage }"> -->
     <v-overlay :value="$fetchState.pending" z-index="999999">
       <v-progress-circular
         :size="70"
@@ -15,14 +16,6 @@
         {{ $t("main.hero.end") }}
       </div>
       <div class="hero__search">
-        <!-- <button class="button">
-          <input 
-            class="button__text" 
-            :placeholder="$t('main.hero.findTour')" 
-            v-model="tourName" 
-          />
-          <SearchInline class="button__search" />
-        </button> -->
         <div class="hero__selects">
           <UiSelect
             :options="formats"
@@ -65,10 +58,10 @@
 
 <script>
 import SearchInline from "icons/search-inline.svg?inline";
-import widthAdapter from "~/mixins/widhtAdapter";
+// import widthAdapter from "~/mixins/widhtAdapter";
 export default {
   name: "MainHero",
-  mixins: [widthAdapter],
+  // mixins: [widthAdapter],
   components: {
     SearchInline,
   },
@@ -83,13 +76,13 @@ export default {
       format: "",
       months: [],
       month: null,
-      currentBackgroundIndex: 0,
-      backgroundImages: [require("~/assets/images/bg.png")],
+      // currentBackgroundIndex: 0,
+      // backgroundImages: [require("~/assets/images/bg.png")],
     };
   },
-  created() {
-    this.startBackgroundRotation();
-  },
+  // created() {
+  //   this.startBackgroundRotation();
+  // },
   async fetch() {
     await this.getFormats();
     await this.getCountries();
@@ -100,13 +93,13 @@ export default {
     async season() {
       await this.getMonths();
     },
-    mobileView() {
-      if (this.mobileView) {
-        this.backgroundImages = [require("~/assets/images/bg_mobile.png")];
-      } else {
-        this.backgroundImages = [require("~/assets/images/bg.png")];
-      }
-    },
+    // mobileView() {
+    //   if (this.mobileView) {
+    //     this.backgroundImages = [require("~/assets/images/bg_mobile.png")];
+    //   } else {
+    //     this.backgroundImages = [require("~/assets/images/bg.png")];
+    //   }
+    // },
   },
   methods: {
     async getFormats() {
@@ -138,22 +131,22 @@ export default {
         })
       );
     },
-    startBackgroundRotation() {
-      setInterval(() => {
-        // Обновление индекса фонового изображения
-        this.currentBackgroundIndex =
-          (this.currentBackgroundIndex + 1) % this.backgroundImages.length;
-      }, 5000); // Смена фона каждые 5 секунд
-    },
-    currentBackgroundImage() {
-      return this.backgroundImages[this.currentBackgroundIndex];
-    },
+    // startBackgroundRotation() {
+    //   setInterval(() => {
+    //     // Обновление индекса фонового изображения
+    //     this.currentBackgroundIndex =
+    //       (this.currentBackgroundIndex + 1) % this.backgroundImages.length;
+    //   }, 5000); // Смена фона каждые 5 секунд
+    // },
+    // currentBackgroundImage() {
+    //   return this.backgroundImages[this.currentBackgroundIndex];
+    // },
   },
-  computed: {
-    backgroundImage() {
-      return `url(${this.currentBackgroundImage()})`;
-    },
-  },
+  // computed: {
+  //   backgroundImage() {
+  //     return `url(${this.currentBackgroundImage()})`;
+  //   },
+  // },
 };
 </script>
 <style lang="scss" scoped>
@@ -163,8 +156,10 @@ export default {
   margin-top: -76px;
   background-size: cover;
   transition: background-image 0.5s linear;
+  background-image: url("~/assets/images/bg.png");
   @include phone {
     height: 820px;
+    background-image: url("~/assets/images/bg_mobile.png");
   }
 
   &__title {

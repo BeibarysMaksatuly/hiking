@@ -1,6 +1,6 @@
 <template>
   <div class="heading">
-    <div class="heading__title"><slot/></div>
+    <div class="heading__title"><slot /></div>
     <div class="heading__line"></div>
   </div>
 </template>
@@ -19,6 +19,7 @@
 
     @include phone {
       font-size: 24px;
+      letter-spacing: 0.072px;
       margin-bottom: 12px;
     }
   }
