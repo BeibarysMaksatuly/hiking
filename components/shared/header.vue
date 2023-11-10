@@ -26,6 +26,9 @@
             hide-details=""
             height="46"
             append-icon="mdi-magnify"
+            :background-color="
+              isMain && !(scrollPosition > 600) ? '#ffffff' : '#F6F8FA'
+            "
           ></v-text-field>
           <UiButton @click.native="searchYandex">{{
             $t("header.done")
@@ -241,7 +244,7 @@ svg {
     @include phone {
       width: 26px;
       height: 26px;
-			margin-top: 5px;
+      margin-top: 5px;
     }
   }
   &__lang {

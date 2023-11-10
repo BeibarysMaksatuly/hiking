@@ -1,16 +1,18 @@
 $c-main: #324552;
 $c-white: #fff;
-$c-yellow: #FECC01;
-$c-orange: #EF7F1A;
-$c-gray: #F8FAFB;
-$c-red: #DC3545;
+$c-yellow: #fecc01;
+$c-orange: #ef7f1a;
+$c-gray: #f8fafb;
+$c-red: #dc3545;
 
 .red {
-  color: $c-red;
+	color: $c-red;
+	background-color: unset !important;
+	border-color: unset !important;
 }
 
 @mixin phone {
-  @media (max-width: 960px) {
-    @content;
-  }
+	@media (max-width: 960px) {
+		@content;
+	}
 }

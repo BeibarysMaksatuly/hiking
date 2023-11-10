@@ -56,6 +56,7 @@ export default {
 	plugins: [
 		{ src: '@/plugins/swiper.js', mode: 'client' },
 		{ src: '@/plugins/axios.js' },
+		{ src: "~/plugins/vmask.js", mode: "client" },
 		{ src: "@/plugins/vClickOutside.js", mode: 'client' }
 	],
 	alias: {
@@ -103,7 +104,7 @@ export default {
 	vuetify: {
 		customVariables: ['~/assets/variables.scss'],
 		theme: {
-			dark: true,
+			dark: false,
 			themes: {
 				dark: {
 					primary: colors.blue.darken2,

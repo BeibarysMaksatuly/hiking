@@ -1,5 +1,5 @@
 <template>
-  <div class="default" data-app>
+  <v-app class="default">
     <SharedHeader @open-mobile="openMobileHeader" :isMain="isMainPage" />
     <transition name="slide-fade" mode="out-in">
       <SharedMobileHeader
@@ -14,7 +14,7 @@
     </transition>
     <Nuxt class="nuxt" />
     <SharedFooter />
-  </div>
+  </v-app>
 </template>
 <script>
 export default {
@@ -65,5 +65,20 @@ export default {
 }
 .swiper-pagination-progressbar {
   background: #e8e8e8 !important;
+}
+
+.v-application p {
+  margin: 0px;
+  padding: 0px;
+  line-height: 1;
+}
+.v-application a {
+  color: unset;
+}
+.v-select__selection {
+  max-width: 100%;
+}
+.v-application .primary--text {
+  color: #324552 !important;
 }
 </style>

@@ -48,7 +48,13 @@ export default {
 			"successText": "The request has been sent - we will definitely contact you :)",
 			"failText": "Failed to send request, please try again later",
 			"done": "Done",
-			"ok": "Ok"
+			"ok": "Ok",
+			"placeholder_name": 'Name',
+			"required": "Required field",
+			"telephone": "Enter phone number",
+			"wrong_number": "Enter a valid phone number",
+			"email_name": "Enter email",
+			"wrong_email": "Enter a valid email",
 		},
 		"tickets": {
 			"buyTicketsTitle": "Buy Tickets to Altai"
