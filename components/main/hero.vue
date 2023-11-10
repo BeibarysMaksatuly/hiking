@@ -62,10 +62,10 @@
     </div>
   </div>
 </template>
+
 <script>
 import SearchInline from "icons/search-inline.svg?inline";
 import widthAdapter from "~/mixins/widhtAdapter";
-
 export default {
   name: "MainHero",
   mixins: [widthAdapter],
