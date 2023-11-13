@@ -28,6 +28,9 @@
     width: 280px;
     height: 8px;
     background-color: $c-orange;
+    @media (max-width: 375px) {
+      width: 240px;
+    }
   }
 }
 </style>

@@ -1,16 +1,9 @@
 <template>
   <div class="service">
-    <v-overlay :value="$fetchState.pending" z-index="999999">
-      <v-progress-circular
-        :size="70"
-        :width="7"
-        color="#EF7F1A"
-        indeterminate
-      ></v-progress-circular>
-    </v-overlay>
     <UiBreadcrumbs :links="links" class="container-1" />
     <div class="service__hero">
       <img :src="service.image" alt="category image" />
+      <p class="container-1">Самостоятельные путешествия по Алтаю</p>
     </div>
     <div class="container-1">
       <UiHeading class="service__title">{{ service.name }}</UiHeading>
@@ -33,24 +26,19 @@
         </client-only>
         <div class="service__text" v-html="service.text"></div>
       </div>
-      <div class="service__other">
-        <div class="category__title">{{ $t("services.otherServices") }}</div>
-        <div class="category__data">
-          <div
-            class="category__info"
-            v-for="info in otherServices"
-            :key="info.id"
-            @click="$router.push(localePath(`/services/${info.id}`))"
-          >
-            <img :src="info.image" alt="info image" class="info__image" />
-            <div class="category__overlay"></div>
-            <div class="info__title">{{ info.name }}</div>
-          </div>
-        </div>
-      </div>
+      <h4>{{ $t("services.otherServices") }}</h4>
+      <ServicesList :services="otherServices" />
     </div>
     <SharedTickets />
     <SharedInstagram />
+    <v-overlay :value="$fetchState.pending" z-index="999999">
+      <v-progress-circular
+        :size="70"
+        :width="7"
+        color="#EF7F1A"
+        indeterminate
+      ></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 <script>
@@ -106,20 +94,10 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.adviceSwiper {
-  width: 560px;
-  @include phone {
-    width: 100%;
-  }
-}
 .service {
   background-color: #f8fafb;
-
-  &__title {
-    margin-bottom: 40px;
-  }
-
   &__hero {
+    position: relative;
     width: 100%;
     height: 400px;
     margin-bottom: 80px;
@@ -132,6 +110,27 @@ export default {
       height: 100%;
       object-fit: cover;
     }
+    p {
+      position: absolute;
+      z-index: 1;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+
+      color: #fff;
+      text-align: center;
+      font-size: 60px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      @include phone {
+        font-size: 30px;
+      }
+    }
+  }
+
+  &__title {
+    margin-bottom: 40px;
   }
 
   &__container {
@@ -154,31 +153,38 @@ export default {
       height: 150px;
     }
     img {
-      border-radius: 10px;
       width: 100%;
       height: 100%;
+      border-radius: 10px;
       object-fit: cover;
     }
   }
   &__text {
+    width: 100%;
     max-width: 560px;
-		width: 100%;
-    // font-size: 20px;
     white-space: pre-line;
-    // font-style: normal;
-    // line-height: 24px;
   }
-  &__other {
-    padding-bottom: 80px;
+  h4 {
+    color: #11142d;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 120%; /* 50.4px */
+    letter-spacing: 0.126px;
+    margin-bottom: 40px;
+    @include phone {
+      font-size: 24px;
+    }
   }
 }
 
+.adviceSwiper {
+  width: 560px;
+  @include phone {
+    width: 100%;
+  }
+}
 :deep(.swiper-pagination) {
   bottom: 20px;
-
-  @include phone {
-    bottom: 20px;
-  }
 }
 :deep(.swiper-pagination-bullet-active) {
   background: $c-orange !important;
@@ -186,83 +192,5 @@ export default {
 :deep(.swiper-pagination-bullet) {
   background: $c-white;
   opacity: 1;
-}
-
-.category {
-  &__title {
-    font-size: 28px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 120%; /* 33.6px */
-    letter-spacing: 0.084px;
-    margin-bottom: 40px;
-    @include phone {
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 120%; /* 24px */
-      letter-spacing: 0.06px;
-    }
-  }
-  &__data {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    column-gap: 25px;
-    row-gap: 30px;
-    @include phone {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  &__overlay {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    background: linear-gradient(
-      1deg,
-      rgba(0, 0, 0, 0.54) -16.13%,
-      rgba(255, 255, 255, 0) 75.69%
-    );
-  }
-
-  &__info {
-    position: relative;
-    background-color: #fff;
-    height: 470px;
-    border-radius: 10px;
-    @include phone {
-      height: 300px;
-    }
-  }
-}
-
-.info {
-  &__title {
-    color: #fff;
-    position: absolute;
-    bottom: 31px;
-    left: 31px;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 26px;
-    @include phone {
-      bottom: 20px;
-      left: 10px;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: 130%;
-    }
-  }
-  &__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-  }
 }
 </style>
