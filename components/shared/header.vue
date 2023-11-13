@@ -153,7 +153,12 @@ export default {
       ];
     },
     isActiveLink() {
-      return (link) => this.$route.path === link.to;
+      return (link) => {
+        if (link.to === "/") {
+          return this.$route.path === "/";
+        }
+        return this.$route.path.startsWith(link.to);
+      };
     },
     languages() {
       return [

@@ -13,6 +13,9 @@
             :key="idx"
             class="mobile-header__link"
             @click.native="close()"
+            :class="{
+              'active-link': isActiveLink(link),
+            }"
           >
             {{ link.name }}
           </nuxt-link>
@@ -75,6 +78,14 @@ export default {
         },
       ];
     },
+    isActiveLink() {
+      return (link) => {
+        if (link.to === "/") {
+          return this.$route.path === "/";
+        }
+        return this.$route.path.startsWith(link.to);
+      };
+    },
     languages() {
       return [
         {
@@ -109,6 +120,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.active-link {
+  color: #fecc01 !important;
+}
 .mobile-header {
   width: 273px;
   height: 100vh;
@@ -174,7 +188,7 @@ export default {
     gap: 5px;
     cursor: pointer;
   }
-	
+
   &__lang {
     display: flex;
     align-items: center;

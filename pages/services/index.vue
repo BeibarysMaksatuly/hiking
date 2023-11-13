@@ -11,7 +11,7 @@
     <div class="container-1">
       <UiBreadcrumbs :links="links" />
       <UiHeading class="services__title">{{ $t("header.services") }}</UiHeading>
-      <div class="services__subtitle">{{ $t("services.description") }}</div>
+      <!-- <div class="services__subtitle">{{ $t("services.description") }}</div> -->
       <div class="services__container">
         <div 
           class="services__service" 
