@@ -1,5 +1,12 @@
 <template>
   <div class="services">
+    <div class="container-1">
+      <UiBreadcrumbs :links="links" />
+      <UiHeading class="services__title">{{ $t("header.services") }}</UiHeading>
+      <ServicesList :services="services" />
+    </div>
+    <SharedTickets />
+    <SharedInstagram />
     <v-overlay :value="$fetchState.pending" z-index="999999">
       <v-progress-circular
         :size="70"
@@ -8,13 +15,6 @@
         indeterminate
       ></v-progress-circular>
     </v-overlay>
-    <div class="container-1">
-      <UiBreadcrumbs :links="links" />
-      <UiHeading class="services__title">{{ $t("header.services") }}</UiHeading>
-      <ServicesList :services="services" />
-    </div>
-    <SharedTickets />
-    <SharedInstagram />
   </div>
 </template>
 <script>

@@ -70,7 +70,7 @@ export default {
 .v-application p {
   margin: 0px;
   padding: 0px;
-  line-height: 1;
+  line-height: initial;
 }
 .v-application a {
   color: unset;

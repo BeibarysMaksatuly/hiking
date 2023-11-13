@@ -63,17 +63,6 @@ export default {
     await this.getService();
     await this.getServiceExcluded();
   },
-  methods: {
-    async getService() {
-      this.service = await this.$axios.$get(`/services/${this.id}/`);
-    },
-    async getServiceExcluded() {
-      this.otherServices = await this.$axios.$get(`/service-exclude/`, {
-        service_id: this.id,
-      });
-      console.log(this.otherServices);
-    },
-  },
   computed: {
     id() {
       return this.$route.params.id;
@@ -89,6 +78,16 @@ export default {
           url: "/services",
         },
       ];
+    },
+  },
+  methods: {
+    async getService() {
+      this.service = await this.$axios.$get(`/services/${this.id}/`);
+    },
+    async getServiceExcluded() {
+      this.otherServices = await this.$axios.$get(`/service-exclude/`, {
+        service_id: this.id,
+      });
     },
   },
 };
@@ -136,11 +135,13 @@ export default {
   &__container {
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
     gap: 20px;
     padding-bottom: 160px;
     @include phone {
-      padding-bottom: 80px;
       flex-direction: column;
+      gap: 40px;
+      padding-bottom: 80px;
     }
   }
 
@@ -163,12 +164,15 @@ export default {
     width: 100%;
     max-width: 560px;
     white-space: pre-line;
+    @include phone {
+      max-width: 100%;
+    }
   }
   h4 {
     color: #11142d;
     font-size: 42px;
     font-weight: 700;
-    line-height: 120%; /* 50.4px */
+    line-height: 120%;
     letter-spacing: 0.126px;
     margin-bottom: 40px;
     @include phone {
