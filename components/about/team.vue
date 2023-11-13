@@ -13,7 +13,6 @@
 
   &__title {
     font-size: 40px;
-    font-style: normal;
     font-weight: 800;
     line-height: normal;
     margin-bottom: 20px;
