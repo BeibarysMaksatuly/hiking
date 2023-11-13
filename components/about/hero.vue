@@ -1,11 +1,16 @@
 <template>
   <div class="about__hero">
     <div class="hero__overlay"></div>
-    <img 
-      src="@/assets/images/about.png" 
+    <img
+      src="@/assets/images/about.png"
       alt="about data"
-      class="hero__image" 
-      /> 
+      class="hero__image desctop"
+    />
+    <img
+      src="@/assets/images/about_mobile.png"
+      alt="about data"
+      class="hero__image mobile"
+    />
     <div class="hero__text container-1">{{ $t("about.title") }}</div>
   </div>
 </template>
@@ -21,6 +26,17 @@
     }
   }
 }
+.desctop {
+  @include phone {
+    display: none;
+  }
+}
+.mobile {
+  display: none;
+  @include phone {
+    display: block;
+  }
+}
 
 .hero {
   &__image {
@@ -33,7 +49,11 @@
     z-index: 1;
     width: 100%;
     height: 100%;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.30) 100%);
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.3) 100%
+    );
   }
 
   &__text {

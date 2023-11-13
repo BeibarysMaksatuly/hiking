@@ -2,18 +2,35 @@
   <div class="specialists">
     <div class="container-1">
       <div class="specialists__title">{{ $t("about.specialistsTitle") }}</div>
-      <div class="specialists__subtitle">{{ $t("about.specialistsSubtitle") }}</div>
+      <div class="specialists__subtitle">
+        {{ $t("about.specialistsSubtitle") }}
+      </div>
       <client-only>
-        <div class="specialists__swiper" >
+        <div class="specialists__swiper">
           <div slot="button-prev" class="swiper-button-prev">
             <Arrow />
           </div>
-          <swiper ref="specialistsSwiper" class="swiperSpec" :options="swiperOptions">
-            <swiper-slide v-for="(specialist, idx) in computedSpecialists" :key="idx" class="specialist">
-              <div class="specialist__data" v-for="spec in specialist" :key="spec.id">
+          <swiper
+            ref="specialistsSwiper"
+            class="swiperSpec"
+            :options="swiperOptions"
+          >
+            <swiper-slide
+              v-for="(specialist, idx) in computedSpecialists"
+              :key="idx"
+              class="specialist"
+            >
+              <div
+                class="specialist__data"
+                v-for="(spec, i) in specialist"
+                :key="spec.id"
+                :class="{ reverse: i % 2 != 0 }"
+              >
                 <div class="specialist__info">
                   <div class="specialist__name">{{ spec.full_name }}</div>
-                  <div class="specialist__work">Опыт работы: {{ spec.experience }} лет</div>
+                  <div class="specialist__work">
+                    Опыт работы: {{ spec.experience }} лет
+                  </div>
                   <div class="specialist__descr">{{ spec.description }}</div>
                 </div>
                 <div class="specialist__photo">
@@ -26,87 +43,58 @@
             <Arrow />
           </div>
         </div>
-
       </client-only>
     </div>
   </div>
 </template>
 <script>
-import Swiper, { Navigation, Pagination } from 'swiper';
+import Swiper, { Navigation, Pagination } from "swiper";
 Swiper.use([Navigation, Pagination]);
-import Arrow from 'icons/chevron-right.svg?inline';
+import Arrow from "icons/chevron-right.svg?inline";
 export default {
-  async fetch() {
-    await this.getSpecialists()
-  },
   components: {
-    Arrow
+    Arrow,
   },
   data() {
     return {
       specialists: [],
       swiperOptions: {
+        autoHeight: true,
         slidesPerView: 1,
         navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
         },
       },
-    }
+    };
   },
-  methods: {
-    async getSpecialists() {
-      try {
-        this.specialists = await this.$axios.$get('/specialists/')
-      } catch(e) {
-        console.log(e)
-      }
-    }
+  async fetch() {
+    await this.getSpecialists();
   },
   computed: {
     computedSpecialists() {
       const arr = [];
-      for (let i = 0; i < this.specialists.length; i+= 2) {
-        const hey =[];
-        hey.push(this.specialists[i])
-        if (this.specialists[i + 1]) hey.push(this.specialists[i + 1])
-        arr.push(hey)
+      for (let i = 0; i < this.specialists.length; i += 2) {
+        const hey = [];
+        hey.push(this.specialists[i]);
+        if (this.specialists[i + 1]) hey.push(this.specialists[i + 1]);
+        arr.push(hey);
       }
-      return arr
-    }
-    // specialists() {
-    //   return [
-    //     [{
-    //       id: 0,
-    //       name: "Станеслава Вожатая",
-    //       work: "10",
-    //       description: "Наш специалист по турам по Алтаю - настоящий эксперт и страстный поклонник этого уникального региона. Он обладает обширными знаниями о природе, культуре, истории и туристических маршрутах Алтая."
-    //     },
-    //     {
-    //       id: 1,
-    //       name: "Игорь Алтайский",
-    //       work: "10",
-    //       description: "Наш специалист по турам по Алтаю горячо верит в важность устойчивого туризма и экологической ответственности. Он стремится минимизировать отрицательное воздействие на природу и активно пропагандирует понимание и сохранение уникальной экосистемы Алтая."
-    //     }],
-    //     [{
-    //       id: 2,
-    //       name: "Станеслава Вожатая 1",
-    //       work: "10",
-    //       description: "Наш специалист по турам по Алтаю - настоящий эксперт и страстный поклонник этого уникального региона. Он обладает обширными знаниями о природе, культуре, истории и туристических маршрутах Алтая."
-    //     },
-    //     {
-    //       id: 3,
-    //       name: "Станеслава Вожатая 2",
-    //       work: "10",
-    //       description: "Наш специалист по турам по Алтаю - настоящий эксперт и страстный поклонник этого уникального региона. Он обладает обширными знаниями о природе, культуре, истории и туристических маршрутах Алтая."
-    //     }],
-    //   ]
-    // }
-  }
-}
+      return arr;
+    },
+  },
+  methods: {
+    async getSpecialists() {
+      try {
+        this.specialists = await this.$axios.$get("/specialists/");
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
-
 .swiperSpec {
   width: 100%;
 }
@@ -119,7 +107,6 @@ export default {
     padding-bottom: 80px;
   }
 }
-
 .specialists {
   &__title {
     font-size: 40px;
@@ -138,7 +125,7 @@ export default {
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    color: #7D92A1;
+    color: #7d92a1;
     margin-bottom: 70px;
     text-align: center;
     @include phone {
@@ -149,11 +136,18 @@ export default {
   &__swiper {
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 30px;
     align-items: center;
     @include phone {
       gap: 10px;
     }
+  }
+}
+
+.reverse {
+  flex-direction: row-reverse !important;
+  @include phone {
+    flex-direction: column-reverse !important;
   }
 }
 
@@ -162,17 +156,20 @@ export default {
   flex-direction: column;
   gap: 20px;
   &__data {
-    padding: 20px;
     display: flex;
     flex-direction: row;
-    gap: 15px;
-    flex-shrink: 0;
-    border-radius: 5px;
-    background-color: #F6F8FA;
     justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+
     height: 300px;
+
+    padding: 20px;
+    gap: 15px;
+    border-radius: 5px;
+    background-color: #f6f8fa;
     @include phone {
-      flex-direction: column-reverse;
+      flex-direction: column;
       height: max-content;
     }
   }
@@ -204,16 +201,15 @@ export default {
   }
 
   &__photo {
+    flex-shrink: 0;
+    width: 300px;
+    height: 100%;
     img {
       flex-shrink: 0;
       height: 100%;
       width: 100%;
       object-fit: cover;
     }
-    flex-shrink: 0;
-    width: 300px;
-    height: 100%;
-
     @include phone {
       width: 100%;
       height: 300px;
@@ -221,11 +217,13 @@ export default {
   }
 }
 
-.swiper-button-prev, .swiper-button-next {
+.swiper-button-prev,
+.swiper-button-next {
   position: relative;
   width: 42px;
   height: 42px;
   color: $c-orange;
+  margin: 0;
 }
 
 .swiper-button-prev {
@@ -235,5 +233,13 @@ export default {
 .swiper-button-prev:after,
 .swiper-button-next:after {
   display: none;
+}
+.swiper-button-prev {
+  left: 0px;
+  right: auto;
+}
+.swiper-button-next {
+  right: 0px;
+  left: auto;
 }
 </style>
