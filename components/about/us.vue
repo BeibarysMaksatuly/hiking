@@ -39,13 +39,13 @@
 
   &__container {
     width: 100%;
+    max-width: 837px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
     align-items: center;
     justify-content: center;
     text-align: center;
-    max-width: 837px;
+    gap: 20px;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 70px;
@@ -81,7 +81,7 @@
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    color: #7D92A1;
+    color: #7d92a1;
     @include phone {
       font-size: 14px;
     }
@@ -118,12 +118,12 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 25px;
     justify-items: space-between;
-     > div {
+    > div {
       position: relative;
       @include phone {
         height: 248px;
       }
-     }
+    }
 
     @include phone {
       grid-template-columns: 1fr;

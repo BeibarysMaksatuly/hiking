@@ -1,36 +1,35 @@
 <template>
   <div class="temple">
-    <div class="container-1">
+    <img src="@/assets/images/temple.png" alt="temple" />
+    <div class="cont_block">
       <div class="temple__cont">
         <div class="temple__title">{{ $t("about.history") }}</div>
         <div class="temple__subtitle">{{ $t("about.partner1") }}</div>
         <div class="temple__text">{{ $t("about.templeText") }}</div>
       </div>
     </div>
-    <img src="@/assets/images/temple.png" alt="temple"/>
   </div>
 </template>
 <style lang="scss" scoped>
 .temple {
-  height: 591px;
-  background-color: #F6F8FA;
-  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background-color: #f6f8fa;
   @include phone {
-    height: 1101px;
+    flex-direction: column;
   }
-
-
   img {
-    width: 760px;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-
+    width: 52.7%;
+    height: 591px;
+    object-fit: cover;
     @include phone {
       width: 100%;
-      height: 591px;
     }
+  }
+  .cont_block {
+    display: flex;
+    align-items: center;
   }
 
   &__cont {
@@ -38,8 +37,10 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding-left: 60px;
     @include phone {
       width: 100%;
+      padding: 50px 16px 80px;
     }
   }
 
@@ -64,26 +65,14 @@
   }
 
   &__text {
-    color:  #7D92A1;
+    color: #7d92a1;
     font-size: 18px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
     line-height: normal;
     @include phone {
       font-size: 18px;
     }
-  }
-}
-
-.container-1 {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 100%;
-  @include phone {
-    flex-direction: column;
-    justify-content: flex-start;
-    padding-top: 641px;
   }
 }
 </style>
