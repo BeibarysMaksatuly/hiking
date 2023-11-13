@@ -12,6 +12,9 @@
           :to="localePath(link.to)"
           :key="idx"
           class="header__link"
+          :class="{
+            'active-link': isActiveLink(link),
+          }"
         >
           {{ link.name }}
         </nuxt-link>
@@ -149,6 +152,9 @@ export default {
         },
       ];
     },
+    isActiveLink() {
+      return (link) => this.$route.path === link.to;
+    },
     languages() {
       return [
         {
@@ -175,6 +181,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.active-link {
+  color: #fecc01 !important;
+}
 svg {
   cursor: pointer;
   path {

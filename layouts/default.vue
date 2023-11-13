@@ -81,4 +81,8 @@ export default {
 .v-application .primary--text {
   color: #324552 !important;
 }
+.v-application .info {
+  background-color: initial !important;
+  border-color: initial !important;
+}
 </style>
