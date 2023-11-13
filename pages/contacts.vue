@@ -29,32 +29,66 @@
               </div>
             </div>
           </div>
-          <div class="form__data">
-            <UiInput
-              class="input"
-              :label="$t('main.form.name')"
-              :model.sync="form.full_name"
-            />
-            <UiInput
-              class="input"
-              :label="$t('main.form.phone')"
-              :model.sync="form.phone_number"
-            />
-            <UiInput
-              class="input"
-              :label="$t('main.form.email')"
-              :model.sync="form.email"
-            />
-            <UiInput
-              class="input"
-              :label="$t('main.form.comment')"
-              :required="false"
-              :model.sync="form.comment"
-            />
+          <v-form ref="form" @submit.prevent="postForm" class="form__data">
+            <div class="inputs">
+              <p>
+                {{ $t("main.form.name") }}
+                <span class="red">*</span>
+              </p>
+              <v-text-field
+                v-model="form.full_name"
+                :placeholder="$t('main.form.placeholder_name')"
+                solo
+                dense
+                height="41"
+                background-color="rgba(246, 248, 250, 0.70)"
+                required
+                :rules="rules"
+              ></v-text-field>
+              <p>
+                {{ $t("main.form.phone") }}
+                <span class="red">*</span>
+              </p>
+              <v-text-field
+                v-model="form.phone_number"
+                placeholder="+7 (XXX) XXX XX XX"
+                solo
+                dense
+                height="41"
+                background-color="rgba(246, 248, 250, 0.70)"
+                required
+                :rules="phoneRules"
+                v-mask="'+7(###)-###-##-##'"
+              ></v-text-field>
+              <p>
+                {{ $t("main.form.email") }}
+                <span class="red">*</span>
+              </p>
+              <v-text-field
+                v-model="form.email"
+                :placeholder="$t('main.form.email')"
+                solo
+                dense
+                height="41"
+                background-color="rgba(246, 248, 250, 0.70)"
+                required
+                :rules="emailRules"
+              ></v-text-field>
+              <p>{{ $t("main.form.comment") }}</p>
+              <v-text-field
+                v-model="form.comment"
+                :placeholder="$t('main.form.comment')"
+                solo
+                dense
+                hide-details=""
+                height="41"
+                background-color="rgba(246, 248, 250, 0.70)"
+              ></v-text-field>
+            </div>
             <UiButton class="data__button" @click.native="postForm()">{{
               $t("main.form.sendRequest")
             }}</UiButton>
-          </div>
+          </v-form>
           <div class="contacts__contact">
             <div class="contact__cont">
               <div class="contact__title">
@@ -141,22 +175,6 @@ export default {
       completed: false,
     };
   },
-  methods: {
-    postForm() {
-      this.$axios.$post("/applications/", this.form);
-    },
-    async postForm() {
-      try {
-        await this.$axios.$post("/applications/", this.form);
-        this.success = true;
-      } catch (e) {
-        console.log(e);
-        this.success = false;
-      } finally {
-        this.completed = true;
-      }
-    },
-  },
   computed: {
     links() {
       return [
@@ -170,6 +188,40 @@ export default {
         },
       ];
     },
+    rules() {
+      return [(value) => !!value || this.$t("main.form.required")];
+    },
+    phoneRules() {
+      return [
+        ((v) => {
+          return !!v || this.$t("main.form.telephone");
+        },
+        (v) => v.length == 17 || this.$t("main.form.wrong_number")),
+      ];
+    },
+    emailRules() {
+      return [
+        (v) => !!v || this.$t("main.form.email_name"),
+        (v) => /.+@.+\..+/.test(v) || this.$t("main.form.wrong_email"),
+      ];
+    },
+  },
+  methods: {
+    postForm() {
+      this.$axios.$post("/applications/", this.form);
+    },
+    async postForm() {
+      if (!this.$refs.form.validate()) return;
+      try {
+        await this.$axios.$post("/applications/", this.form);
+        this.success = true;
+      } catch (e) {
+        console.log(e);
+        this.success = false;
+      } finally {
+        this.completed = true;
+      }
+    },
   },
 };
 </script>
@@ -181,6 +233,7 @@ export default {
   color: #fff;
   @include phone {
     background-size: cover;
+    background-image: url("~/assets/images/contacts-bg_mobile.png");
   }
   &__overlay {
     background: radial-gradient(
@@ -215,11 +268,17 @@ export default {
     position: relative;
     z-index: 3;
     padding-bottom: 155.5px;
+    @include phone {
+      padding-bottom: 130px;
+    }
   }
   &__container {
     display: flex;
     flex-direction: row;
     gap: 85px;
+    @media (max-width: 1140px) {
+      gap: 40px;
+    }
     @include phone {
       flex-direction: column;
       gap: 80px;
@@ -228,6 +287,9 @@ export default {
 
   &__join {
     padding-right: 12px;
+    @include phone {
+      padding-right: 0px;
+    }
   }
 
   &__join,
@@ -245,6 +307,11 @@ export default {
     letter-spacing: 0.126px;
     margin-top: 94.5px;
     margin-bottom: 40px;
+    @include phone {
+      font-size: 24px;
+      letter-spacing: 0.072px;
+      margin-top: 53px;
+    }
   }
   &__subtitle {
     font-size: 18px;
@@ -255,6 +322,9 @@ export default {
     align-items: center;
     gap: 10px;
     margin-bottom: 20px;
+    @include phone {
+      font-size: 16px;
+    }
   }
   &__description {
     font-size: 18px;
@@ -263,6 +333,7 @@ export default {
     line-height: 21px;
     margin-bottom: 97px;
     @include phone {
+      font-size: 16px;
       margin-bottom: 38px;
     }
   }
@@ -277,6 +348,10 @@ export default {
   &__add-socials {
     display: flex;
     gap: 20px;
+    a {
+      width: 32px;
+      height: 32px;
+    }
   }
 
   &__contact {
@@ -296,6 +371,13 @@ export default {
       height: 700px;
       flex-shrink: 0;
       background: rgba(166, 166, 166, 0.6);
+      @include phone {
+        top: -50px;
+        height: 537px;
+      }
+    }
+    @include phone {
+      margin: 0;
     }
   }
 }
@@ -314,9 +396,23 @@ export default {
     }
   }
 }
-:deep(.input__text) {
-  opacity: 0.7 !important;
-  backdrop-filter: blur(2px);
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  p {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 21px;
+    margin-bottom: 10px;
+    span {
+      color: rgba(220, 53, 69, 1);
+    }
+    @include phone {
+      font-size: 16px;
+    }
+  }
 }
 
 .contact {
@@ -341,6 +437,9 @@ export default {
     font-style: normal;
     font-weight: 600;
     line-height: 21px;
+    @include phone {
+      font-size: 16px;
+    }
   }
   &__data {
     font-size: 16px;
