@@ -1,17 +1,19 @@
 <template>
   <div class="instagram">
     <div class="hello">
-      <UiHeading class="container-1">
-        <span>{{ $t("main.instagram.ourInsta") }} - </span
-        ><a
-          href="https://instagram.com/campinglife.kz?igshid=enN5MWVnaG9mMWs="
-          target="_blank"
-          class="instagram__title"
-          >@campinglife.kz</a
-        >
-      </UiHeading>
-      <div class="instagram__text container-1">
-        {{ $t("main.instagram.subscribe") }}
+      <div class="container-1">
+        <UiHeading>
+          <span>{{ $t("main.instagram.ourInsta") }} - </span
+          ><a
+            href="https://instagram.com/campinglife.kz?igshid=enN5MWVnaG9mMWs="
+            target="_blank"
+            class="instagram__title"
+            >@campinglife.kz</a
+          >
+        </UiHeading>
+        <div class="instagram__text">
+          {{ $t("main.instagram.subscribe") }}
+        </div>
       </div>
       <div class="instagram__images">
         <img
