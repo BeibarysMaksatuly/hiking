@@ -1,32 +1,26 @@
 <template>
-  <div>
-    <v-overlay :value="$fetchState.pending" z-index="999999">
-        <v-progress-circular
-          :size="70"
-          :width="7"
-          color="#EF7F1A"
-          indeterminate
-      ></v-progress-circular>
-    </v-overlay>
-    <div class="advices">
-      <div class="container-1">
-        <UiBreadcrumbs :links="links" />
-        <UiHeading class="advices__title">{{ $t("header.advices") }}</UiHeading>
-        <div class="advices__container">
-          <div 
-            class="advices__category" 
-            v-for="category in categories" 
-            :key="category.id"
-            @click="$router.push(localePath(`/advices/${category.id}`))"
-          >
-            <div class="category__title">{{ category.title }}</div>
-            <div class="category__data">
-              <div class="category__info" v-for="info in category.recommendations" :key="info.id">
-                <img :src="info.image" alt="info image" class="info__image" />
-                <div class="info__text">
-                  <div class="info__title">{{ info.title }}</div>
-                  <div class="info__subtitle" v-html="info.text"></div>
-                </div>
+  <div class="advices">
+    <div class="container-1">
+      <UiBreadcrumbs :links="links" />
+      <UiHeading class="advices__title">{{ $t("header.advices") }}</UiHeading>
+      <div class="advices__container">
+        <div
+          class="advices__category"
+          v-for="category in categories"
+          :key="category.id"
+          @click="$router.push(localePath(`/advices/${category.id}`))"
+        >
+          <div class="category__title">{{ category.title }}</div>
+          <div class="category__data">
+            <div
+              class="category__info"
+              v-for="info in category.recommendations"
+              :key="info.id"
+            >
+              <img :src="info.image" alt="info image" class="info__image" />
+              <div class="info__text">
+                <div class="info__title">{{ info.title }}</div>
+                <div class="info__subtitle" v-html="info.text"></div>
               </div>
             </div>
           </div>
@@ -35,47 +29,53 @@
     </div>
     <SharedTickets />
     <SharedInstagram />
+    <v-overlay :value="$fetchState.pending" z-index="999999">
+      <v-progress-circular
+        :size="70"
+        :width="7"
+        color="#EF7F1A"
+        indeterminate
+      ></v-progress-circular>
+    </v-overlay>
   </div>
-
 </template>
 <script>
 export default {
   data() {
     return {
-      categories: []
-    }
+      categories: [],
+    };
   },
   async fetch() {
-    await this.getCategories()
+    await this.getCategories();
   },
   methods: {
     async getCategories() {
-      this.categories = await this.$axios.$get('/categories/')
-    }
+      this.categories = await this.$axios.$get("/categories/");
+    },
   },
   computed: {
     links() {
       return [
         {
           title: this.$t("header.main"),
-          url: '/'
+          url: "/",
         },
         {
           title: this.$t("header.advices"),
-          url: '/advices'
-        }
-      ]
-    }
-  }
-}
+          url: "/advices",
+        },
+      ];
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .advices {
-  background-color: #F8FAFB;
+  background-color: #f8fafb;
   &__title {
     margin-bottom: 30px;
   }
-
 
   &__category {
     display: flex;
@@ -168,7 +168,7 @@ export default {
     text-overflow: ellipsis;
 
     &::after {
-      content: "..."
+      content: "...";
     }
     @include phone {
       height: 90px;
