@@ -8,7 +8,6 @@
           class="advices__category"
           v-for="category in categories"
           :key="category.id"
-          @click="$router.push(localePath(`/advices/${category.id}`))"
         >
           <div class="category__title">{{ category.title }}</div>
           <div class="category__data">
@@ -16,11 +15,12 @@
               class="category__info"
               v-for="info in category.recommendations"
               :key="info.id"
+              @click="$router.push(localePath(`/advices/${info.id}`))"
             >
               <img :src="info.image" alt="info image" class="info__image" />
               <div class="info__text">
                 <div class="info__title">{{ info.title }}</div>
-                <div class="info__subtitle" v-html="info.text"></div>
+                <div class="info__subtitle">{{ info.description }}</div>
               </div>
             </div>
           </div>
@@ -39,6 +39,7 @@
     </v-overlay>
   </div>
 </template>
+
 <script>
 export default {
   data() {
@@ -70,6 +71,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss" scoped>
 .advices {
   background-color: #f8fafb;
@@ -77,20 +79,23 @@ export default {
     margin-bottom: 30px;
   }
 
-  &__category {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-  }
-
   &__container {
     display: flex;
     flex-direction: column;
     gap: 50px;
   }
+
+  &__category {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
 }
 .container-1 {
   padding-bottom: 80px;
+  @include phone {
+    padding-bottom: 140px;
+  }
 }
 
 .category {
@@ -102,27 +107,29 @@ export default {
     letter-spacing: 0.084px;
     @include phone {
       font-size: 20px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 120%; /* 24px */
       letter-spacing: 0.06px;
     }
   }
   &__data {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     column-gap: 20px;
     row-gap: 30px;
     @include phone {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 430px) {
+      grid-template-columns: repeat(1, 1fr);
     }
   }
 
   &__info {
+    display: flex;
+    flex-direction: column;
     border-radius: 10px;
     background-color: #fff;
     height: 376px;
-    border-radius: 15px 15px 0px 0px;
+		cursor: pointer;
     @include phone {
       height: 305px;
     }
@@ -134,7 +141,7 @@ export default {
     width: 100%;
     height: 220px;
     object-fit: cover;
-    border-radius: 15px 15px 0px 0px;
+    border-radius: 10px 10px 0px 0px;
     @include phone {
       height: 154px;
     }
@@ -143,8 +150,8 @@ export default {
   &__text {
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    margin-bottom: 2px;
+    gap: 15px;
+    padding: 20px 20px 25px;
     @include phone {
       padding: 10px;
     }
@@ -156,26 +163,23 @@ export default {
     line-height: 24px;
     @include phone {
       font-size: 14px;
-      font-style: normal;
-      font-weight: 600;
       line-height: 130%;
     }
   }
   &__subtitle {
-    height: 72px;
-    overflow: hidden;
-    word-wrap: normal;
-    text-overflow: ellipsis;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
 
-    &::after {
-      content: "...";
-    }
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
     @include phone {
-      height: 90px;
       font-size: 12px;
-      font-style: normal;
-      font-weight: 400;
       line-height: 15px;
+      -webkit-line-clamp: 5;
     }
   }
 }

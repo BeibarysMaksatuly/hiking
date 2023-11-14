@@ -1,52 +1,65 @@
 <template>
   <div class="advice">
-    <v-overlay :value="$fetchState.pending" z-index="999999">
-        <v-progress-circular
-          :size="70"
-          :width="7"
-          color="#EF7F1A"
-          indeterminate
-      ></v-progress-circular>
-    </v-overlay>
+    <pre>{{ category }}</pre>
     <UiBreadcrumbs :links="links" class="container-1" />
     <div class="advice__hero">
-      <img :src="category.image" alt="category image" />
+      <img :src="category.detail_image" alt="category image" />
     </div>
     <div class="container-1">
       <UiHeading class="advice__title">{{ $t("header.advices") }}</UiHeading>
       <client-only>
-        <swiper :pagination="true"  class="adviceSwiper" :options="swiperOptions">
-          <swiper-slide v-for="file in category.files" :key="file.id" class="advice__photo">
+        <swiper
+          :pagination="true"
+          class="adviceSwiper"
+          :options="swiperOptions"
+        >
+          <swiper-slide
+            v-for="file in category.files"
+            :key="file.id"
+            class="advice__photo"
+          >
             <img :src="file.file" alt="mini photo" />
           </swiper-slide>
           <div class="swiper-pagination" slot="pagination" />
         </swiper>
       </client-only>
       <div class="advice__text" v-html="category.text"></div>
-      <div class="advice__other" v-if="otherCategories && otherCategories.length">
+      <div
+        class="advice__other"
+        v-if="otherCategories && otherCategories.length"
+      >
         <div class="category__title">{{ $t("advices.otherAdvices") }}</div>
-          <div class="category__data">
-            <div class="category__info" 
-              v-for="info in otherCategories" 
-              :key="info.id"
-              @click="$router.push(localePath(`/advices/${info.id}`))"
-            >
-              <img :src="info.image" alt="info image" class="info__image" />
-              <div class="info__text">
-                <div class="info__title">{{ info.title }}</div>
-                <div class="info__subtitle" v-html="info.text"></div>
-              </div>
+        <div class="category__data">
+          <div
+            class="category__info"
+            v-for="info in otherCategories"
+            :key="info.id"
+            @click="$router.push(localePath(`/advices/${info.id}`))"
+          >
+            <img :src="info.image" alt="info image" class="info__image" />
+            <div class="info__text">
+              <div class="info__title">{{ info.title }}</div>
+              <div class="info__subtitle" v-html="info.text"></div>
             </div>
           </div>
+        </div>
       </div>
     </div>
     <SharedTickets />
     <SharedInstagram />
+    <v-overlay :value="$fetchState.pending" z-index="999999">
+      <v-progress-circular
+        :size="70"
+        :width="7"
+        color="#EF7F1A"
+        indeterminate
+      ></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 <script>
-import Swiper, { Navigation, Pagination } from 'swiper';
-Swiper.use([Navigation, Pagination])
+import Swiper, { Navigation, Pagination } from "swiper";
+Swiper.use([Navigation, Pagination]);
 export default {
   data() {
     return {
@@ -58,45 +71,45 @@ export default {
           el: ".swiper-pagination",
           type: "bullets",
           clickable: true,
-          },
         },
-    }
+      },
+    };
   },
   async fetch() {
-    await this.getCategory()
-    await this.otherCatgories()
+    await this.getCategory();
+    await this.otherCatgories();
   },
   methods: {
     async getCategory() {
-      this.category = await this.$axios.$get(`/recommendation/${this.id}/`)
+      this.category = await this.$axios.$get(
+        `/recommendation/${this.$route.params.id}/`
+      );
     },
     async otherCatgories() {
-      this.otherCategories = await this.$axios.$get('/exclude/', { params: { recommendation_id: this.id } })
-      console.log(this.otherCategories)
-    }
+      this.otherCategories = await this.$axios.$get("/exclude/", {
+        params: { recommendation_id: this.$route.params.id },
+      });
+    },
   },
   computed: {
-    id() {
-      return Number(this.$route.params.id)
-    },
     links() {
       return [
         {
           title: this.$t("header.main"),
-          url: '/'
+          url: "/",
         },
         {
           title: this.$t("header.advices"),
-          url: '/advices'
-        }
-      ]
-    }
-  }
-}
+          url: "/advices",
+        },
+      ];
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .advice {
-  background-color: #F8FAFB;
+  background-color: #f8fafb;
 
   &__hero {
     width: 100%;
@@ -158,7 +171,7 @@ export default {
   background: $c-orange !important;
 }
 :deep(.swiper-pagination-bullet) {
-  background: $c-white ;
+  background: $c-white;
   opacity: 1;
 }
 
@@ -239,7 +252,7 @@ export default {
     text-overflow: ellipsis;
 
     &::after {
-      content: "..."
+      content: "...";
     }
     @include phone {
       height: 90px;
