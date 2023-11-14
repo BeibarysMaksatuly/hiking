@@ -2,8 +2,8 @@
   <div class="service">
     <UiBreadcrumbs :links="links" class="container-1" />
     <div class="service__hero">
-      <img :src="service.image" alt="category image" />
-      <p class="container-1">Самостоятельные путешествия по Алтаю</p>
+      <img :src="service.detail_image" alt="category image" />
+      <p class="container-1">{{ service.description }}</p>
     </div>
     <div class="container-1">
       <UiHeading class="service__title">{{ service.name }}</UiHeading>
