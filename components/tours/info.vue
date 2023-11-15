@@ -91,7 +91,9 @@ export default {
       row-gap: 30px;
     }
     @media (max-width: 430px) {
-      grid-template-columns: repeat(1, 1fr);
+      display: flex;
+      flex-direction: column;
+      grid-template-columns: unset !important;
     }
 
     &-row {
