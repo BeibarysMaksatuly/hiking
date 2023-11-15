@@ -16,8 +16,9 @@
       </div>
     </div>
     <ToursModal
-      v-if="modalOpen"
+      v-if="currentTour"
       :tour="currentTour"
+      :modalOpen="modalOpen"
       @close-modal="modalOpen = false"
     />
     <v-overlay :value="$fetchState.pending" z-index="999999">
@@ -93,7 +94,7 @@ export default {
       this.query.duration = [minTime, maxTime];
     },
     async getTours() {
-      this.$fetchState.pending = true;	
+      this.$fetchState.pending = true;
       const result = await this.$axios.$get("/tours/", {
         params: {
           formats: this.query.formats.join(","),
