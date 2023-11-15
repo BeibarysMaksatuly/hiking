@@ -29,7 +29,6 @@ export default {
       default: () => []
     },
     checked: {
-      type: [String, Array, Number],
       required: true
     },
   },

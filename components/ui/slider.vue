@@ -2,13 +2,13 @@
   <div class="slider">
     <div class="slider__label" v-if="label">{{ label }}</div>
     <v-range-slider
-        v-model="localRange"
-        :max="max"
-        :min="min"
-        :step="1"
-        color="#324552"
-        hide-details
-        @change="() => $emit('input', localRange)"
+      v-model="range"
+      :max="max"
+      :min="min"
+      :step="1"
+      color="#324552"
+      hide-details
+      @change="() => $emit('input', range)"
     ></v-range-slider>
     <div class="slider__result">
       От <span>{{ range[0] }}</span> до <span>{{ range[1] }}</span> {{ title }}
@@ -20,38 +20,31 @@ export default {
   props: {
     label: {
       type: String,
-      default: ""
+      default: "",
     },
     range: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     max: {
       type: Number,
-      default: 0
+      default: 0,
     },
     min: {
       type: Number,
-      default: 0
+      default: 0,
     },
     title: {
       type: String,
-      default: ""
-    }
-  },
-  data() {
-    return {
-      localRange: this.range
-    }
+      default: "",
+    },
   },
   watch: {
-    range: {
-      handler(val) {
-        this.localRange = val
-      }
-    }
-  }
-}
+    range(newVal) {
+      this.range = newVal;
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .slider {
@@ -64,7 +57,7 @@ export default {
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
-    margin-bottom: 15px; 
+    margin-bottom: 15px;
   }
 
   &__result {

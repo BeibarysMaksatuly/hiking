@@ -94,7 +94,6 @@ export default {
   },
   data() {
     return {
-      isOpen: false,
       chosenCountries: [],
       chosenSeasons: [],
       chosenFormats: [],
@@ -105,6 +104,7 @@ export default {
       maxBudget: 0,
       minBudget: 0,
       query: {
+        formats: [],
         countries: [],
         seasons: [],
         tags: [],
@@ -113,13 +113,14 @@ export default {
         budget: [0, 0],
         duration: [0, 0],
       },
+      isOpen: false,
     };
   },
   async fetch() {
     await this.getMaxMinData();
+    await this.getFormats();
     await this.getCountries();
     await this.getSeasons();
-    await this.getFormats();
     await this.getPlacements();
     await this.getTags();
     this.query = this.filters;
@@ -155,14 +156,14 @@ export default {
       this.maxBudget = data.max_price || 0;
       this.minBudget = data.min_price || 0;
     },
+    async getFormats() {
+      this.chosenFormats = await this.$axios.$get("/formats/");
+    },
     async getCountries() {
       this.chosenCountries = await this.$axios.$get("/country-list/");
     },
     async getSeasons() {
       this.chosenSeasons = await this.$axios.$get("/seasons/");
-    },
-    async getFormats() {
-      this.chosenFormats = await this.$axios.$get("/formats/");
     },
     async getPlacements() {
       this.chosenPlacements = await this.$axios.$get("/placements/");
@@ -176,6 +177,15 @@ export default {
     choseSeasonInput(value) {
       this.query.seasons = value;
     },
+    changeDuration(value) {
+      this.query.duration = value;
+    },
+    changeBudget(value) {
+      this.query.budget = value;
+    },
+    choseDirection(value) {
+      this.query.direction = value;
+    },
     choseFormat(value) {
       this.query.formats = value;
     },
@@ -185,22 +195,15 @@ export default {
     choseTags(value) {
       this.query.tags = value;
     },
-    choseDirection(value) {
-      this.query.direction = value;
-    },
-    changeDuration(value) {
-      this.query.duration = value;
-    },
-    changeBudget(value) {
-      this.query.budget = value;
-    },
     reset() {
+      this.query.formats = [];
       this.query.countries = [];
       this.query.seasons = [];
-      this.query.formats = [];
-      this.query.placements = [];
       this.query.tags = [];
-      this.query.direction = 1;
+      this.query.placements = [];
+      this.query.direction = null;
+      this.query.budget = [0, 0];
+      this.query.duration = [0, 0];
     },
   },
 };
