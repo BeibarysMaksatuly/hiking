@@ -67,13 +67,12 @@ export default {
   },
   data() {
     return {
-      country: null,
-      countries: [],
-      seasons: [],
-      season: null,
-      tourName: "",
       formats: [],
       format: "",
+      countries: [],
+      country: null,
+      seasons: [],
+      season: null,
       months: [],
       month: null,
       // currentBackgroundIndex: 0,
@@ -123,10 +122,10 @@ export default {
         this.localeLocation({
           path: "/tours",
           query: {
-            countries: this.country,
-            seasons: this.season,
-            month: this.month,
-            search: this.tourName,
+            ...(this.format && { formats: this.format }),
+            ...(this.country && { countries: this.country }),
+            ...(this.season && { seasons: this.season }),
+            ...(this.month && { month: this.month }),
           },
         })
       );

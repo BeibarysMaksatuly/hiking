@@ -1,86 +1,96 @@
 <template>
   <div class="filter">
     <div class="filter__data">
-        <div class="filter__main">
-          <UiCheckbox 
-            :label="$t('tours.country')" 
-            :options="chosenCountries" 
-            :checked="query.countries" 
-            @input="choseInput"
-          />
-          <UiCheckbox 
-            :label="$t('tours.season')" 
-            :options="chosenSeasons" 
-            :checked="query.seasons" 
-            @input="choseSeasonInput"
-          />
-          <UiSlider
-            :label="$t('tours.duration')"
-            :range="query.duration"
-            :max="maxTime"
-            :min="minTime"
-            :step="1"
-            hide-details
-            title="дней"
-            @input="changeDuration"
-          />
-        </div>
-        <div class="filter__add" v-if="isOpen || !isMobile">
-          <UiSlider
-            :label="$t('tours.budget')"
-            :range="query.budget"
-            :max="maxBudget"
-            :min="minBudget"
-            :step="1"
-            hide-details
-            title="тг"
-            @input="changeBudget"
-          />
-          <UiRadio 
-            :label="$t('tours.type')" 
-            :options="toursType" 
-            :checked="query.direction" 
-            @input="choseDirection"
-          />
-          <UiCheckbox 
-            :label="$t('tours.format')" 
-            :options="chosenFormats" 
-            :checked="query.formats" 
-            @input="choseFormat"
-          />
-          <UiCheckbox 
-            :label="$t('tours.placement')" 
-            :options="chosenPlacements" 
-            :checked="query.placements" 
-            @input="chosePlacements"
-          />
-          <UiCheckbox 
-            :label="$t('tours.tags')" 
-            :options="chosenTags" 
-            :checked="query.tags"
-            @input="choseTags" 
-          />
-        </div>
+      <div class="filter__main">
+        <UiCheckbox
+          :label="$t('tours.country')"
+          :options="chosenCountries"
+          :checked="query.countries"
+          @input="choseInput"
+        />
+        <UiCheckbox
+          :label="$t('tours.season')"
+          :options="chosenSeasons"
+          :checked="query.seasons"
+          @input="choseSeasonInput"
+        />
+        <UiSlider
+          :label="$t('tours.duration')"
+          :range="query.duration"
+          :max="maxTime"
+          :min="minTime"
+          :step="1"
+          hide-details
+          title="дней"
+          @input="changeDuration"
+        />
+      </div>
+      <div class="filter__add" v-if="isOpen || !isMobile">
+        <UiSlider
+          :label="$t('tours.budget')"
+          :range="query.budget"
+          :max="maxBudget"
+          :min="minBudget"
+          :step="1"
+          hide-details
+          title="тг"
+          @input="changeBudget"
+        />
+        <UiRadio
+          :label="'Направления'"
+          :options="toursType"
+          :checked="query.direction"
+          @input="choseDirection"
+        />
+        <UiCheckbox
+          :label="$t('tours.format')"
+          :options="chosenFormats"
+          :checked="query.formats"
+          @input="choseFormat"
+        />
+        <UiCheckbox
+          :label="$t('tours.placement')"
+          :options="chosenPlacements"
+          :checked="query.placements"
+          @input="chosePlacements"
+        />
+        <UiCheckbox
+          :label="$t('tours.tags')"
+          :options="chosenTags"
+          :checked="query.tags"
+          @input="choseTags"
+        />
+      </div>
     </div>
-    <div v-if="isMobile" @click="isOpen = !isOpen" :class="['filter__show-more-mobile']">
-      <div>{{ isOpen ? $t("tours.lessParameters") : $t("tours.moreParameters") }}</div>
+    <div
+      v-if="isMobile"
+      @click="isOpen = !isOpen"
+      :class="['filter__show-more-mobile']"
+    >
+      <div>
+        {{ isOpen ? $t("tours.lessParameters") : $t("tours.moreParameters") }}
+      </div>
       <ChevronDown :class="['filter__down', isOpen && 'filter__down-open']" />
     </div>
-    <UiButton class="filter__apply" @click.native="$emit('filter', query)">{{ $t("tours.apply") }}</UiButton>
-    <UiButton type="error" @click.native="reset">{{ $t("tours.reset") }}</UiButton>
+    <UiButton class="filter__apply" @click.native="$emit('filter', query)">{{
+      $t("tours.apply")
+    }}</UiButton>
+    <UiButton type="error" @click.native="reset">{{
+      $t("tours.reset")
+    }}</UiButton>
   </div>
 </template>
 <script>
-import ChevronDown from 'icons/chevron-down.svg?inline';
+import ChevronDown from "icons/chevron-down.svg?inline";
 export default {
   components: {
-    ChevronDown
+    ChevronDown,
   },
   props: {
     filters: {
       type: Object,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   data() {
     return {
@@ -99,100 +109,101 @@ export default {
         seasons: [],
         tags: [],
         placements: [],
-        direction: 1,
+        direction: null,
         budget: [0, 0],
         duration: [0, 0],
-      }
-    }
+      },
+    };
   },
   async fetch() {
-    await this.getMaxMinData()
-    await this.getCountries()
-    await this.getSeasons()
-    await this.getFormats()
-    await this.getPlacements()
-    await this.getTags() 
-    this.query = this.filters
+    await this.getMaxMinData();
+    await this.getCountries();
+    await this.getSeasons();
+    await this.getFormats();
+    await this.getPlacements();
+    await this.getTags();
+    this.query = this.filters;
   },
   watch: {
     filters: {
       handler(val) {
-        this.query = val
+        this.query = val;
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   computed: {
     toursType() {
       return [
-        { id: 1, name: this.$t('tours.group') }, 
-        { id: 2, name: this.$t('tours.individual') } 
-      ]
+        { id: null, name: "Вcе" },
+        { id: 1, name: "Внутри Казахстана" },
+        { id: 2, name: "Зарубежные" },
+      ];
     },
     isMobile() {
       if (process.client) {
-        return window.innerWidth <= 960
+        return window.innerWidth <= 960;
       }
-      return true
-    }
+      return true;
+    },
   },
   methods: {
     async getMaxMinData() {
-      const data = await this.$axios.$get('/tour-filter-data/')
-      this.maxTime = data.max_date || 0
-      this.minTime = data.min_date || 0
-      this.maxBudget = data.max_price || 0
-      this.minBudget = data.min_price || 0
+      const data = await this.$axios.$get("/tour-filter-data/");
+      this.maxTime = data.max_date || 0;
+      this.minTime = data.min_date || 0;
+      this.maxBudget = data.max_price || 0;
+      this.minBudget = data.min_price || 0;
     },
     async getCountries() {
-      this.chosenCountries = await this.$axios.$get('/country-list/')
+      this.chosenCountries = await this.$axios.$get("/country-list/");
     },
     async getSeasons() {
-      this.chosenSeasons = await this.$axios.$get('/seasons/')
+      this.chosenSeasons = await this.$axios.$get("/seasons/");
     },
     async getFormats() {
-      this.chosenFormats = await this.$axios.$get('/formats/')
+      this.chosenFormats = await this.$axios.$get("/formats/");
     },
     async getPlacements() {
-      this.chosenPlacements = await this.$axios.$get('/placements/')
+      this.chosenPlacements = await this.$axios.$get("/placements/");
     },
     async getTags() {
-      this.chosenTags = await this.$axios.$get('/tags/')
+      this.chosenTags = await this.$axios.$get("/tags/");
     },
     choseInput(value) {
-      this.query.countries = value
+      this.query.countries = value;
     },
     choseSeasonInput(value) {
-      this.query.seasons = value
+      this.query.seasons = value;
     },
     choseFormat(value) {
-      this.query.formats = value
+      this.query.formats = value;
     },
     chosePlacements(value) {
-      this.query.placements = value
+      this.query.placements = value;
     },
     choseTags(value) {
-      this.query.tags = value
+      this.query.tags = value;
     },
     choseDirection(value) {
-      this.query.direction = value
+      this.query.direction = value;
     },
     changeDuration(value) {
-      this.query.duration = value
+      this.query.duration = value;
     },
     changeBudget(value) {
-      this.query.budget = value
+      this.query.budget = value;
     },
     reset() {
-      this.query.countries = []
-      this.query.seasons = []
-      this.query.formats = []
-      this.query.placements = []
-      this.query.tags = []
-      this.query.direction = 1
-    }
-  }
-}
+      this.query.countries = [];
+      this.query.seasons = [];
+      this.query.formats = [];
+      this.query.placements = [];
+      this.query.tags = [];
+      this.query.direction = 1;
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .filter {
@@ -204,7 +215,9 @@ export default {
   gap: 20px;
   background: #fff;
 
-  &__data, &__main, &__add {
+  &__data,
+  &__main,
+  &__add {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -218,7 +231,7 @@ export default {
     &::-webkit-scrollbar {
       width: 5px;
       // height: 100px;
-      color: #DDE1E6;
+      color: #dde1e6;
     }
     @include phone {
       height: auto;

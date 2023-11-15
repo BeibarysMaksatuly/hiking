@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      localDirection: 1
+      localDirection: null
     }
   },
   watch: {
