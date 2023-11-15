@@ -72,9 +72,11 @@
       </div>
       <ChevronDown :class="['filter__down', isOpen && 'filter__down-open']" />
     </div>
-    <UiButton class="filter__apply" @click.native="$emit('filter', query)">{{
-      $t("tours.apply")
-    }}</UiButton>
+    <UiButton
+      class="filter__apply"
+      @click.native="$emit('filter', query), (isOpen = false)"
+      >{{ $t("tours.apply") }}</UiButton
+    >
     <UiButton type="error" @click.native="reset">{{
       $t("tours.reset")
     }}</UiButton>
@@ -210,11 +212,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .filter {
-  display: flex;
   width: 270px;
-  padding: 20px;
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  padding: 20px;
   gap: 20px;
   background: #fff;
 
@@ -236,8 +239,10 @@ export default {
       // height: 100px;
       color: #dde1e6;
     }
+
     @include phone {
       height: auto;
+      max-height: 100%;
     }
   }
 
@@ -252,6 +257,7 @@ export default {
   &__down {
     width: 24px;
     height: 24px;
+    transition: 0.3s;
     &-open {
       transform: rotate(180deg) !important;
     }

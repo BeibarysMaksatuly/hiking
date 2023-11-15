@@ -93,7 +93,7 @@ export default {
       this.query.duration = [minTime, maxTime];
     },
     async getTours() {
-      this.$fetchState.pending = true;
+      this.$fetchState.pending = true;	
       const result = await this.$axios.$get("/tours/", {
         params: {
           formats: this.query.formats.join(","),
