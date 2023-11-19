@@ -1,37 +1,49 @@
 <template>
   <div class="bread">
-    <div class="bread__header">
+    <div class="bread__header" @click="isOpen = !isOpen">
       <div class="bread__title"><slot name="title"></slot></div>
-      <Chevron :class="['bread__svg', isOpen && 'bread__svg-open']" @click="isOpen = !isOpen" />
+      <Chevron :class="['bread__svg', isOpen && 'bread__svg-open']" />
     </div>
-    <div class="bread__data" v-if="isOpen">
+    <div :id="`content` + id" class="bread__data">
       <slot name="data" />
     </div>
-    <slot name="line"/>
+    <slot name="line" />
   </div>
 </template>
+
 <script>
-import Chevron from '@/assets/icons/chevron-down.svg?inline';
+import Chevron from "@/assets/icons/chevron-down.svg?inline";
 export default {
+  props: ["id"],
   components: {
-    Chevron
+    Chevron,
+  },
+  watch: {
+    isOpen() {
+      const el = document.getElementById("content" + this.id);
+      if (this.isOpen) {
+        el.style.height = `${el.scrollHeight}px`;
+      } else el.style.height = `0`;
+    },
   },
   data() {
     return {
-      isOpen: false
-    }
-  }
-}
+      isOpen: false,
+    };
+  },
+};
 </script>
+
 <style lang="scss" scoped>
 .bread {
   transition: all 0.3s ease;
-  &__header{
-    transition: all 0.5s ease;
+  &__header {
+    transition: all 0.3s ease;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
   }
 
   &__title {
@@ -48,9 +60,16 @@ export default {
   &__svg {
     width: 32px;
     height: 32px;
+    transition: all 0.3s ease;
     &-open {
       transform: rotate(180deg) !important;
     }
+  }
+
+  &__data {
+    height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
   }
 }
 </style>
