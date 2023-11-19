@@ -121,6 +121,8 @@ export default {
   bottom: 30px;
   right: 150px;
   box-shadow: 0px 5px 15px 0px rgba(105, 112, 117);
+  -moz-box-shadow: 0px 5px 15px 0px rgba(105, 112, 117);
+  -webkit-box-shadow: 0px 5px 15px 0px rgba(105, 112, 117);
   border-radius: 50%;
   cursor: pointer;
   path,
