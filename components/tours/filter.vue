@@ -14,6 +14,8 @@
           :checked="query.seasons"
           @input="choseSeasonInput"
         />
+      </div>
+      <div class="filter__add" v-if="isOpen || !isMobile">
         <UiSlider
           :label="$t('tours.duration')"
           :range="query.duration"
@@ -24,8 +26,6 @@
           title="дней"
           @input="changeDuration"
         />
-      </div>
-      <div class="filter__add" v-if="isOpen || !isMobile">
         <UiSlider
           :label="$t('tours.budget')"
           :range="query.budget"

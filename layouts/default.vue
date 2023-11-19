@@ -120,9 +120,11 @@ export default {
   z-index: 11111;
   bottom: 30px;
   right: 150px;
-  box-shadow: 0px 5px 15px 0px rgba(105, 112, 117);
-  -moz-box-shadow: 0px 5px 15px 0px rgba(105, 112, 117);
-  -webkit-box-shadow: 0px 5px 15px 0px rgba(105, 112, 117);
+  // box-shadow: 0px 5px 15px 0px rgba(105, 112, 117);
+  // -moz-box-shadow: 0px 5px 15px 0px rgba(105, 112, 117);
+  // -webkit-box-shadow: 0px 5px 15px 0px rgba(105, 112, 117);
+	filter: drop-shadow(0px 5px 15px rgba(105, 112, 117));
+	-webkit-filter: drop-shadow(0px 5px 15px rgba(105, 112, 117));
   border-radius: 50%;
   cursor: pointer;
   path,

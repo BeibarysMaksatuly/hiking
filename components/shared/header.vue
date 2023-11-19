@@ -4,7 +4,7 @@
   >
     <div class="container-1">
       <nuxt-link to="/">
-        <img src="@/assets/icons/logo.svg" alt="" class="header__logo" />
+        <img src="@/assets/icons/logo.png" alt="" class="header__logo" />
         <!-- <Logo class="header__logo" /> -->
       </nuxt-link>
       <div class="header__links" v-if="input">
