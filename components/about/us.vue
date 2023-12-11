@@ -153,6 +153,7 @@
 
     @include phone {
       padding: 25px 28px;
+      font-size: 16px;
     }
   }
 }

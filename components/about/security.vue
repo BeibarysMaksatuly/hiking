@@ -3,6 +3,9 @@
     <div class="security__cont">
       <div class="security__subtitle">{{ $t("about.securitySubtitle") }}</div>
       <div class="security__title">{{ $t("about.securityTitle") }}</div>
+      <button class="security__btn" @click="$router.push('/contacts')">
+        Свяжитесь с нами
+      </button>
     </div>
     <div class="security__cont-1">
       <div class="security__div">
@@ -66,6 +69,32 @@
     font-style: normal;
     font-weight: 800;
     line-height: normal;
+    @media (max-width: 375px) {
+      word-break: break-all;
+    }
+  }
+
+  &__btn {
+    width: max-content;
+    display: none;
+    padding: 10px 60px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    border: 1px solid #324552;
+    color: #324552;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    @include phone {
+      display: flex;
+    }
+    @media (max-width: 375px) {
+      width: 100%;
+			padding: 10px 10px;
+    }
   }
 
   &__cont-1 {
