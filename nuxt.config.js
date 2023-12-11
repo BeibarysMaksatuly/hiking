@@ -1,9 +1,9 @@
 import colors from 'vuetify/es5/util/colors'
 import { resolve } from 'path'
 const locales = [
-	{ code: 'en', iso: 'en', file: 'en.js', name: 'English' },
 	{ code: 'ru', iso: 'ru', file: 'ru.js', name: 'Russian' },
 	{ code: 'kk', iso: 'kaz', file: 'kz.js', name: 'Kazakh' },
+	{ code: 'en', iso: 'en', file: 'en.js', name: 'English' },
 ]
 export default {
 	loading: {

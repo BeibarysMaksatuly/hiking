@@ -121,7 +121,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .active-link {
-  color: #fecc01 !important;
+  color: #ef7f1a !important;
 }
 .mobile-header {
   width: 273px;

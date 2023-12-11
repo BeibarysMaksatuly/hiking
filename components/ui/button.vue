@@ -1,6 +1,6 @@
 <template>
   <button :class="`button-${type}`">
-    <slot/>
+    <slot />
   </button>
 </template>
 <script>
@@ -8,18 +8,17 @@ export default {
   props: {
     type: {
       type: String,
-      default: 'primary'
-    }
-  }
-
-}
+      default: "primary",
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .button-primary {
   outline: none;
   width: 100%;
   transition: all 0.3s ease;
-  background-color: $c-yellow;
+  background-color: #ef7f1a;
   color: $c-white;
   padding: 11px 24px;
   font-size: 18px;
@@ -32,7 +31,7 @@ export default {
   border-radius: 8px;
 
   &:hover {
-    background-color: $c-orange;
+    background-color: #ef9b15;
   }
 }
 .button-error {
@@ -63,9 +62,9 @@ export default {
   width: 100%;
   transition: all 0.3s ease;
   background-color: transparent;
-  color: $c-yellow;
+  color: #ef7f1a;
   padding: 11px 24px;
-  border: 1px solid $c-yellow;
+  border: 1px solid #ef7f1a;
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
@@ -76,7 +75,7 @@ export default {
   border-radius: 8px;
 
   &:hover {
-    background-color: $c-yellow;
+    background-color: #ef7f1a;
     color: $c-white;
   }
 }

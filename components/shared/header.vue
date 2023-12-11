@@ -31,7 +31,7 @@
             height="46"
             append-icon="mdi-magnify"
             :background-color="
-              isMain && !(scrollPosition > 600) ? '#ffffff' : '#F6F8FA'
+              isMain && !(scrollPosition > 600) ? '#F8FAFB' : '#F6F8FA'
             "
           ></v-text-field>
           <UiButton @click.native="searchYandex">{{
@@ -41,12 +41,13 @@
       </transition>
 
       <Search class="header__search" v-if="input" @click="showInput" />
-      <a class="header__phone" href="tel:+7 (707) 617 - 41 - 89">
+      <a class="header__phone" v-if="input" href="tel:+7 (707) 617 - 41 - 89">
         <Call class="phone__icon" />
         <div class="phone__text">+7 (707) 617 - 41 - 89</div>
       </a>
       <Drag class="header__drag" v-if="input" @click="$emit('open-mobile')" />
       <UiSelect
+        v-if="input"
         class="header__lang"
         :options="languages"
         :placeholder="LocaleName"
@@ -155,10 +156,20 @@ export default {
     },
     isActiveLink() {
       return (link) => {
+        const currentPath = this.$route.path;
+        const languagePrefix =
+          this.$i18n.locale === this.$i18n.defaultLocale
+            ? ""
+            : `/${this.$i18n.locale}`;
+
         if (link.to === "/") {
-          return this.$route.path === "/";
+          return (
+            currentPath === languagePrefix ||
+            currentPath === `${languagePrefix}/`
+          );
         }
-        return this.$route.path.startsWith(link.to);
+
+        return currentPath.startsWith(`${languagePrefix}${link.to}`);
       };
     },
     languages() {
@@ -188,7 +199,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .active-link {
-  color: #fecc01 !important;
+  &:after {
+    width: 100% !important;
+  }
 }
 svg {
   cursor: pointer;
@@ -197,7 +210,7 @@ svg {
   }
   &:hover {
     path {
-      fill: $c-orange !important;
+      fill: #ef9b15 !important;
     }
   }
 }
@@ -239,6 +252,7 @@ svg {
   justify-content: space-between;
   height: 76px;
   gap: 40px;
+  max-width: 1280px;
 
   @include phone {
     flex-direction: row-reverse;
@@ -270,10 +284,14 @@ svg {
   }
   &__links {
     display: flex;
+    gap: 40px;
     align-items: center;
-    justify-content: space-between;
     flex: 1 0 0;
 
+    @media (max-width: 1140px) {
+      gap: 0px;
+      justify-content: space-between;
+    }
     @include phone {
       display: none;
     }
@@ -286,8 +304,23 @@ svg {
     line-height: 21px;
     cursor: pointer;
     transition: 0.3s;
+    position: relative;
+    color: #000;
+    &:after {
+      width: 0;
+      height: 5px;
+      display: block;
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      background: url("@/assets/images/wave-white1.svg") repeat-x;
+      transition: 0.3s;
+      content: "";
+    }
     &:hover {
-      color: $c-orange !important;
+      &:after {
+        width: 100%;
+      }
     }
   }
 
@@ -302,10 +335,10 @@ svg {
     }
     &:hover {
       .phone__text {
-        color: $c-orange !important;
+        color: #ef9b15 !important;
       }
       path {
-        fill: $c-orange !important;
+        fill: #ef9b15 !important;
       }
     }
   }
@@ -330,16 +363,16 @@ svg {
   }
 }
 
-.main-header {
-  background-color: transparent !important;
-  .header__link {
-    color: #fff;
-  }
-  .phone__text {
-    color: #fff;
-  }
-  box-shadow: none !important;
-}
+// .main-header {
+//   background-color: transparent !important;
+//   .header__link {
+//     color: #fff;
+//   }
+//   .phone__text {
+//     color: #fff;
+//   }
+//   box-shadow: none !important;
+// }
 
 .phone {
   &__icon {

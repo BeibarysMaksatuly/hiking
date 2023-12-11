@@ -9,7 +9,7 @@
 		padding: 0 20px !important;
 	}
 	.mdi-magnify::before {
-		color: rgba(254, 204, 1, 1);
+		color: #ef9b15;
 	}
 	@include phone {
 		.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded) > .v-input__control > .v-input__slot,
