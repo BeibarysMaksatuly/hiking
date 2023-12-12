@@ -1,14 +1,5 @@
 <template>
   <div class="hero">
-    <!-- <div class="hero" :style="{ backgroundImage: backgroundImage }"> -->
-    <v-overlay :value="$fetchState.pending" z-index="999999">
-      <v-progress-circular
-        :size="70"
-        :width="7"
-        color="#EF7F1A"
-        indeterminate
-      ></v-progress-circular>
-    </v-overlay>
     <div class="container-1">
       <div class="hero__title">
         {{ $t("main.hero.title") }}
@@ -44,6 +35,8 @@
             :label="$t('main.hero.month')"
             :placeholder="$t('main.hero.selectMonth')"
             class="inputs"
+            :class="{ more_select: !season }"
+            :more_select="!season"
           />
         </div>
         <div class="hero__button">
@@ -53,15 +46,21 @@
         </div>
       </div>
     </div>
+    <v-overlay :value="$fetchState.pending" z-index="999999">
+      <v-progress-circular
+        :size="70"
+        :width="7"
+        color="#EF7F1A"
+        indeterminate
+      ></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 
 <script>
 import SearchInline from "icons/search-inline.svg?inline";
-// import widthAdapter from "~/mixins/widhtAdapter";
 export default {
   name: "MainHero",
-  // mixins: [widthAdapter],
   components: {
     SearchInline,
   },
@@ -75,13 +74,8 @@ export default {
       season: null,
       months: [],
       month: null,
-      // currentBackgroundIndex: 0,
-      // backgroundImages: [require("~/assets/images/bg.png")],
     };
   },
-  // created() {
-  //   this.startBackgroundRotation();
-  // },
   async fetch() {
     await this.getFormats();
     await this.getCountries();
@@ -92,13 +86,6 @@ export default {
     async season() {
       await this.getMonths();
     },
-    // mobileView() {
-    //   if (this.mobileView) {
-    //     this.backgroundImages = [require("~/assets/images/bg_mobile.png")];
-    //   } else {
-    //     this.backgroundImages = [require("~/assets/images/bg.png")];
-    //   }
-    // },
   },
   methods: {
     async getFormats() {
@@ -130,22 +117,7 @@ export default {
         })
       );
     },
-    // startBackgroundRotation() {
-    //   setInterval(() => {
-    //     // Обновление индекса фонового изображения
-    //     this.currentBackgroundIndex =
-    //       (this.currentBackgroundIndex + 1) % this.backgroundImages.length;
-    //   }, 5000); // Смена фона каждые 5 секунд
-    // },
-    // currentBackgroundImage() {
-    //   return this.backgroundImages[this.currentBackgroundIndex];
-    // },
   },
-  // computed: {
-  //   backgroundImage() {
-  //     return `url(${this.currentBackgroundImage()})`;
-  //   },
-  // },
 };
 </script>
 <style lang="scss" scoped>
@@ -162,12 +134,12 @@ export default {
   }
 
   &__title {
-    font-size: 55px;
+    max-width: 867px;
+    font-size: 48px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
     color: $c-white;
-    max-width: 786px;
     @include phone {
       font-size: 35px;
       font-weight: 700;
@@ -187,8 +159,7 @@ export default {
     align-items: center;
     gap: 40px;
     border-radius: 10px;
-    background: rgba(90, 148, 190, 0.5);
-    backdrop-filter: blur(7.5px);
+    background: #fff;
 
     @include phone {
       flex-direction: column;
@@ -223,9 +194,10 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: flex-end;
   gap: 141px;
-  padding-bottom: 85px;
+  padding-bottom: 194px;
   @include phone {
     padding-bottom: 50px;
     gap: 0;
@@ -282,5 +254,13 @@ export default {
   @include phone {
     width: 100% !important;
   }
+}
+.more_select::v-deep .select__options {
+  width: max-content;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 </style>

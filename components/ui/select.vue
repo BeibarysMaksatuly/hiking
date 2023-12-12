@@ -38,7 +38,16 @@
             <component :is="getLangFlag(option.id)" />
             <Check class="option__check" v-if="option.id === model" />
           </div>
-          <div v-if="idx + 1 !== options.length" class="option__line"></div>
+          <div
+            v-if="
+              (!more_select && idx + 1 !== options.length) ||
+              (more_select &&
+                idx + 1 !== options.length &&
+                idx + 2 !== options.length &&
+                idx + 3 !== options.length)
+            "
+            class="option__line"
+          ></div>
         </div>
       </div>
     </transition>
@@ -84,6 +93,10 @@ export default {
       default: () => [],
     },
     isOptionsImages: {
+      type: Boolean,
+      default: false,
+    },
+    more_select: {
       type: Boolean,
       default: false,
     },
@@ -135,7 +148,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 7px;
-  color: $c-white;
+  color: $c-main;
 
   &__label {
     font-size: 12px;
@@ -195,7 +208,7 @@ export default {
       // background: #f1f1f1;
       width: 10px;
       border-radius: 5px;
-			margin: 5px 0;
+      margin: 5px 0;
     }
 
     /* Handle */
@@ -212,7 +225,9 @@ export default {
       color: #ffc107 !important;
     }
     &:hover {
-      color: #ffc107 !important;
+      .option__name {
+        color: #ffc107 !important;
+      }
     }
   }
 }
@@ -226,6 +241,8 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    color: white;
+    transition: 0.3s;
   }
   &__line {
     background: #fff;
