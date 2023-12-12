@@ -106,6 +106,11 @@ export default {
       isSelectOpen: false,
     };
   },
+  watch: {
+    isSelectOpen() {
+      if (this.more_select) this.$emit("opened", this.isSelectOpen);
+    },
+  },
   methods: {
     hideSelect() {
       this.isSelectOpen = false;

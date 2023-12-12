@@ -63,9 +63,13 @@
         </div>
       </div>
       <div class="footer__line"></div>
-      <a class="footer__policy" :href="privacy[0].file" target="_blank">{{
-        $t("footer.privacy")
-      }}</a>
+      <a
+        v-if="privacy.length"
+        class="footer__policy"
+        :href="privacy[0].file"
+        target="_blank"
+        >{{ $t("footer.privacy") }}</a
+      >
     </div>
   </div>
 </template>
