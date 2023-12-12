@@ -29,8 +29,6 @@
       <h4>{{ $t("services.otherServices") }}</h4>
       <ServicesList :services="otherServices" />
     </div>
-    <SharedTickets />
-    <SharedInstagram />
     <v-overlay :value="$fetchState.pending" z-index="999999">
       <v-progress-circular
         :size="70"

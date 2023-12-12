@@ -63,7 +63,7 @@
         </div>
       </div>
       <div class="footer__line"></div>
-      <a class="footer__policy" href="" target="_blank">{{
+      <a class="footer__policy" :href="privacy[0].file" target="_blank">{{
         $t("footer.privacy")
       }}</a>
     </div>
@@ -87,6 +87,7 @@ export default {
   data() {
     return {
       documents: [],
+      privacy: [],
     };
   },
   watch: {
@@ -96,6 +97,7 @@ export default {
   },
   async fetch() {
     this.documents = await this.$axios.$get("/documents/");
+    this.privacy = await this.$axios.$get("/privacy-statements/");
   },
   computed: {
     locale() {
