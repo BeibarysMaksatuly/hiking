@@ -1,6 +1,7 @@
 <template>
   <div class="main">
     <MainHero />
+    <MainAdvantages />
     <MainTours />
     <!-- <MainReviews /> -->
     <SharedForm />
@@ -11,6 +12,6 @@
 
 <script>
 export default {
-  name: 'IndexPage'
-}
+  name: "IndexPage",
+};
 </script>

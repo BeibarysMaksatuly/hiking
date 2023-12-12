@@ -338,6 +338,7 @@ export default {
   img {
     width: 100%;
     height: 796px;
+		object-fit: cover;
     @include phone {
       height: 820px;
     }
