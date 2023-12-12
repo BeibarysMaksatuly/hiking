@@ -14,8 +14,6 @@
         </div>
       </div>
     </div>
-    <SharedTickets />
-    <SharedInstagram />
     <v-overlay :value="$fetchState.pending" z-index="999999">
       <v-progress-circular
         :size="70"

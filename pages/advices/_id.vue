@@ -28,8 +28,6 @@
         <CategoryList :recommendations="otherCategories" />
       </div>
     </div>
-    <SharedTickets />
-    <SharedInstagram />
     <v-overlay :value="$fetchState.pending" z-index="999999">
       <v-progress-circular
         :size="70"
@@ -134,7 +132,7 @@ export default {
 
   &__photo {
     width: 100%;
-    height: 300px;
+    height: 420px;
     border-radius: 10px;
     @include phone {
       height: 150px;
