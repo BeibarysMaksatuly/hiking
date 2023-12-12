@@ -14,14 +14,16 @@
           </nuxt-link>
         </div>
         <div class="footer__links" v-if="documents && documents.length">
-          <nuxt-link
-            v-for="(document, idx) in documents"
-            :to="localePath(`/documents/${document.id}`)"
-            :key="idx"
+          <div class="contact__header">{{ $t("header.document") }}</div>
+          <a
+            v-for="document in documents"
+            :key="document.id"
+            :href="document.file"
             class="footer__link"
+            target="_blank"
           >
             {{ document.title }}
-          </nuxt-link>
+          </a>
         </div>
         <div class="footer__contact">
           <div class="contact__header">{{ $t("header.contacts") }}</div>
@@ -83,10 +85,18 @@ export default {
       documents: [],
     };
   },
+  watch: {
+    locale() {
+      this.$fetch();
+    },
+  },
   async fetch() {
     this.documents = await this.$axios.$get("/documents/");
   },
   computed: {
+    locale() {
+      return this.$i18n.locale;
+    },
     headerLinks() {
       return [
         {
@@ -96,6 +106,10 @@ export default {
         {
           name: this.$t("header.tours"),
           to: "/tours",
+        },
+        {
+          name: this.$t("header.advices"),
+          to: "/advices",
         },
         {
           name: this.$t("header.services"),
@@ -134,6 +148,7 @@ a {
   &__data {
     display: flex;
     align-items: flex-start;
+    justify-content: space-between;
     gap: 160px;
     margin-bottom: 20px;
     @include phone {
@@ -197,6 +212,7 @@ a {
   display: flex;
   flex-direction: column;
   gap: 40px;
+  max-width: 1280px;
 
   @include phone {
     padding-top: 60px;

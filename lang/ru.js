@@ -11,7 +11,8 @@ export default {
 		"kazakh": "Казахский",
 		"english": "Английский",
 		"chooseLang": "Выберите язык",
-		"save": "Сохранить"
+		"save": "Сохранить",
+		"document": 'Документы'
 	},
 	"main": {
 		"hero": {

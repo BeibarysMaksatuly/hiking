@@ -11,7 +11,8 @@ export default {
 		"kazakh": "Қазақ",
 		"english": "Ағылшын",
 		"chooseLang": "Тілді таңдаңыз",
-		"save": "Сақтау"
+		"save": "Сақтау",
+		"document": 'Құжаттар'
 	},
 	"main": {
 		"hero": {
