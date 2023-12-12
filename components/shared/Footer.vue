@@ -14,7 +14,9 @@
           </nuxt-link>
         </div>
         <div class="footer__links" v-if="documents && documents.length">
-          <div class="contact__header">{{ $t("header.document") }}</div>
+          <nuxt-link :to="localePath('/documents')" class="contact__header">{{
+            $t("header.document")
+          }}</nuxt-link>
           <a
             v-for="document in documents"
             :key="document.id"
@@ -26,7 +28,9 @@
           </a>
         </div>
         <div class="footer__contact">
-          <div class="contact__header">{{ $t("header.contacts") }}</div>
+          <nuxt-link :to="localePath('/contacts')" class="contact__header">{{
+            $t("header.contacts")
+          }}</nuxt-link>
           <div class="contact__info">
             <a href="tel:+7 (707) 617 - 41 - 89">+7 (707) 617 - 41 - 89</a>
             <a href="mailto:kazcamping@gmail.com">kazcamping@gmail.com</a>

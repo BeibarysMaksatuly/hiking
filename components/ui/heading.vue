@@ -1,7 +1,7 @@
 <template>
   <div class="heading">
     <div class="heading__title"><slot /></div>
-    <div class="heading__line"></div>
+    <!-- <div class="heading__line"></div> -->
   </div>
 </template>
 <style lang="scss" scoped>
@@ -15,12 +15,12 @@
     font-weight: 700;
     line-height: 120%; /* 50.4px */
     letter-spacing: 0.126px;
-    margin-bottom: 32px;
+    // margin-bottom: 32px;
 
     @include phone {
       font-size: 24px;
       letter-spacing: 0.072px;
-      margin-bottom: 12px;
+      // margin-bottom: 12px;
     }
   }
 
