@@ -8,14 +8,6 @@
         <div id="aviasales-widget-container"></div>
       </div>
     </div>
-    <div class="tickets__image">
-      <img
-        v-if="!mobileViewSwiper"
-        src="@/assets/images/tickets.png"
-        alt="tickets"
-      />
-      <img v-else src="@/assets/images/tickets_mobile.png" alt="tickets" />
-    </div>
   </div>
 </template>
 
@@ -57,38 +49,23 @@ export default {
   background-color: #fff;
 
   &__data {
-    width: 59.5%;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 50px 0;
+    padding: 80px 0;
     .data__title {
-      margin-bottom: 40px;
+      margin-bottom: 55px;
+      @include phone {
+        margin-bottom: 40px;
+      }
     }
     @include phone {
       width: 100%;
       height: auto;
-      padding: 265px 0 80px 0;
     }
   }
-
-  &__image {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 38.75%;
-    height: 100%;
-    flex-shrink: 0;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    @include phone {
-      height: 214.325px;
-      width: 100%;
-      bottom: auto;
-      top: 0;
-    }
-  }
+}
+.container-1 {
+  max-width: 1280px;
 }
 </style>

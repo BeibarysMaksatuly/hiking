@@ -1,79 +1,72 @@
 <template>
   <div class="form">
     <div class="container-1">
-      <v-form ref="form" @submit.prevent="postForm" class="form__data">
-        <div class="data__title">{{ $t("main.form.leaveRequest") }}</div>
-        <div class="inputs">
-          <p>
-            {{ $t("main.form.name") }}
-            <span class="red">*</span>
-          </p>
-          <v-text-field
-            v-model="form.full_name"
-            :placeholder="$t('main.form.placeholder_name')"
-            solo
-            dense
-            height="41"
-            background-color="#F6F8FA"
-            required
-            :rules="rules"
-          ></v-text-field>
-          <p>
-            {{ $t("main.form.phone") }}
-            <span class="red">*</span>
-          </p>
-          <v-text-field
-            v-model="form.phone_number"
-            placeholder="+7 (XXX) XXX XX XX"
-            solo
-            dense
-            height="41"
-            background-color="#F6F8FA"
-            required
-            :rules="phoneRules"
-            v-mask="'+7(###)-###-##-##'"
-          ></v-text-field>
-          <p>
-            {{ $t("main.form.email") }}
-            <span class="red">*</span>
-          </p>
-          <v-text-field
-            v-model="form.email"
-            :placeholder="$t('main.form.email')"
-            solo
-            dense
-            height="41"
-            background-color="#F6F8FA"
-            required
-            :rules="emailRules"
-          ></v-text-field>
-          <p>{{ $t("main.form.comment") }}</p>
-          <v-text-field
-            v-model="form.comment"
-            :placeholder="$t('main.form.comment')"
-            solo
-            dense
-            hide-details=""
-            height="41"
-            background-color="#F6F8FA"
-          ></v-text-field>
-        </div>
-        <UiButton class="data__button" @click.native="postForm()">{{
-          $t("main.form.sendRequest")
-        }}</UiButton>
-      </v-form>
-      <div class="form__images">
-        <img
-          src="@/assets/images/form-bg.png"
-          alt="form"
-          class="form__images-main"
-        />
-        <img
-          src="@/assets/images/form.png"
-          alt="form"
-          class="form__images-second"
-        />
+      <div class="data">
+        <UiHeading class="data__title">
+          {{ $t("main.form.leaveRequest") }}
+        </UiHeading>
+        <v-form ref="form" @submit.prevent="postForm" class="form__data">
+          <div class="inputs">
+            <p>
+              {{ $t("main.form.name") }}
+              <span class="red">*</span>
+            </p>
+            <v-text-field
+              v-model="form.full_name"
+              :placeholder="$t('main.form.placeholder_name')"
+              solo
+              dense
+              height="51"
+              outlined
+              required
+              :rules="rules"
+            ></v-text-field>
+            <p>
+              {{ $t("main.form.phone") }}
+              <span class="red">*</span>
+            </p>
+            <v-text-field
+              v-model="form.phone_number"
+              placeholder="+7 (XXX) XXX XX XX"
+              solo
+              dense
+              height="51"
+              outlined
+              required
+              :rules="phoneRules"
+              v-mask="'+7(###)-###-##-##'"
+            ></v-text-field>
+            <p>
+              {{ $t("main.form.email") }}
+              <span class="red">*</span>
+            </p>
+            <v-text-field
+              v-model="form.email"
+              :placeholder="$t('main.form.email')"
+              solo
+              dense
+              height="51"
+              outlined
+              required
+              :rules="emailRules"
+            ></v-text-field>
+            <p>{{ $t("main.form.comment") }}</p>
+            <v-text-field
+              v-model="form.comment"
+              :placeholder="$t('main.form.comment')"
+              solo
+              dense
+              hide-details=""
+              height="51"
+              outlined
+            ></v-text-field>
+          </div>
+          <UiButton class="data__button" @click.native="postForm()">{{
+            $t("main.form.sendRequest")
+          }}</UiButton>
+        </v-form>
       </div>
+      <img src="@/assets/images/form.png" alt="form" class="form__image" />
     </div>
     <SharedModalsSuccess
       v-if="completed"
@@ -134,14 +127,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .form {
-  background-color: $c-gray;
-  overflow-x: clip;
   &__data {
-    width: 494px;
+    width: 602px;
     display: flex;
     flex-direction: column;
 
-    padding: 20px 30px;
+    padding: 24px 30px 38px;
     gap: 20px;
     border-radius: 20px;
     background-color: #fff;
@@ -152,75 +143,41 @@ export default {
     }
   }
 
-  &__images {
-    position: relative;
-    width: 678px;
-    height: 561px;
-    flex-shrink: 0;
+  &__image {
+    width: 100%;
+    height: 532px;
+    object-fit: cover;
     border-radius: 10px;
-    @media (max-width: 1140px) {
-      width: 578px;
-    }
     @include phone {
       width: 100%;
       height: 254.751px;
-    }
-
-    &-main {
-      width: 100%;
-      height: 100%;
-      border-radius: 10px;
-      object-fit: cover;
-    }
-
-    &-second {
-      position: absolute;
-      pointer-events: none;
-      z-index: 10;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 1024px;
-      height: 694px;
-      object-fit: cover;
-      flex-shrink: 0;
-
-      @include phone {
-        width: 465px;
-        height: 315.146px;
-      }
     }
   }
 }
 
 .container-1 {
+  max-width: 1280px;
   padding-top: 80px;
   padding-bottom: 80px;
-  display: flex;
-  flex-direction: row;
-  gap: 42px;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  // flex-direction: row;
+  align-items: flex-end;
+  gap: 43px;
   @include phone {
+    display: flex;
+		grid-template-columns: unset;
     flex-direction: column-reverse;
     gap: 40px;
   }
 }
 
 .data {
+  width: 100%;
   &__title {
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 26px;
-    @include phone {
-      font-size: 18px;
-      line-height: 21px;
-    }
+    margin-bottom: 40px;
   }
-
   &__button {
-    background-color: $c-yellow;
-    padding: 10px;
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
@@ -234,9 +191,9 @@ export default {
   p {
     color: #324552;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 21px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     span {
       color: rgba(220, 53, 69, 1);
     }

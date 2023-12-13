@@ -127,6 +127,13 @@ export default {
     background: rgba(7, 7, 7, 0.5);
     border-radius: 0px 0px 10px 10px;
     transition: 0.3s;
+
+    @include phone {
+      font-size: 16px;
+      line-height: 21px;
+      height: 60px;
+      padding: 20px 10px;
+    }
   }
 }
 </style>

@@ -31,7 +31,7 @@ export default {
 			"selectMonth": "Выберите месяц",
 		},
 		"tours": {
-			"selectTour": "Выберите ваш тур",
+			"selectTour": "Выберите тип отдыха",
 			"selectCountry": "Выберите страну для путешествия и воплотите мечту в реальность"
 		},
 		"reviews": "Отзывы",

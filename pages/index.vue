@@ -3,10 +3,10 @@
     <MainHero />
     <MainAdvantages />
     <MainTours />
-    <!-- <MainReviews /> -->
-    <SharedForm />
     <SharedTickets />
+    <SharedForm />
     <SharedInstagram />
+    <!-- <MainReviews /> -->
   </div>
 </template>
 

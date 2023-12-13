@@ -31,7 +31,7 @@ export default {
 			"selectMonth": "Select a month",
 		},
 		"tours": {
-			"selectTour": "Select your tour",
+			"selectTour": "Choose the type of vacation",
 			"selectCountry": "Choose a country to travel to and make your dream come true."
 		},
 		"reviews": "Reviews",

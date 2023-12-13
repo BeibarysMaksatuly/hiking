@@ -4,15 +4,17 @@
       <div class="tours__title">
         {{ $t("main.tours.selectTour") }}
       </div>
-      <div class="tours__subtitle">{{ $t("main.tours.selectCountry") }}</div>
+      <!-- <div class="tours__subtitle">{{ $t("main.tours.selectCountry") }}</div>
       <div slot="button-prev" class="swiper-button-prev_tour">
         <Arrow />
       </div>
       <div slot="button-next" class="swiper-button-next_tour">
         <Arrow />
-      </div>
+      </div> -->
     </div>
-    <client-only>
+    <ServicesList :services="formats" />
+
+    <!-- <client-only>
       <swiper ref="mySwiper" class="mySwiper" :options="swiperOptions">
         <swiper-slide
           v-for="tour in tours"
@@ -30,7 +32,7 @@
           </div>
         </swiper-slide>
       </swiper>
-    </client-only>
+    </client-only> -->
   </div>
 </template>
 <script>
@@ -42,11 +44,11 @@ export default {
     Arrow,
   },
   async fetch() {
-    await this.getTours();
+    await this.getFormats();
   },
   data() {
     return {
-      tours: [],
+      formats: [],
       swiperOptions: {
         slidesPerView: 2,
         spaceBetween: 15,
@@ -55,11 +57,11 @@ export default {
           prevEl: ".swiper-button-prev_tour",
         },
         breakpoints: {
-					0: {
+          0: {
             slidesPerView: 1,
             spaceBetween: 0,
           },
-					375: {
+          375: {
             slidesPerView: 2,
             spaceBetween: 15,
           },
@@ -72,8 +74,8 @@ export default {
     };
   },
   methods: {
-    async getTours() {
-      this.tours = await this.$axios.$get("/countries/");
+    async getFormats() {
+      this.formats = await this.$axios.$get("/formats/");
     },
     findTours(tour) {
       this.$router.push(
@@ -90,35 +92,35 @@ export default {
 </script>
 <style lang="scss" scoped>
 .tours {
+	width: 100%;
   display: flex;
   flex-direction: column;
   padding-top: 80px;
-  padding-bottom: 80px;
-  justify-content: center;
-  align-items: center;
+  // padding-bottom: 80px;
 
   &__data {
     display: flex;
     flex-direction: column;
     position: relative;
-    margin-bottom: 50px;
+    // margin-bottom: 50px;
     @include phone {
-      margin-bottom: 105px;
+      // margin-bottom: 105px;
     }
   }
 
   &__title {
-    font-size: 32px;
+    color: #324552;
+    text-align: center;
+    font-size: 36px;
     font-style: normal;
     font-weight: 700;
-    line-height: 120%; /* 38.4px */
-    letter-spacing: 0.16px;
-    color: $c-orange;
-    margin-bottom: 20px;
-    text-align: center;
+    line-height: normal;
+    letter-spacing: 0.108px;
+    margin-bottom: 40px;
 
     @include phone {
-      font-size: 20px;
+      margin-bottom: 37px;
+      font-size: 24px;
     }
   }
 
@@ -134,6 +136,9 @@ export default {
       font-size: 24px;
     }
   }
+}
+.container-1 {
+  max-width: 1280px;
 }
 .tour {
   height: 470px;
@@ -252,7 +257,7 @@ export default {
 }
 .swiper-button-prev_tour,
 .swiper-button-next_tour {
-	position: absolute;
+  position: absolute;
   top: auto;
   left: auto;
   bottom: 0;
