@@ -55,10 +55,24 @@
         {{ $t("tours.from") }} {{ tour.lowest_price }}
       </div>
       <div class="info__details">
-        <div class="info__map">
-          <Calendar />
-          <div>Посмотреть даты</div>
-        </div>
+        <v-tooltip bottom v-model="show">
+          <template v-slot:activator="{}">
+            <div
+              class="info__map"
+              @click="show = !show"
+              v-click-outside="hideShow"
+            >
+              <Calendar />
+              <div>Посмотреть даты</div>
+            </div>
+          </template>
+          <ul>
+            <li v-for="date in tour.dates" :key="date.id">
+              {{ formatDate(date.start_date) }} -
+              {{ formatDate(date.end_date) }}
+            </li>
+          </ul>
+        </v-tooltip>
         <!-- <div class="info__map"></div> -->
       </div>
       <UiButton
@@ -82,11 +96,15 @@ import Arrow from "icons/btn-left.svg?inline";
 import Map from "icons/map.svg?inline";
 import Calendar from "icons/calendar.svg?inline";
 Swiper.use([Navigation, Pagination]);
+import vClickOutside from "v-click-outside";
 export default {
   components: {
     Arrow,
     Map,
     Calendar,
+  },
+  directives: {
+    clickOutside: vClickOutside.directive,
   },
   name: "Mini",
   props: {
@@ -110,7 +128,19 @@ export default {
           clickable: true,
         },
       },
+      show: false,
     };
+  },
+  methods: {
+    hideShow() {
+      this.show = false;
+    },
+    formatDate(dateString) {
+      const locale = this.$i18n.locale; // Получение текущей локали
+      const options = { month: "short", day: "numeric" };
+      const date = new Date(dateString);
+      return date.toLocaleDateString(locale, options);
+    },
   },
 };
 </script>
@@ -204,6 +234,7 @@ export default {
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+		cursor: pointer;
     svg {
       width: 12px;
       height: 12px;
