@@ -2,8 +2,27 @@
   <v-dialog v-model="modalOpen" max-width="850" persistent>
     <div class="modal">
       <Close @click="closeModal" class="modal__close" />
-      <div class="modal__title">{{ tour.name }}</div>
-
+      <div class="modal__header">
+        <div class="modal__title">{{ tour.name }}</div>
+        <v-tooltip bottom v-model="show">
+          <template v-slot:activator="{}">
+            <div
+              class="modal__map"
+              @click="show = !show"
+              v-click-outside="hideShow"
+            >
+              <Calendar />
+              <div>Посмотреть даты</div>
+            </div>
+          </template>
+          <ul>
+            <li v-for="date in tour.dates" :key="date.id">
+              {{ formatDate(date.start_date) }} -
+              {{ formatDate(date.end_date) }}
+            </li>
+          </ul>
+        </v-tooltip>
+      </div>
       <div class="modal__text">{{ tour.short_description }}</div>
       <client-only>
         <swiper :pagination="true" class="swiper" :options="swiperOptions">
@@ -91,8 +110,17 @@
 <script>
 import Swiper, { Navigation, Pagination } from "swiper";
 Swiper.use([Navigation, Pagination]);
+import vClickOutside from "v-click-outside";
 import Close from "@/assets/icons/close.svg?inline";
+import Calendar from "icons/calendar.svg?inline";
 export default {
+  components: {
+    Close,
+    Calendar,
+  },
+  directives: {
+    clickOutside: vClickOutside.directive,
+  },
   props: {
     tour: {
       type: Object,
@@ -100,9 +128,6 @@ export default {
     },
 
     modalOpen: Boolean,
-  },
-  components: {
-    Close,
   },
   data() {
     return {
@@ -118,6 +143,7 @@ export default {
           clickable: true,
         },
       },
+      show: false,
     };
   },
   methods: {
@@ -126,6 +152,15 @@ export default {
     },
     navigateToContacts() {
       this.$router.push(this.localePath("/contacts"));
+    },
+    hideShow() {
+      this.show = false;
+    },
+    formatDate(dateString) {
+      const locale = this.$i18n.locale; // Получение текущей локали
+      const options = { month: "short", day: "numeric" };
+      const date = new Date(dateString);
+      return date.toLocaleDateString(locale, options);
     },
   },
 };
@@ -156,15 +191,45 @@ export default {
     margin-bottom: 40px;
   }
 
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    @include phone {
+			flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 20px;
+    }
+  }
+
   &__title {
     font-size: 20px;
     font-style: normal;
     font-weight: 600;
     line-height: 26px;
-    margin-bottom: 20px;
     @include phone {
       font-size: 18px;
       line-height: 21px;
+    }
+  }
+
+  &__map {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    cursor: pointer;
+    text-decoration-line: underline;
+    svg {
+      width: 12px;
+      height: 12px;
+      flex-shrink: 0;
+      color: $c-main;
     }
   }
 

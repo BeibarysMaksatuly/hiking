@@ -237,7 +237,10 @@ export default {
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-		cursor: pointer;
+    cursor: pointer;
+    &:first-child {
+      text-decoration-line: underline;
+    }
     svg {
       width: 12px;
       height: 12px;

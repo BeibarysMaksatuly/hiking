@@ -342,6 +342,7 @@ export default {
     line-height: normal;
     cursor: pointer;
     margin-bottom: 16px;
+		text-decoration-line: underline;
     @include phone {
       margin-bottom: 20px;
     }
