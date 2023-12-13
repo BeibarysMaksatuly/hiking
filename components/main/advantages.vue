@@ -1,9 +1,9 @@
 <template>
   <div class="advantages">
-    <div v-for="(item, idx) in items" :key="idx">
-      <img :src="item.img" alt="" />
-      <p>{{ item.title }}</p>
-      <span>{{ item.desc }}</span>
+    <div v-for="advantage in advantages" :key="advantage.id">
+      <img :src="advantage.icon" alt="" />
+      <p>{{ advantage.title }}</p>
+      <span>{{ advantage.text }}</span>
     </div>
   </div>
 </template>
@@ -12,34 +12,11 @@
 export default {
   data() {
     return {
-      items: [
-        {
-          img: require("@/assets/icons/credit-card.svg"),
-          title: "Безопасная оплата",
-          desc: "Бронируйте туры через нашу надежную платежную систему",
-        },
-        {
-          img: require("@/assets/icons/smile.svg"),
-          title: "Продуманная спонтанность",
-          desc: "Маршруты могут адаптироваться под пожелания группы",
-        },
-        {
-          img: require("@/assets/icons/user-check.svg"),
-          title: "Проверенные тревел-эксперты",
-          desc: "Маршруты могут адаптироваться под пожелания группы",
-        },
-        {
-          img: require("@/assets/icons/thumbs-up.svg"),
-          title: "Гарантированные туры",
-          desc: "Маршруты могут адаптироваться под пожелания группы",
-        },
-        {
-          img: require("@/assets/icons/check (1).svg"),
-          title: "Небольшие группы",
-          desc: "Особенная атмосфера в компании единомышленников",
-        },
-      ],
+      advantages: [],
     };
+  },
+  async fetch() {
+    this.advantages = await this.$axios.$get("/advantages/");
   },
 };
 </script>

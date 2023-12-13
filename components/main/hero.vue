@@ -40,11 +40,14 @@
         </svg>
       </div>
     </div>
-    <swiper ref="heroSwiper" class="swiper" :options="swiperOptions">
-      <swiper-slide v-for="(image, idx) in images" :key="idx"
-        ><img :src="image" alt=""
-      /></swiper-slide>
-    </swiper>
+    <client-only>
+      <swiper ref="heroSwiper" class="swiper" :options="swiperOptions">
+        <swiper-slide v-for="(banner, idx) in banners" :key="idx">
+          <img v-if="!mobileViewSwiper" :src="banner.image" alt="" />
+          <img v-else :src="banner.mobile_image" alt="" />
+        </swiper-slide>
+      </swiper>
+    </client-only>
     <div class="container-1" :class="{ opened: opened }">
       <div class="hero__title">
         {{ $t("main.hero.title") }}
@@ -120,6 +123,7 @@ export default {
   },
   data() {
     return {
+      banners: [],
       formats: [],
       format: "",
       countries: [],
@@ -147,6 +151,7 @@ export default {
     };
   },
   async fetch() {
+    await this.getBg();
     await this.getFormats();
     await this.getCountries();
     await this.getSeasons();
@@ -157,24 +162,10 @@ export default {
       await this.getMonths();
     },
   },
-  computed: {
-    images() {
-      const arr = {
-        false: [
-          require("~/assets/images/bg.png"),
-          require("~/assets/images/bg.png"),
-          require("~/assets/images/bg.png"),
-        ],
-        true: [
-          require("~/assets/images/bg_mobile.png"),
-          require("~/assets/images/bg_mobile.png"),
-          require("~/assets/images/bg_mobile.png"),
-        ],
-      };
-      return arr[this.mobileViewSwiper];
-    },
-  },
   methods: {
+    async getBg() {
+      this.banners = await this.$axios.$get("/banners/");
+    },
     async getFormats() {
       this.formats = await this.$axios.$get("/formats/");
     },
@@ -338,7 +329,7 @@ export default {
   img {
     width: 100%;
     height: 796px;
-		object-fit: cover;
+    object-fit: cover;
     @include phone {
       height: 820px;
     }
