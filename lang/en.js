@@ -112,7 +112,7 @@ export default {
 		"placement": "Accommodation Type",
 		"tags": "Activities",
 		"apply": "Apply",
-		"reset": "Reset",
+		"reset": "Reset filters",
 		"toursDescription": "Some long tour description. Very long tour description. The tour itself is great.",
 		"aboutTour": "About the Tour",
 		"marshrut": "Tour Route",

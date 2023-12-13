@@ -7,12 +7,14 @@
           :options="chosenCountries"
           :checked="query.countries"
           @input="choseInput"
+          :additionalText="'стран'"
         />
         <UiCheckbox
           :label="$t('tours.season')"
           :options="chosenSeasons"
           :checked="query.seasons"
           @input="choseSeasonInput"
+          class="checkbox_grid"
         />
       </div>
       <div class="filter__add" v-if="isOpen || !isMobile">
@@ -36,30 +38,32 @@
           title="тг"
           @input="changeBudget"
         />
-        <UiRadio
+        <!-- <UiRadio
           :label="'Направления'"
           :options="toursType"
           :checked="query.direction"
           @input="choseDirection"
-        />
+        /> -->
         <UiCheckbox
           :label="$t('tours.format')"
           :options="chosenFormats"
           :checked="query.formats"
           @input="choseFormat"
+          :additionalText="'форматов'"
         />
         <UiCheckbox
           :label="$t('tours.placement')"
           :options="chosenPlacements"
           :checked="query.placements"
           @input="chosePlacements"
+          :additionalText="'типов'"
         />
-        <UiCheckbox
+        <!-- <UiCheckbox
           :label="$t('tours.tags')"
           :options="chosenTags"
           :checked="query.tags"
           @input="choseTags"
-        />
+        /> -->
       </div>
     </div>
     <div
@@ -77,11 +81,10 @@
       @click.native="$emit('filter', query), (isOpen = false)"
       >{{ $t("tours.apply") }}</UiButton
     >
-    <UiButton type="error" @click.native="reset">{{
-      $t("tours.reset")
-    }}</UiButton>
+    <a @click="reset" class="reset">{{ $t("tours.reset") }}</a>
   </div>
 </template>
+
 <script>
 import ChevronDown from "icons/chevron-down.svg?inline";
 export default {
@@ -210,6 +213,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss" scoped>
 .filter {
   width: 270px;
@@ -224,34 +228,15 @@ export default {
   &__data,
   &__main,
   &__add {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: flex-start;
   }
 
-  &__data {
-    overflow-y: scroll;
-    max-height: 724px;
-
-    &::-webkit-scrollbar {
-      width: 5px;
-      // height: 100px;
-      color: #dde1e6;
-    }
-
-    @include phone {
-      height: auto;
-      max-height: 100%;
-    }
-  }
-
   @include phone {
     width: 100%;
-  }
-
-  &__apply {
-    margin-bottom: -10px;
   }
 
   &__down {
@@ -273,6 +258,23 @@ export default {
     line-height: 21px;
     color: $c-yellow;
     margin-bottom: -10px;
+  }
+}
+.reset {
+  color: #06d;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  text-decoration-line: underline;
+}
+
+.checkbox_grid::v-deep {
+  width: 100%;
+  .checkbox__choices {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px 20px;
   }
 }
 </style>
