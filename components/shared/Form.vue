@@ -127,6 +127,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .form {
+  background: white;
   &__data {
     width: 602px;
     display: flex;
@@ -166,7 +167,7 @@ export default {
   gap: 43px;
   @include phone {
     display: flex;
-		grid-template-columns: unset;
+    grid-template-columns: unset;
     flex-direction: column-reverse;
     gap: 40px;
   }

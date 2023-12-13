@@ -3,8 +3,9 @@
     <div class="container-1">
       <UiBreadcrumbs :links="links" />
       <UiHeading class="services__title">{{ $t("header.services") }}</UiHeading>
-      <ServicesList :services="services" />
+      <ServicesList :services="services" @service-clicked="serviceClicked" />
     </div>
+    <SharedForm />
     <v-overlay :value="$fetchState.pending" z-index="999999">
       <v-progress-circular
         :size="70"
@@ -28,6 +29,9 @@ export default {
   methods: {
     async getServices() {
       this.services = await this.$axios.$get("/services/");
+    },
+    serviceClicked(serviceId) {
+      this.$router.push(this.localePath(`/services/${serviceId}`));
     },
   },
   computed: {

@@ -4,7 +4,7 @@
       class="services__service"
       v-for="service in services"
       :key="service.id"
-      @click="navigateToService(service.id)"
+      @click="onServiceClick(service.id)"
     >
       <img :src="service.image" alt="service image" />
       <!-- <div class="service__overlay"></div> -->
@@ -23,8 +23,8 @@ export default {
     },
   },
   methods: {
-    navigateToService(serviceId) {
-      this.$router.push(this.localePath(`/services/${serviceId}`));
+    onServiceClick(serviceId) {
+      this.$emit("service-clicked", serviceId);
     },
   },
 };

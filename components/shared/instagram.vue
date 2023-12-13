@@ -16,12 +16,7 @@
         </div>
       </div>
       <div class="instagram__images">
-        <img
-          src="@/assets/images/insta.png"
-          alt="instagram image"
-          v-for="i in 3"
-          :key="i"
-        />
+        <img src="@/assets/images/insta.png" alt="instagram image" />
       </div>
     </div>
   </div>
@@ -58,14 +53,12 @@
   }
 
   &__images {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
+    width: 100%;
+    height: 294px;
     img {
       width: 100%;
       height: 100%;
-      max-height: 320px;
-      object-fit: cover;
+      // object-fit: cover;
     }
   }
 }

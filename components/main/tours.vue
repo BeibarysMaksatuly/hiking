@@ -12,7 +12,7 @@
         <Arrow />
       </div> -->
     </div>
-    <ServicesList :services="formats" />
+    <ServicesList :services="formats" @service-clicked="serviceClicked" />
 
     <!-- <client-only>
       <swiper ref="mySwiper" class="mySwiper" :options="swiperOptions">
@@ -77,12 +77,12 @@ export default {
     async getFormats() {
       this.formats = await this.$axios.$get("/formats/");
     },
-    findTours(tour) {
+    serviceClicked(serviceId) {
       this.$router.push(
         this.localeLocation({
           path: "/tours",
           query: {
-            countries: tour.id,
+            formats: serviceId,
           },
         })
       );
@@ -92,7 +92,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .tours {
-	width: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding-top: 80px;

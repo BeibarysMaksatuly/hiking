@@ -27,7 +27,10 @@
         <div class="service__text" v-html="service.text"></div>
       </div>
       <h4>{{ $t("services.otherServices") }}</h4>
-      <ServicesList :services="otherServices" />
+      <ServicesList
+        :services="otherServices"
+        @service-clicked="serviceClicked"
+      />
     </div>
     <v-overlay :value="$fetchState.pending" z-index="999999">
       <v-progress-circular
@@ -86,6 +89,9 @@ export default {
       this.otherServices = await this.$axios.$get(`/service-exclude/`, {
         service_id: this.id,
       });
+    },
+    serviceClicked(serviceId) {
+      this.$router.push(this.localePath(`/services/${serviceId}`));
     },
   },
 };
