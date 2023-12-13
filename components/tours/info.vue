@@ -49,7 +49,7 @@ export default {
   },
   data() {
     return {
-      isGrid: true,
+      isGrid: false,
     };
   },
   methods: {
@@ -70,7 +70,7 @@ export default {
 .info {
   width: 100%;
   &__description {
-		width: 100%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;

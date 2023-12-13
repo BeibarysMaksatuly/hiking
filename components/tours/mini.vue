@@ -73,7 +73,10 @@
             </li>
           </ul>
         </v-tooltip>
-        <!-- <div class="info__map"></div> -->
+        <div class="info__map">
+          <Map />
+          <div>100 км</div>
+        </div>
       </div>
       <UiButton
         class="info__first"
