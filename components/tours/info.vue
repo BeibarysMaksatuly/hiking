@@ -1,8 +1,7 @@
 <template>
   <div class="info">
-    <UiHeading class="info__title">{{ $t("header.tours") }}</UiHeading>
     <div class="info__description">
-      <div class="descr__info">{{ $t("tours.toursDescription") }}</div>
+      <UiHeading>{{ $t("header.tours") }}</UiHeading>
       <div class="descr__icons">
         <Window
           :class="isGrid && 'descr__icons-active'"
@@ -70,13 +69,12 @@ export default {
 <style lang="scss" scoped>
 .info {
   width: 100%;
-  &__title {
-    margin-bottom: 30px;
-  }
   &__description {
+		width: 100%;
     display: flex;
-    align-items: center;
-    margin-bottom: 30px;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
   }
 
   &__data {

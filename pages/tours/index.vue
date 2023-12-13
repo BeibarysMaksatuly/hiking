@@ -133,9 +133,12 @@ export default {
   background-color: #f8fafb;
   &__data {
     width: 100%;
-    display: flex;
-    gap: 24px;
+    display: grid;
+    grid-template-columns: 270px 1fr;
+    gap: 47px;
     @include phone {
+      display: flex;
+      grid-template-columns: unset;
       flex-direction: column;
     }
   }
