@@ -3,11 +3,7 @@
     <div class="container-1">
       <UiBreadcrumbs :links="links" />
       <div class="tours__data">
-        <ToursFilter
-          @filter="applyFilter"
-          @open-modal="openModal"
-          :filters="query"
-        />
+        <ToursFilter @filter="getTours" @open-modal="openModal" />
         <ToursInfo
           @change="changePagesize"
           :tours="tours"
@@ -21,7 +17,7 @@
       :modalOpen="modalOpen"
       @close-modal="modalOpen = false"
     />
-    <v-overlay :value="$fetchState.pending" z-index="999999">
+    <v-overlay :value="loading" z-index="999999">
       <v-progress-circular
         :size="70"
         :width="7"
@@ -38,32 +34,8 @@ export default {
       tours: [],
       modalOpen: false,
       currentTour: 0,
-      query: {
-        formats: [],
-        countries: [],
-        seasons: [],
-        tags: [],
-        placements: [],
-        direction: null,
-        budget: [0, 0],
-        duration: [0, 0],
-        "page[number]": this.$route.query["page[number]"] || 1,
-        "page[size]": 9,
-      },
+      loading: false,
     };
-  },
-  async fetch() {
-    if (this.$route.query.formats) {
-      this.query.formats.push(Number(this.$route.query.formats));
-    }
-    if (this.$route.query.countries) {
-      this.query.countries.push(Number(this.$route.query.countries));
-    }
-    if (this.$route.query.seasons) {
-      this.query.seasons.push(Number(this.$route.query.seasons));
-    }
-    await this.getMaxMinData();
-    await this.getTours();
   },
   computed: {
     links() {
@@ -84,45 +56,29 @@ export default {
       this.modalOpen = true;
       this.currentTour = this.tours.find((tour) => tour.id === id);
     },
-    async getMaxMinData() {
-      const data = await this.$axios.$get("/tour-filter-data/");
-      const maxTime = data.max_date || 0;
-      const minTime = data.min_date || 0;
-      const maxBudget = data.max_price || 0;
-      const minBudget = data.min_price || 0;
-      this.query.budget = [minBudget, maxBudget];
-      this.query.duration = [minTime, maxTime];
-    },
-    async getTours() {
-      this.$fetchState.pending = true;
+    async getTours(query) {
+      this.loading = true;
       const result = await this.$axios.$get("/tours/", {
         params: {
-          formats: this.query.formats.join(","),
-          countries: this.query.countries.join(","),
-          seasons: this.query.seasons.join(","),
-          tags: this.query.tags.join(","),
-          placements: this.query.placements.join(","),
-          direction: this.query.direction,
-          duration_start: this.query.duration[0],
-          duration_end: this.query.duration[1],
-          budget_start: this.query.budget[0],
-          budget_end: this.query.budget[1],
-          "page[number]": this.query["page[number]"],
-          "page[size]": this.query["page[size]"],
+          formats: query.formats.join(","),
+          countries: query.countries.join(","),
+          seasons: query.seasons.join(","),
+          tags: query.tags.join(","),
+          placements: query.placements.join(","),
+          direction: query.direction,
+          duration_start: query.duration[0],
+          duration_end: query.duration[1],
+          budget_start: query.budget[0],
+          budget_end: query.budget[1],
+          "page[number]": query["page[number]"],
+          "page[size]": query["page[size]"],
         },
       });
       this.tours = result.results;
-      this.$fetchState.pending = false;
+      this.loading = false;
     },
     async changePagesize(val) {
       this.query["page[size]"] = val;
-      await this.getTours();
-    },
-    async applyFilter(value) {
-      this.query = {
-        ...this.query,
-        ...value,
-      };
       await this.getTours();
     },
   },

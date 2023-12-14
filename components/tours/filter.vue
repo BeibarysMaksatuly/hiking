@@ -76,11 +76,6 @@
       </div>
       <ChevronDown :class="['filter__down', isOpen && 'filter__down-open']" />
     </div>
-    <UiButton
-      class="filter__apply"
-      @click.native="$emit('filter', query), (isOpen = false)"
-      >{{ $t("tours.apply") }}</UiButton
-    >
     <a @click="reset" class="reset">{{ $t("tours.reset") }}</a>
   </div>
 </template>
@@ -90,12 +85,6 @@ import ChevronDown from "icons/chevron-down.svg?inline";
 export default {
   components: {
     ChevronDown,
-  },
-  props: {
-    filters: {
-      type: Object,
-      default: () => {},
-    },
   },
   data() {
     return {
@@ -117,25 +106,30 @@ export default {
         direction: null,
         budget: [0, 0],
         duration: [0, 0],
+        "page[number]": this.$route.query["page[number]"] || 1,
+        "page[size]": 9,
       },
       isOpen: false,
     };
   },
   async fetch() {
+    this.queryGet();
     await this.getMaxMinData();
     await this.getFormats();
     await this.getCountries();
     await this.getSeasons();
     await this.getPlacements();
     await this.getTags();
-    this.query = this.filters;
+    await this.applyFilter();
   },
   watch: {
-    filters: {
-      handler(val) {
-        this.query = val;
+    "$route.query": {
+      immediate: true,
+      handler() {
+        setTimeout(() => {
+          this.applyFilter();
+        }, 1000);
       },
-      deep: true,
     },
   },
   computed: {
@@ -160,6 +154,8 @@ export default {
       this.minTime = data.min_date || 0;
       this.maxBudget = data.max_price || 0;
       this.minBudget = data.min_price || 0;
+      this.query.budget = [this.minBudget, this.maxBudget];
+      this.query.duration = [this.minTime, this.maxTime];
     },
     async getFormats() {
       this.chosenFormats = await this.$axios.$get("/formats/");
@@ -178,37 +174,108 @@ export default {
     },
     choseInput(value) {
       this.query.countries = value;
+      this.$router.replace({
+        path: this.$route.path,
+        query: {
+          ...this.$route.query,
+          countries: value.join(","),
+        },
+      });
     },
     choseSeasonInput(value) {
       this.query.seasons = value;
+      this.$router.replace({
+        path: this.$route.path,
+        query: {
+          ...this.$route.query,
+          seasons: value.join(","),
+        },
+      });
     },
     changeDuration(value) {
       this.query.duration = value;
+      this.$router.replace({
+        path: this.$route.path,
+        query: {
+          ...this.$route.query,
+          duration: value.join(","),
+        },
+      });
     },
     changeBudget(value) {
       this.query.budget = value;
+      this.$router.replace({
+        path: this.$route.path,
+        query: {
+          ...this.$route.query,
+          budget: value.join(","),
+        },
+      });
     },
-    choseDirection(value) {
-      this.query.direction = value;
-    },
+    // choseDirection(value) {
+    //   this.query.direction = value;
+    // },
     choseFormat(value) {
       this.query.formats = value;
+      this.$router.replace({
+        path: this.$route.path,
+        query: {
+          ...this.$route.query,
+          formats: value.join(","),
+        },
+      });
     },
     chosePlacements(value) {
       this.query.placements = value;
+      this.$router.replace({
+        path: this.$route.path,
+        query: {
+          ...this.$route.query,
+          placements: value.join(","),
+        },
+      });
     },
-    choseTags(value) {
-      this.query.tags = value;
+    // choseTags(value) {
+    //   this.query.tags = value;
+    // },
+    queryGet() {
+      Object.entries(this.$route.query).forEach(([key, value]) => {
+        this.query[key] = value.split(",");
+      });
+    },
+    applyFilter() {
+      this.$emit("filter", this.query);
+      this.isOpen = false;
     },
     reset() {
-      this.query.formats = [];
-      this.query.countries = [];
-      this.query.seasons = [];
-      this.query.tags = [];
-      this.query.placements = [];
-      this.query.direction = null;
-      this.query.budget = [0, 0];
-      this.query.duration = [0, 0];
+      this.query = {
+        formats: [],
+        countries: [],
+        seasons: [],
+        tags: [],
+        placements: [],
+        direction: null,
+        budget: [this.minBudget, this.maxBudget],
+        duration: [this.minTime, this.maxTime],
+        "page[number]": this.$route.query["page[number]"] || 1,
+        "page[size]": 9,
+      };
+      this.$router.replace({
+        path: this.$route.path,
+        query: {},
+      });
+    },
+    debounce(fn, wait) {
+      let timer;
+      return function (...args) {
+        if (timer) {
+          clearTimeout(timer); // clear any pre-existing timer
+        }
+        const context = this; // get the current context
+        timer = setTimeout(() => {
+          fn.apply(context, args); // call the function if time expires
+        }, wait);
+      };
     },
   },
 };
