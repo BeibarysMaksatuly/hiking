@@ -57,13 +57,6 @@ export default {
       this.$emit("open-modal", id);
     },
   },
-  watch: {
-    isGrid: {
-      handler(val) {
-        this.$emit("change", val ? 9 : 3);
-      },
-    },
-  },
 };
 </script>
 <style lang="scss" scoped>

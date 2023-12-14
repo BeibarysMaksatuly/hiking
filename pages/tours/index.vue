@@ -5,7 +5,6 @@
       <div class="tours__data">
         <ToursFilter @filter="getTours" @open-modal="openModal" />
         <ToursInfo
-          @change="changePagesize"
           :tours="tours"
           @open-modal="openModal"
         />
@@ -74,10 +73,6 @@ export default {
       });
       this.tours = result.results;
       this.loading = false;
-    },
-    async changePagesize(val) {
-      this.query["page[size]"] = val;
-      await this.getTours();
     },
   },
 };
