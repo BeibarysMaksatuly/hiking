@@ -858,6 +858,9 @@ export default {
   display: flex;
   flex-direction: column;
   margin-top: 40px;
+  @include phone {
+    margin-bottom: 60px;
+  }
   &__title {
     display: flex;
     flex-direction: row;
