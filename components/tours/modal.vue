@@ -293,8 +293,7 @@ export default {
   border-radius: 10px;
 
   @include phone {
-    width: 100%;
-    height: 293px;
+    height: 180px;
   }
   img {
     width: 100%;
