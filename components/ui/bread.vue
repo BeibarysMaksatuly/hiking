@@ -40,10 +40,16 @@ export default {
   &__header {
     transition: all 0.3s ease;
     width: 100%;
+    height: 70px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+
+    padding: 12px 17px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0px 8px 16px 0px rgba(18, 27, 33, 0.1);
   }
 
   &__title {

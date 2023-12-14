@@ -102,20 +102,119 @@
         </div>
         <div class="tour__prices">
           <div class="tour__price" v-for="(td, idx) in tour.prices" :key="idx">
-            <div class="tour__number">{{ idx + 1 }}</div>
+            <div class="tour__number">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="25"
+                height="24"
+                viewBox="0 0 25 24"
+                fill="none"
+              >
+                <path
+                  d="M20.5 6L9.5 17L4.5 12"
+                  stroke="#0066DD"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
             <div class="tour__number-data">
-              <div class="tour__data-price">
+              <div
+                class="tour__data-price"
+                :style="{ color: td.discount_till_date ? '#dc3545' : '' }"
+              >
                 {{ td.price }} {{ td.currency }}
               </div>
-              <div class="tour__data-descr">{{ td.text }}</div>
+              <div v-if="td.discount_till_date" class="tour__data-discount">
+                Промоакция до {{ td.discount_till_date }}
+              </div>
+              <div class="tour__data-descr" v-html="td.text"></div>
             </div>
           </div>
         </div>
       </div>
+      <div class="tour__program container-1">
+        <UiHeading class="program__title">{{ $t("tours.program") }}</UiHeading>
+        <UiBread v-for="(data, d) in tour.programs" :key="d" :id="d">
+          <template #title
+            >{{ data.day }} {{ $t("tours.day") }}. {{ data.title }}</template
+          >
+          <template #data>
+            <div class="program">
+              <div class="program__cont">
+                <div class="program__road">
+                  <div>{{ data.route }}</div>
+                </div>
+                <div class="program__road">
+                  <div>{{ data.food }}</div>
+                </div>
+                <div class="program__text">{{ data.description }}</div>
+              </div>
+              <client-only>
+                <swiper
+                  ref="programSwiper"
+                  class="program__swiper"
+                  :options="swiperOptions2"
+                >
+                  <swiper-slide v-for="image in data.images" :key="image.id">
+                    <img :src="image.image" alt="mini photo" />
+                  </swiper-slide>
+                  <div slot="button-prev" class="swiper-button-prev">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="12"
+                        fill="#DDE1E6"
+                        fill-opacity="0.2"
+                      />
+                      <path
+                        d="M13.8047 7.52876C14.0651 7.78911 14.0651 8.21122 13.8047 8.47157L10.2761 12.0002L13.8047 15.5288C14.0651 15.7891 14.0651 16.2112 13.8047 16.4716C13.5444 16.7319 13.1223 16.7319 12.8619 16.4716L8.86193 12.4716C8.60158 12.2112 8.60158 11.7891 8.86193 11.5288L12.8619 7.52876C13.1223 7.26841 13.5444 7.26841 13.8047 7.52876Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </div>
+                  <div class="swiper-pagination" slot="pagination"></div>
+                  <div slot="button-next" class="swiper-button-next">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="12"
+                        transform="matrix(-1 0 0 1 24 0)"
+                        fill="#DDE1E6"
+                        fill-opacity="0.2"
+                      />
+                      <path
+                        d="M10.1953 16.4712C9.93491 16.2109 9.93491 15.7888 10.1953 15.5284L13.7239 11.9998L10.1953 8.47124C9.93491 8.21089 9.93491 7.78878 10.1953 7.52843C10.4556 7.26808 10.8777 7.26808 11.1381 7.52843L15.1381 11.5284C15.3984 11.7888 15.3984 12.2109 15.1381 12.4712L11.1381 16.4712C10.8777 16.7316 10.4556 16.7316 10.1953 16.4712Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </div>
+                </swiper>
+              </client-only>
+            </div>
+          </template>
+        </UiBread>
+      </div>
+
       <div class="tour__info container-1">
         <div class="tour__marsh">
           <Calendar class="tour__svg" />
-          <div class="tour__titled">{{ $t("tours.dates") }}:</div>
+          <div class="tour__titled">Расписание туров</div>
         </div>
         <ul class="tour__data texti">
           <li v-for="(tt, idx) in tour.dates" :key="idx">
@@ -123,43 +222,6 @@
           </li>
         </ul>
       </div>
-    </div>
-    <div class="tour__program container-1">
-      <UiHeading class="program__title">{{ $t("tours.program") }}</UiHeading>
-      <UiBread v-for="(data, d) in tour.programs" :key="d" :id="d">
-        <template #title>{{ data.day }} {{ $t("tours.day") }}</template>
-        <template #data>
-          <div class="program__cont">
-            <!-- <client-only>
-              <swiper
-                class="program__swiper"
-                :options="swiperOptions"
-              >
-                <swiper-slide
-                  v-for="(file, idd) in data.images"
-                  :key="idd"
-                  class="program__photo"
-                >
-                  <img :src="file.image" alt="mini photo" />
-                </swiper-slide>
-                <div class="swiper-pagination" slot="pagination" />
-              </swiper>
-            </client-only> -->
-            <div class="program__road">
-              <Location class="program__svg" />
-              <div>{{ data.route }}</div>
-            </div>
-            <div class="program__road">
-              <Food class="program__svg" />
-              <div>{{ data.food }}</div>
-            </div>
-            <div class="program__text">{{ data.description }}</div>
-          </div>
-        </template>
-        <template #line v-if="d + 1 !== tour.programs.length">
-          <div class="program__line"></div>
-        </template>
-      </UiBread>
     </div>
     <div class="tour__need">
       <div class="container-1">
@@ -176,8 +238,6 @@
       ></v-progress-circular>
     </v-overlay>
     <SharedForm />
-    <SharedTickets />
-    <SharedInstagram />
   </div>
 </template>
 
@@ -194,6 +254,18 @@ export default {
     return {
       tour: {},
       swiperOptions: {
+        slidesPerView: 1,
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          type: "bullets",
+          clickable: true,
+        },
+      },
+      swiperOptions2: {
         slidesPerView: 1,
         navigation: {
           nextEl: ".swiper-button-next",
@@ -243,8 +315,6 @@ export default {
 
 <style lang="scss" scoped>
 .tour {
-  background-color: #f8fafb;
-
   &__cont {
     display: flex;
     flex-direction: column;
@@ -362,6 +432,7 @@ export default {
     width: 100%;
     height: 421px;
     border-radius: 10px;
+    margin-bottom: 36px;
 
     @include phone {
       width: 100%;
@@ -379,6 +450,10 @@ export default {
     display: flex;
     flex-direction: column;
     flex: 1;
+    margin-bottom: 25px;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
   }
 
   &__marsh {
@@ -387,13 +462,15 @@ export default {
     gap: 16px;
   }
 
-  // &__svg {
-  //   flex-shrink: 0;
-  //   width: 64px;
-  //   height: 64px;
-  //   background: #fff;
-  //   border-radius: 200px;
-  // }
+  &__svg {
+    // flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    padding: 12px;
+    background: #fff;
+    border-radius: 38px;
+    box-shadow: 0px -1px 15px 0px rgba(105, 112, 117, 0.2);
+  }
 
   &__titled {
     font-size: 20px;
@@ -422,7 +499,7 @@ export default {
     flex-direction: row;
     gap: 10px;
     align-items: flex-start;
-    margin-left: 20px;
+    margin-left: 84px;
   }
 
   &__number {
@@ -444,14 +521,23 @@ export default {
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
-    color: $c-yellow;
+    // color: $c-yellow;
+  }
+
+  &__data-discount {
+    color: #dc3545;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
   }
 
   &__data-descr {
     font-size: 20px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
     line-height: 24px;
+    white-space: pre-line;
   }
 
   .texti {
@@ -459,16 +545,15 @@ export default {
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
-    margin-left: 40px;
-    padding: 0;
+    margin-left: 84px;
   }
 
   &__program {
     display: flex;
     flex-direction: column;
     // gap: 40px;
-    margin-top: 160px;
-    padding-bottom: 80px;
+    margin-top: 55px;
+    padding-bottom: 52px;
   }
 
   &__need {
@@ -496,32 +581,35 @@ export default {
 }
 
 .program {
+  display: grid;
+  grid-template-columns: 1fr 348px;
+  gap: 37px;
   &__title {
     margin-bottom: 40px;
   }
 
   &__cont {
+    // width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
   }
 
   &__swiper {
-    width: 100%;
-  }
-
-  &__photo {
-    width: 100%;
-    height: 300px;
+    width: 348px;
+    height: 345px;
     border-radius: 10px;
+    margin-bottom: 36px;
+
     @include phone {
-      height: 150px;
+      width: 100%;
+      height: 180px;
     }
     img {
-      border-radius: 10px;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      border-radius: 10px;
     }
   }
 
