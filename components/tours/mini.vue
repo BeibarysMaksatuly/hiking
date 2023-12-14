@@ -94,27 +94,27 @@
 </template>
 
 <script>
-import Swiper, { Navigation, Pagination } from "swiper";
 import Arrow from "icons/btn-left.svg?inline";
 import Map from "icons/map.svg?inline";
 import Calendar from "icons/calendar.svg?inline";
+import Swiper, { Navigation, Pagination } from "swiper";
 Swiper.use([Navigation, Pagination]);
 import vClickOutside from "v-click-outside";
 export default {
-  components: {
-    Arrow,
-    Map,
-    Calendar,
-  },
-  directives: {
-    clickOutside: vClickOutside.directive,
-  },
   name: "Mini",
   props: {
     tour: {
       type: Object,
       default: () => {},
     },
+  },
+  directives: {
+    clickOutside: vClickOutside.directive,
+  },
+  components: {
+    Arrow,
+    Map,
+    Calendar,
   },
   data() {
     return {
@@ -183,6 +183,7 @@ export default {
     @include phone {
       padding: 8px;
       margin-top: -15px;
+      border-radius: 10px 10px 0px 0px;
     }
   }
 }
@@ -205,7 +206,7 @@ export default {
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    color: $c-yellow;
+    color: #ef7f1a;
     margin-bottom: 29px;
     @include phone {
       font-size: 12px;
