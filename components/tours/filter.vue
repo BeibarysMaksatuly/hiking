@@ -8,6 +8,8 @@
           :checked="query.countries"
           @input="updateFilter('countries', $event)"
           :additionalText="'стран'"
+          :initialDisplayCount="isMobile ? 6 : 3"
+          :class="{ checkbox_grid: isMobile }"
         />
         <UiCheckbox
           :label="$t('tours.season')"

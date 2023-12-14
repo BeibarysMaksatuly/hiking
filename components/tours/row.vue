@@ -63,15 +63,13 @@
           <div class="circle"></div>
           <div>{{ tour.country.name }}</div>
         </div>
-      </div>
-      <div class="row-1__places">
         <div
           class="row-1__place row-1__place--green"
-          v-for="tag in tour.tags"
-          :key="tag.id"
+          v-for="format in tour.formats"
+          :key="format.id"
         >
           <div class="circle"></div>
-          <div>{{ tag.name }}</div>
+          <div>{{ format.name }}</div>
         </div>
       </div>
     </div>
@@ -122,27 +120,27 @@
 </template>
 
 <script>
-import Swiper, { Navigation, Pagination } from "swiper";
 import Arrow from "icons/btn-left.svg?inline";
 import Map from "icons/map.svg?inline";
 import Calendar from "icons/calendar.svg?inline";
+import Swiper, { Navigation, Pagination } from "swiper";
 Swiper.use([Navigation, Pagination]);
 import vClickOutside from "v-click-outside";
 export default {
-  components: {
-    Arrow,
-    Map,
-    Calendar,
-  },
-  directives: {
-    clickOutside: vClickOutside.directive,
-  },
   name: "row",
   props: {
     tour: {
       type: Object,
       default: () => {},
     },
+  },
+  directives: {
+    clickOutside: vClickOutside.directive,
+  },
+  components: {
+    Arrow,
+    Map,
+    Calendar,
   },
   data() {
     return {
@@ -237,9 +235,6 @@ export default {
     flex-wrap: wrap;
     gap: 8px;
     margin-top: auto;
-    &:last-of-type {
-      margin-top: 8px;
-    }
   }
 
   &__place {
@@ -323,6 +318,10 @@ export default {
         width: 24px;
         height: 24px;
         margin-right: 6px;
+        @include phone {
+          width: 20px;
+          height: 20px;
+        }
       }
       color: #000;
       font-size: 12px;
@@ -342,7 +341,7 @@ export default {
     line-height: normal;
     cursor: pointer;
     margin-bottom: 16px;
-		text-decoration-line: underline;
+    text-decoration-line: underline;
     @include phone {
       margin-bottom: 20px;
     }
