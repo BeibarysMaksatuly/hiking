@@ -7,7 +7,6 @@
       @click="onServiceClick(service.id)"
     >
       <img :src="service.image" alt="service image" />
-      <!-- <div class="service__overlay"></div> -->
       <div class="service__text">{{ service.name }}</div>
     </div>
   </div>
@@ -34,13 +33,13 @@ export default {
 .services {
   &__container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(364px, 1fr));
-    grid-gap: 22.5px;
-    padding-bottom: 80px;
+    grid-template-columns: repeat(auto-fit, minmax(361px, 1fr));
+    grid-gap: 28px;
+    padding-bottom: 120px;
     @include phone {
-      grid-template-columns: repeat(auto-fit, minmax(164px, 1fr));
-      column-gap: 15px;
-      row-gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-gap: 20px;
+      padding-bottom: 80px;
     }
   }
   &__service {
@@ -49,9 +48,6 @@ export default {
     border-radius: 10px;
     position: relative;
     cursor: pointer;
-    @include phone {
-      height: 300px;
-    }
     img {
       width: 100%;
       height: 100%;
@@ -59,9 +55,6 @@ export default {
       border-radius: 10px;
     }
     &:hover {
-      // .service__overlay:before {
-      //   opacity: 1;
-      // }
       .service__text {
         height: 100%;
         background: rgba(7, 7, 7, 0.3);
@@ -72,67 +65,32 @@ export default {
   }
 }
 .service {
-  // &__overlay {
-  //   position: absolute;
-  //   top: 0;
-  //   left: 0;
-  //   width: 100%;
-  //   height: 100%;
-  //   z-index: 1;
-  //   border-radius: 10px;
-  //   background: linear-gradient(
-  //     1deg,
-  //     rgba(0, 0, 0, 0.54) -16.13%,
-  //     rgba(255, 255, 255, 0) 75.69%
-  //   );
-  //   &:before {
-  //     content: "";
-  //     display: block;
-
-  //     opacity: 0;
-  //     transition: opacity 0.3s ease;
-
-  //     position: absolute;
-  //     top: 0;
-  //     left: 0;
-  //     width: 100%;
-  //     height: 100%;
-  //     z-index: 2;
-  //     border-radius: 10px;
-  //     background: linear-gradient(
-  //       180deg,
-  //       rgba(0, 0, 0, 0) 0%,
-  //       rgba(0, 0, 0, 0.6) 100%
-  //     );
-  //   }
-  // }
-
   &__text {
     position: absolute;
     bottom: 0;
 
     width: 100%;
     height: 82px;
-
     display: flex;
-    align-items: flex-end;
+		align-items: flex-end;
 
-    font-size: 24px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 600;
     line-height: 26px;
+    line-height: 26px;
     color: #fff;
 
-    padding: 28px 18px;
+    padding: 20px 20px 36px 20px;
     background: rgba(7, 7, 7, 0.5);
     border-radius: 0px 0px 10px 10px;
     transition: 0.3s;
 
     @include phone {
+      height: 64px;
       font-size: 16px;
-      line-height: 21px;
-      height: 60px;
-      padding: 20px 10px;
+      line-height: 24px;
+      padding: 16px 16px 24px 16px;
     }
   }
 }

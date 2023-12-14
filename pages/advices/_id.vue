@@ -101,6 +101,7 @@ export default {
 
     @include phone {
       height: 300px;
+      margin-bottom: 32px;
     }
     img {
       width: 100%;
