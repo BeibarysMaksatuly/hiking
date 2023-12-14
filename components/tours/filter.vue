@@ -6,14 +6,14 @@
           :label="$t('tours.country')"
           :options="chosenCountries"
           :checked="query.countries"
-          @input="choseInput"
+          @input="updateFilter('countries', $event)"
           :additionalText="'стран'"
         />
         <UiCheckbox
           :label="$t('tours.season')"
           :options="chosenSeasons"
           :checked="query.seasons"
-          @input="choseSeasonInput"
+          @input="updateFilter('seasons', $event)"
           class="checkbox_grid"
         />
       </div>
@@ -26,7 +26,7 @@
           :step="1"
           hide-details
           title="дней"
-          @input="changeDuration"
+          @input="updateFilter('duration', $event)"
         />
         <UiSlider
           :label="$t('tours.budget')"
@@ -36,27 +36,27 @@
           :step="1"
           hide-details
           title="тг"
-          @input="changeBudget"
+          @input="updateFilter('budget', $event)"
         />
         <UiCheckbox
           :label="$t('tours.format')"
           :options="chosenFormats"
           :checked="query.formats"
-          @input="choseFormat"
+          @input="updateFilter('formats', $event)"
           :additionalText="'форматов'"
         />
         <UiCheckbox
           :label="$t('tours.placement')"
           :options="chosenPlacements"
           :checked="query.placements"
-          @input="chosePlacements"
+          @input="updateFilter('placements', $event)"
           :additionalText="'типов'"
         />
       </div>
     </div>
     <div
       v-if="isMobile"
-      @click="isOpen = !isOpen"
+      @click="toggleFilter"
       :class="['filter__show-more-mobile']"
     >
       <div>
@@ -64,12 +64,13 @@
       </div>
       <ChevronDown :class="['filter__down', isOpen && 'filter__down-open']" />
     </div>
-    <a @click="reset" class="reset">{{ $t("tours.reset") }}</a>
+    <a @click="resetFilters" class="reset">{{ $t("tours.reset") }}</a>
   </div>
 </template>
 
 <script>
 import ChevronDown from "icons/chevron-down.svg?inline";
+
 export default {
   components: {
     ChevronDown,
@@ -146,64 +147,16 @@ export default {
     async getPlacements() {
       this.chosenPlacements = await this.$axios.$get("/placements/");
     },
-    choseInput(value) {
-      this.query.countries = value;
-      this.$router.replace({
-        path: this.$route.path,
-        query: {
-          ...this.$route.query,
-          countries: value.join(","),
-        },
-      });
+    updateFilter(key, value) {
+      this.query[key] = value;
+      this.updateRouteQuery(key, value);
     },
-    choseSeasonInput(value) {
-      this.query.seasons = value;
+    updateRouteQuery(key, value) {
+      const query = { ...this.$route.query };
+      query[key] = value.join(",");
       this.$router.replace({
         path: this.$route.path,
-        query: {
-          ...this.$route.query,
-          seasons: value.join(","),
-        },
-      });
-    },
-    changeDuration(value) {
-      this.query.duration = value;
-      this.$router.replace({
-        path: this.$route.path,
-        query: {
-          ...this.$route.query,
-          duration: value.join(","),
-        },
-      });
-    },
-    changeBudget(value) {
-      this.query.budget = value;
-      this.$router.replace({
-        path: this.$route.path,
-        query: {
-          ...this.$route.query,
-          budget: value.join(","),
-        },
-      });
-    },
-    choseFormat(value) {
-      this.query.formats = value;
-      this.$router.replace({
-        path: this.$route.path,
-        query: {
-          ...this.$route.query,
-          formats: value.join(","),
-        },
-      });
-    },
-    chosePlacements(value) {
-      this.query.placements = value;
-      this.$router.replace({
-        path: this.$route.path,
-        query: {
-          ...this.$route.query,
-          placements: value.join(","),
-        },
+        query,
       });
     },
     queryGet() {
@@ -215,7 +168,10 @@ export default {
       this.$emit("filter", this.query);
       this.isOpen = false;
     },
-    reset() {
+    toggleFilter() {
+      this.isOpen = !this.isOpen;
+    },
+    resetFilters() {
       this.query = {
         formats: [],
         countries: [],
@@ -234,6 +190,7 @@ export default {
   },
 };
 </script>
+
 
 <style lang="scss" scoped>
 .filter {
