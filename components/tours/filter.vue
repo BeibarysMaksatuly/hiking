@@ -38,12 +38,6 @@
           title="тг"
           @input="changeBudget"
         />
-        <!-- <UiRadio
-          :label="'Направления'"
-          :options="toursType"
-          :checked="query.direction"
-          @input="choseDirection"
-        /> -->
         <UiCheckbox
           :label="$t('tours.format')"
           :options="chosenFormats"
@@ -58,12 +52,6 @@
           @input="chosePlacements"
           :additionalText="'типов'"
         />
-        <!-- <UiCheckbox
-          :label="$t('tours.tags')"
-          :options="chosenTags"
-          :checked="query.tags"
-          @input="choseTags"
-        /> -->
       </div>
     </div>
     <div
@@ -92,7 +80,6 @@ export default {
       chosenSeasons: [],
       chosenFormats: [],
       chosenPlacements: [],
-      chosenTags: [],
       maxTime: 0,
       minTime: 0,
       maxBudget: 0,
@@ -101,9 +88,7 @@ export default {
         formats: [],
         countries: [],
         seasons: [],
-        tags: [],
         placements: [],
-        direction: null,
         budget: [0, 0],
         duration: [0, 0],
         "page[number]": this.$route.query["page[number]"] || 1,
@@ -119,7 +104,6 @@ export default {
     await this.getCountries();
     await this.getSeasons();
     await this.getPlacements();
-    await this.getTags();
     await this.applyFilter();
   },
   watch: {
@@ -133,13 +117,6 @@ export default {
     },
   },
   computed: {
-    toursType() {
-      return [
-        { id: null, name: "Вcе" },
-        { id: 1, name: "Внутри Казахстана" },
-        { id: 2, name: "Зарубежные" },
-      ];
-    },
     isMobile() {
       if (process.client) {
         return window.innerWidth <= 960;
@@ -168,9 +145,6 @@ export default {
     },
     async getPlacements() {
       this.chosenPlacements = await this.$axios.$get("/placements/");
-    },
-    async getTags() {
-      this.chosenTags = await this.$axios.$get("/tags/");
     },
     choseInput(value) {
       this.query.countries = value;
@@ -212,9 +186,6 @@ export default {
         },
       });
     },
-    // choseDirection(value) {
-    //   this.query.direction = value;
-    // },
     choseFormat(value) {
       this.query.formats = value;
       this.$router.replace({
@@ -235,9 +206,6 @@ export default {
         },
       });
     },
-    // choseTags(value) {
-    //   this.query.tags = value;
-    // },
     queryGet() {
       Object.entries(this.$route.query).forEach(([key, value]) => {
         this.query[key] = value.split(",");
@@ -252,9 +220,7 @@ export default {
         formats: [],
         countries: [],
         seasons: [],
-        tags: [],
         placements: [],
-        direction: null,
         budget: [this.minBudget, this.maxBudget],
         duration: [this.minTime, this.maxTime],
         "page[number]": this.$route.query["page[number]"] || 1,
@@ -264,18 +230,6 @@ export default {
         path: this.$route.path,
         query: {},
       });
-    },
-    debounce(fn, wait) {
-      let timer;
-      return function (...args) {
-        if (timer) {
-          clearTimeout(timer); // clear any pre-existing timer
-        }
-        const context = this; // get the current context
-        timer = setTimeout(() => {
-          fn.apply(context, args); // call the function if time expires
-        }, wait);
-      };
     },
   },
 };
@@ -292,6 +246,10 @@ export default {
   gap: 20px;
   background: #fff;
 
+  @include phone {
+    width: 100%;
+  }
+
   &__data,
   &__main,
   &__add {
@@ -300,10 +258,6 @@ export default {
     flex-direction: column;
     gap: 20px;
     align-items: flex-start;
-  }
-
-  @include phone {
-    width: 100%;
   }
 
   &__down {
