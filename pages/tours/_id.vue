@@ -21,61 +21,107 @@
           v-for="(tag, idx) in tour.tags"
           :key="idx"
         >
-          <div class="circle--green"></div>
+          <div class="circle"></div>
           <div>{{ tag.name }}</div>
         </div>
       </div>
       <div class="tour__text container-1" v-html="tour.description"></div>
-      <div class="container-1 tour__images">
-        <img
-          v-for="(image, idx) in tour.images"
-          :key="idx"
-          :src="image.image"
-          alt="image"
-        />
+      <div class="tour__advantages container-1">
+        <p>Преимущества</p>
+        <div>
+          <a v-for="advantage in tour.advantages" :key="advantage.id">
+            {{ advantage.title }}
+          </a>
+        </div>
       </div>
+      <client-only>
+        <swiper
+          ref="mySwiper"
+          class="swiper container-1"
+          :options="swiperOptions"
+        >
+          <swiper-slide v-for="image in tour.images" :key="image.id">
+            <img :src="image.image" alt="mini photo" />
+          </swiper-slide>
+          <div slot="button-prev" class="swiper-button-prev">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="12"
+                fill="#DDE1E6"
+                fill-opacity="0.2"
+              />
+              <path
+                d="M13.8047 7.52876C14.0651 7.78911 14.0651 8.21122 13.8047 8.47157L10.2761 12.0002L13.8047 15.5288C14.0651 15.7891 14.0651 16.2112 13.8047 16.4716C13.5444 16.7319 13.1223 16.7319 12.8619 16.4716L8.86193 12.4716C8.60158 12.2112 8.60158 11.7891 8.86193 11.5288L12.8619 7.52876C13.1223 7.26841 13.5444 7.26841 13.8047 7.52876Z"
+                fill="white"
+              />
+            </svg>
+          </div>
+          <div class="swiper-pagination" slot="pagination"></div>
+          <div slot="button-next" class="swiper-button-next">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="12"
+                transform="matrix(-1 0 0 1 24 0)"
+                fill="#DDE1E6"
+                fill-opacity="0.2"
+              />
+              <path
+                d="M10.1953 16.4712C9.93491 16.2109 9.93491 15.7888 10.1953 15.5284L13.7239 11.9998L10.1953 8.47124C9.93491 8.21089 9.93491 7.78878 10.1953 7.52843C10.4556 7.26808 10.8777 7.26808 11.1381 7.52843L15.1381 11.5284C15.3984 11.7888 15.3984 12.2109 15.1381 12.4712L11.1381 16.4712C10.8777 16.7316 10.4556 16.7316 10.1953 16.4712Z"
+                fill="white"
+              />
+            </svg>
+          </div>
+        </swiper>
+      </client-only>
       <div class="tour__info container-1">
         <div class="tour__marsh">
           <Map class="tour__svg" />
-          <div class="tour__titled">{{ $t("tours.marshrut") }}:</div>
-        </div>
-        <div class="tour__data">
           {{ tour.route }}
         </div>
       </div>
-      <div class="tour__double container-1">
-        <div class="tour__info">
-          <div class="tour__marsh">
-            <CreditCard class="tour__svg" />
-            <div class="tour__titled">{{ $t("tours.prices") }}:</div>
-          </div>
-          <div class="tour__prices">
-            <div
-              class="tour__price"
-              v-for="(td, idx) in tour.prices"
-              :key="idx"
-            >
-              <div class="tour__number">{{ idx + 1 }}</div>
-              <div class="tour__number-data">
-                <div class="tour__data-price">
-                  {{ td.price }} {{ td.currency }}
-                </div>
-                <div class="tour__data-descr">{{ td.text }}</div>
+      <div class="tour__info container-1">
+        <div class="tour__marsh">
+          <CreditCard class="tour__svg" />
+          <div class="tour__titled">{{ $t("tours.prices") }}:</div>
+        </div>
+        <div class="tour__prices">
+          <div class="tour__price" v-for="(td, idx) in tour.prices" :key="idx">
+            <div class="tour__number">{{ idx + 1 }}</div>
+            <div class="tour__number-data">
+              <div class="tour__data-price">
+                {{ td.price }} {{ td.currency }}
               </div>
+              <div class="tour__data-descr">{{ td.text }}</div>
             </div>
           </div>
         </div>
-        <div class="tour__info">
-          <div class="tour__marsh">
-            <Calendar class="tour__svg" />
-            <div class="tour__titled">{{ $t("tours.dates") }}:</div>
-          </div>
-          <ul class="tour__data texti">
-            <li v-for="(tt, idx) in tour.dates" :key="idx">
-              {{ tt.start_date }} - {{ tt.end_date }}
-            </li>
-          </ul>
+      </div>
+      <div class="tour__info container-1">
+        <div class="tour__marsh">
+          <Calendar class="tour__svg" />
+          <div class="tour__titled">{{ $t("tours.dates") }}:</div>
         </div>
+        <ul class="tour__data texti">
+          <li v-for="(tt, idx) in tour.dates" :key="idx">
+            {{ tt.start_date }} - {{ tt.end_date }}
+          </li>
+        </ul>
       </div>
     </div>
     <div class="tour__program container-1">
@@ -84,9 +130,8 @@
         <template #title>{{ data.day }} {{ $t("tours.day") }}</template>
         <template #data>
           <div class="program__cont">
-            <client-only>
+            <!-- <client-only>
               <swiper
-                :pagination="true"
                 class="program__swiper"
                 :options="swiperOptions"
               >
@@ -99,7 +144,7 @@
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination" />
               </swiper>
-            </client-only>
+            </client-only> -->
             <div class="program__road">
               <Location class="program__svg" />
               <div>{{ data.route }}</div>
@@ -150,6 +195,10 @@ export default {
       tour: {},
       swiperOptions: {
         slidesPerView: 1,
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
         pagination: {
           el: ".swiper-pagination",
           type: "bullets",
@@ -199,14 +248,13 @@ export default {
   &__cont {
     display: flex;
     flex-direction: column;
-    gap: 40px;
   }
 
   &__hero {
     position: relative;
     width: 100%;
     height: 400px;
-    margin-bottom: 40px;
+    margin-bottom: 80px;
 
     @include phone {
       height: 150px;
@@ -217,6 +265,7 @@ export default {
       height: 100%;
       object-fit: cover;
     }
+
     p {
       position: absolute;
       z-index: 1;
@@ -240,10 +289,9 @@ export default {
   &__places {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    @include phone {
-      gap: 5px;
-    }
+    gap: 8px;
+    margin-top: 32px;
+    margin-bottom: 40px;
   }
 
   &__place {
@@ -251,18 +299,18 @@ export default {
     justify-content: center;
     align-items: center;
 
-    font-size: 14px;
+    font-size: 12px;
     font-style: normal;
-    font-weight: 600;
-    line-height: 130%;
+    font-weight: 400;
+    line-height: normal;
+    color: #324552;
 
-    padding: 8px 12px;
+    padding: 4px 12px;
     gap: 5px;
     border-radius: 10px;
-    border: 2px solid rgba(239, 127, 26, 0.6);
-
+    background: #f9f9f9;
     &--green {
-      border: 2px solid rgba(40, 167, 69, 0.6) !important;
+      background: #f0fff4 !important;
     }
 
     @include phone {
@@ -276,48 +324,76 @@ export default {
     font-size: 20px;
     line-height: 24px;
     white-space: pre-line;
+    margin-bottom: 58px;
   }
 
-  &__images {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(223px, 1fr));
-    gap: 40px;
+  &__advantages {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 48px;
+    p {
+      color: #324552;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 24px;
+      margin-bottom: 24px;
+    }
+    div {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 50px;
+    }
+    a {
+      color: #06d;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #06d;
+    }
+  }
+
+  .swiper {
+    width: 100%;
+    height: 421px;
+    border-radius: 10px;
+
+    @include phone {
+      width: 100%;
+      height: 180px;
+    }
     img {
       width: 100%;
-      height: 240px;
-      border-radius: 10px;
-      align-self: stretch;
+      height: 100%;
       object-fit: cover;
-    }
-    @include phone {
-      grid-template-columns: 1fr;
-      gap: 20px;
-      img {
-        aspect-ratio: 2/1;
-      }
+      border-radius: 10px;
     }
   }
 
   &__info {
     display: flex;
     flex-direction: column;
-    gap: 20px;
     flex: 1;
   }
 
   &__marsh {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 16px;
   }
 
-  &__svg {
-    flex-shrink: 0;
-    width: 64px;
-    height: 64px;
-    background: #fff;
-    border-radius: 200px;
-  }
+  // &__svg {
+  //   flex-shrink: 0;
+  //   width: 64px;
+  //   height: 64px;
+  //   background: #fff;
+  //   border-radius: 200px;
+  // }
 
   &__titled {
     font-size: 20px;
@@ -408,18 +484,15 @@ export default {
   }
 }
 
+.container-1 {
+  max-width: 1280px;
+}
+
 .circle {
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background-color: rgba(239, 127, 26, 0.6);
-
-  &--green {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: rgba(40, 167, 69, 0.6);
-  }
 }
 
 .program {
@@ -498,12 +571,30 @@ export default {
   line-height: 24px;
 }
 
-:deep(.swiper-pagination) {
-  bottom: 20px;
-
-  @include phone {
-    bottom: 20px;
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  display: none;
+}
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-next.swiper-button-disabled {
+  opacity: 0.5;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  width: 40px !important;
+  height: 40px !important;
+  svg {
+    width: 40px !important;
+    height: 40px !important;
   }
+}
+.swiper-button-prev,
+.swiper-container-rtl .swiper-button-next {
+  left: 16px;
+}
+.swiper-button-next,
+.swiper-container-rtl .swiper-button-prev {
+  right: 16px;
 }
 :deep(.swiper-pagination-bullet-active) {
   background: $c-orange !important;

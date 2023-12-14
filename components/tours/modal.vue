@@ -26,11 +26,7 @@
       <div class="modal__text">{{ tour.short_description }}</div>
       <client-only>
         <swiper :pagination="true" class="swiper" :options="swiperOptions">
-          <swiper-slide
-            v-for="image in tour.images"
-            :key="image.id"
-            class="mini__photo"
-          >
+          <swiper-slide v-for="image in tour.images" :key="image.id">
             <img :src="image.image" alt="mini photo" />
           </swiper-slide>
           <div slot="button-prev" class="swiper-button-prev">
@@ -198,7 +194,7 @@ export default {
     align-items: center;
     margin-bottom: 20px;
     @include phone {
-			flex-wrap: wrap;
+      flex-wrap: wrap;
       align-items: flex-start;
       gap: 20px;
     }

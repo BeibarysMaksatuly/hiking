@@ -1,3 +1,6 @@
-<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M46.33 23.833C46.33 22.2684 45.0616 21 43.497 21H20.833C19.2684 21 18 22.2684 18 23.833V40.831C18 42.3956 19.2684 43.664 20.833 43.664H43.497C45.0616 43.664 46.33 42.3956 46.33 40.831V23.833ZM43.497 26.666H20.833L20.833 23.833L43.497 23.833V26.666ZM20.833 30.9155H43.497V40.831L20.833 40.831L20.833 30.9155Z" fill="#FFC107"/>
+<svg width="37" height="36" viewBox="0 0 37 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="credit-card">
+<path id="Vector" d="M32 6H5C3.34315 6 2 7.34315 2 9V27C2 28.6569 3.34315 30 5 30H32C33.6569 30 35 28.6569 35 27V9C35 7.34315 33.6569 6 32 6Z" fill="#0066DD"/>
+<path id="Vector_2" d="M2 15H35" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
 </svg>
