@@ -1,13 +1,13 @@
 <template>
   <div class="tour">
     <UiBreadcrumbs :links="links" class="container-1" />
-    <div class="tour__cont">
-      <div class="tour__hero">
-        <img :src="tour.main_image" alt="main image" />
-        <p>{{ tour.name }}</p>
-      </div>
-      <UiHeading class="container-1">{{ $t("tours.aboutTour") }}</UiHeading>
-      <div class="tour__places container-1">
+    <div class="tour__hero">
+      <img :src="tour.main_image" alt="main image" />
+      <div v-html="tour.main_image_text"></div>
+    </div>
+    <div class="tour__cont container-1">
+      <UiHeading>{{ $t("tours.aboutTour") }}</UiHeading>
+      <div class="tour__places">
         <div
           class="tour__place"
           v-for="country in tour.country"
@@ -18,28 +18,33 @@
         </div>
         <div
           class="tour__place tour__place--green"
-          v-for="(tag, idx) in tour.tags"
+          v-for="(format, idx) in tour.formats"
           :key="idx"
         >
           <div class="circle"></div>
-          <div>{{ tag.name }}</div>
+          <div>{{ format.name }}</div>
         </div>
       </div>
-      <div class="tour__text container-1" v-html="tour.description"></div>
-      <div class="tour__advantages container-1">
+      <div class="tour__text" v-html="tour.description"></div>
+      <div class="tour__advantages" v-click-outside="hideShow">
         <p>Преимущества</p>
         <div>
-          <a v-for="advantage in tour.advantages" :key="advantage.id">
-            {{ advantage.title }}
-          </a>
+          <div v-for="advantage in tour.advantages" :key="advantage.id">
+            <v-tooltip bottom :value="show === advantage.id" max-width="257px">
+              <template v-slot:activator="{ on }">
+                <a @click="show = show === advantage.id ? null : advantage.id">
+                  {{ advantage.title }}
+                </a>
+              </template>
+              <div class="tooltip__text">
+                {{ advantage.text }}
+              </div>
+            </v-tooltip>
+          </div>
         </div>
       </div>
       <client-only>
-        <swiper
-          ref="mySwiper"
-          class="swiper container-1"
-          :options="swiperOptions"
-        >
+        <swiper ref="mySwiper" class="swiper" :options="swiperOptions">
           <swiper-slide v-for="image in tour.images" :key="image.id">
             <img :src="image.image" alt="mini photo" />
           </swiper-slide>
@@ -89,36 +94,34 @@
           </div>
         </swiper>
       </client-only>
-      <div class="tour__info container-1">
+      <div class="tour__info">
         <div class="tour__marsh">
           <Map class="tour__svg" />
           {{ tour.route }}
         </div>
       </div>
-      <div class="tour__info container-1">
+      <div class="tour__info">
         <div class="tour__marsh">
           <CreditCard class="tour__svg" />
           <div class="tour__titled">{{ $t("tours.prices") }}:</div>
         </div>
         <div class="tour__prices">
           <div class="tour__price" v-for="(td, idx) in tour.prices" :key="idx">
-            <div class="tour__number">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="25"
-                height="24"
-                viewBox="0 0 25 24"
-                fill="none"
-              >
-                <path
-                  d="M20.5 6L9.5 17L4.5 12"
-                  stroke="#0066DD"
-                  stroke-width="3"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="24"
+              viewBox="0 0 25 24"
+              fill="none"
+            >
+              <path
+                d="M20.5 6L9.5 17L4.5 12"
+                stroke="#0066DD"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
             <div class="tour__number-data">
               <div
                 class="tour__data-price"
@@ -134,9 +137,19 @@
           </div>
         </div>
       </div>
-      <div class="tour__program container-1">
-        <UiHeading class="program__title">{{ $t("tours.program") }}</UiHeading>
-        <UiBread v-for="(data, d) in tour.programs" :key="d" :id="d">
+      <div class="tour__program">
+        <div class="program__title">
+          <UiHeading>{{ $t("tours.program") }}</UiHeading>
+          <a @click="openAllProgramms = !openAllProgramms">
+            {{ !openAllProgramms ? "Раскрыть все" : "Закрыть все" }}
+          </a>
+        </div>
+        <UiBread
+          v-for="(data, d) in tour.programs"
+          :key="d + data.title"
+          :id="d + data.title"
+          :openAll="openAllProgramms"
+        >
           <template #title
             >{{ data.day }} {{ $t("tours.day") }}. {{ data.title }}</template
           >
@@ -150,6 +163,10 @@
                   <div>{{ data.food }}</div>
                 </div>
                 <div class="program__text">{{ data.description }}</div>
+                <div class="tour__marsh">
+                  <Home class="tour__svg" />
+                  <div class="tour__titled">Где мы будем жить</div>
+                </div>
               </div>
               <client-only>
                 <swiper
@@ -210,25 +227,74 @@
           </template>
         </UiBread>
       </div>
-
-      <div class="tour__info container-1">
+      <div class="included_things" v-html="tour.included_things"></div>
+      <div class="tour__info last">
         <div class="tour__marsh">
           <Calendar class="tour__svg" />
           <div class="tour__titled">Расписание туров</div>
         </div>
         <ul class="tour__data texti">
-          <li v-for="(tt, idx) in tour.dates" :key="idx">
-            {{ tt.start_date }} - {{ tt.end_date }}
+          <li v-for="date in tour.dates" :key="date.id">
+            {{ formatDate(date.start_date) }} -
+            {{ formatDate(date.end_date) }}
           </li>
         </ul>
       </div>
-    </div>
-    <div class="tour__need">
-      <div class="container-1">
-        <UiHeading>{{ $t("tours.important") }}</UiHeading>
-        <div class="need__text">{{ tour.must_know }}</div>
+      <div class="tour__program">
+        <div class="program__title">
+          <UiHeading>{{ $t("tours.important") }}</UiHeading>
+          <a @click="openAllMust = !openAllMust">
+            {{ !openAllMust ? "Раскрыть все" : "Закрыть все" }}
+          </a>
+        </div>
+        <UiBread
+          v-for="(data, i) in tour.must_know"
+          :key="i + data.title"
+          :id="i + data.title"
+          :openAll="openAllMust"
+        >
+          <template #title>{{ data.title }}</template>
+          <template #data>
+            <div class="must_know-desc"></div>
+            {{ data.text }}
+          </template>
+        </UiBread>
+      </div>
+      <div class="reviews">
+        <div class="reviews__title">
+          <div class="circle"></div>
+          {{ tour.reviews.length }} отзывов
+        </div>
+        <div class="reviews__line"></div>
+        <div class="reviews__info">
+          <div
+            class="review"
+            v-for="(review, idx) in tour.reviews"
+            :key="review.id"
+            v-show="showAllReviews || idx < 4"
+          >
+            <div class="review__header">
+              <img src="@/assets/images/reviews.png" alt="" />
+              <div>
+                <p>{{ review.author }}</p>
+                <p>{{ review.author_age }} лет</p>
+              </div>
+            </div>
+            <div class="review__text">
+              {{ review.text }}
+            </div>
+          </div>
+        </div>
+        <div
+          v-if="tour.reviews.length > 4"
+          class="reviews__more"
+          @click="toggleReviews"
+        >
+          {{ showAllReviews ? "Скрыть все отзывы" : "Посмотреть все отзывы" }}
+        </div>
       </div>
     </div>
+    <SharedForm />
     <v-overlay :value="$fetchState.pending" z-index="999999">
       <v-progress-circular
         :size="70"
@@ -237,7 +303,6 @@
         indeterminate
       ></v-progress-circular>
     </v-overlay>
-    <SharedForm />
   </div>
 </template>
 
@@ -245,11 +310,27 @@
 import Map from "@/assets/icons/map-1.svg?inline";
 import Calendar from "@/assets/icons/calendar-1.svg?inline";
 import CreditCard from "@/assets/icons/credit-card-1.svg?inline";
-import Swiper, { Navigation, Pagination } from "swiper";
 import Location from "@/assets/icons/location.svg?inline";
 import Food from "@/assets/icons/food.svg?inline";
+import Home from "@/assets/icons/home.svg?inline";
+import Swiper, { Navigation, Pagination } from "swiper";
 Swiper.use([Navigation, Pagination]);
+import vClickOutside from "v-click-outside";
 export default {
+  components: {
+    Map,
+    Calendar,
+    CreditCard,
+    Location,
+    Food,
+    Home,
+  },
+  directives: {
+    clickOutside: vClickOutside.directive,
+  },
+  async fetch() {
+    await this.getTour();
+  },
   data() {
     return {
       tour: {},
@@ -277,24 +358,11 @@ export default {
           clickable: true,
         },
       },
+      show: null,
+      openAllProgramms: false,
+      openAllMust: false,
+      showAllReviews: false,
     };
-  },
-  components: {
-    Map,
-    Calendar,
-    CreditCard,
-    Location,
-    Food,
-  },
-  async fetch() {
-    await this.getTour();
-  },
-  methods: {
-    async getTour() {
-      this.tour = await this.$axios.$get(
-        `/tours/detail/${this.$route.params.id}`
-      );
-    },
   },
   computed: {
     links() {
@@ -310,33 +378,44 @@ export default {
       ];
     },
   },
+  methods: {
+    async getTour() {
+      this.tour = await this.$axios.$get(
+        `/tours/detail/${this.$route.params.id}`
+      );
+    },
+    formatDate(dateString) {
+      const locale = this.$i18n.locale; // Получение текущей локали
+      const options = { month: "short", day: "numeric" };
+      const date = new Date(dateString);
+      return date.toLocaleDateString(locale, options);
+    },
+    hideShow() {
+      this.show = null;
+    },
+    toggleReviews() {
+      this.showAllReviews = !this.showAllReviews;
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .tour {
-  &__cont {
-    display: flex;
-    flex-direction: column;
-  }
-
   &__hero {
     position: relative;
     width: 100%;
-    height: 400px;
+    height: 520px;
     margin-bottom: 80px;
-
     @include phone {
-      height: 150px;
+      height: 350px;
     }
-
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-
-    p {
+    div {
       position: absolute;
       z-index: 1;
       left: 50%;
@@ -346,14 +425,12 @@ export default {
       color: #fff;
       text-align: center;
       text-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
-      font-size: 60px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-      @include phone {
-        font-size: 30px;
-      }
     }
+  }
+
+  &__cont {
+    display: flex;
+    flex-direction: column;
   }
 
   &__places {
@@ -381,12 +458,6 @@ export default {
     background: #f9f9f9;
     &--green {
       background: #f0fff4 !important;
-    }
-
-    @include phone {
-      font-size: 12px;
-      font-weight: 400;
-      line-height: 15px;
     }
   }
 
@@ -416,15 +487,26 @@ export default {
       gap: 50px;
     }
     a {
-      color: #06d;
+      width: 188px;
+
+      text-align: center;
       font-size: 18px;
       font-style: normal;
       font-weight: 600;
       line-height: normal;
+      color: #06d;
 
       padding: 12px;
       border-radius: 8px;
+      background: transparent;
       border: 1px solid #06d;
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover {
+        border: 1px solid white;
+        background: #06d;
+        color: white;
+      }
     }
   }
 
@@ -451,19 +533,20 @@ export default {
     flex-direction: column;
     flex: 1;
     margin-bottom: 25px;
-    &:last-of-type {
-      margin-bottom: 0;
-    }
   }
 
   &__marsh {
     display: flex;
     align-items: center;
     gap: 16px;
+    color: #324552;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
   }
 
   &__svg {
-    // flex-shrink: 0;
     width: 64px;
     height: 64px;
     padding: 12px;
@@ -479,19 +562,11 @@ export default {
     line-height: 24px;
   }
 
-  &__double {
-    display: flex;
-    flex-direction: row;
-    gap: 40px;
-    @include phone {
-      flex-direction: column;
-    }
-  }
-
   &__prices {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    margin-left: 84px;
   }
 
   &__price {
@@ -499,15 +574,6 @@ export default {
     flex-direction: row;
     gap: 10px;
     align-items: flex-start;
-    margin-left: 84px;
-  }
-
-  &__number {
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 800;
-    line-height: 24px;
-    color: #7d92a1;
   }
 
   &__number-data {
@@ -521,7 +587,6 @@ export default {
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
-    // color: $c-yellow;
   }
 
   &__data-discount {
@@ -540,37 +605,28 @@ export default {
     white-space: pre-line;
   }
 
-  .texti {
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 24px;
-    margin-left: 84px;
-  }
-
   &__program {
     display: flex;
     flex-direction: column;
-    // gap: 40px;
     margin-top: 55px;
-    padding-bottom: 52px;
   }
 
-  &__need {
-    background-color: #fff;
-
-    > .container-1 {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      padding-top: 80px;
-      padding-bottom: 80px;
-    }
+  .last {
+    margin-bottom: 0;
   }
-}
+  .texti {
+    color: #000;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 84px;
 
-.container-1 {
-  max-width: 1280px;
+    height: 198px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
 }
 
 .circle {
@@ -583,28 +639,33 @@ export default {
 .program {
   display: grid;
   grid-template-columns: 1fr 348px;
-  gap: 37px;
+  gap: 35px;
+  margin-bottom: 40px;
   &__title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
     margin-bottom: 40px;
+    a {
+      color: #06d;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 24px;
+    }
   }
-
   &__cont {
-    // width: 100%;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    padding-left: 5px;
   }
 
   &__swiper {
     width: 348px;
     height: 345px;
     border-radius: 10px;
-    margin-bottom: 36px;
-
-    @include phone {
-      width: 100%;
-      height: 180px;
-    }
     img {
       width: 100%;
       height: 100%;
@@ -623,18 +684,6 @@ export default {
     gap: 10px;
   }
 
-  &__svg {
-    display: flex;
-    width: 64px;
-    height: 64px;
-    padding: 13px 12px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 200px;
-    background: #fff;
-  }
-
   &__text {
     font-size: 20px;
     font-style: normal;
@@ -642,21 +691,113 @@ export default {
     line-height: 24px;
   }
 
+  .tour__marsh {
+    margin-top: auto;
+    cursor: pointer;
+  }
+  .tour__titled {
+    font-weight: 700;
+  }
+}
+
+.included_things {
+  font-size: 16px;
+  line-height: 24px;
+  margin-top: 15px;
+  margin-bottom: 52px;
+}
+
+.must_know-desc {
+  color: #324552;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px; /* 140% */
+  letter-spacing: 0.06px;
+}
+
+.reviews {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  &__title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    color: #324552;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.06px;
+    .circle {
+      margin-right: 12px;
+    }
+  }
   &__line {
     height: 1px;
     flex-shrink: 0;
     width: 100%;
-    background: #dde1e6;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    background: #ef7f1a;
+    margin-top: 24px;
+    margin-bottom: 28px;
+  }
+  &__info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 22px;
+  }
+  &__more {
+    color: #324552;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration-line: underline;
+    margin-top: 19px;
+    cursor: pointer;
   }
 }
 
-.need__text {
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 24px;
+.review {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  &__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    img {
+      width: 52px;
+      height: 52px;
+      border-radius: 232px;
+      object-fit: cover;
+      margin-right: 12px;
+    }
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      p {
+        color: #324552;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        &:last-of-type {
+          font-weight: 400;
+        }
+      }
+    }
+  }
+  &__text {
+    color: #324552;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
 }
 
 .swiper-button-prev:after,
@@ -690,5 +831,13 @@ export default {
 :deep(.swiper-pagination-bullet) {
   background: $c-white;
   opacity: 1;
+}
+
+.tooltip__text {
+  color: #000 !important;
+  font-size: 18px !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  line-height: normal !important;
 }
 </style>

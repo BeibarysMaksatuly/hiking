@@ -1,6 +1,6 @@
 <template>
   <div class="bread">
-    <div class="bread__header" @click="isOpen = !isOpen">
+    <div class="bread__header" @click="toggleOpen">
       <div class="bread__title"><slot name="title"></slot></div>
       <Chevron :class="['bread__svg', isOpen && 'bread__svg-open']" />
     </div>
@@ -14,25 +14,43 @@
 <script>
 import Chevron from "@/assets/icons/chevron-down.svg?inline";
 export default {
-  props: ["id"],
+  props: ["id", "openAll"],
   components: {
     Chevron,
   },
-  watch: {
-    isOpen() {
-      const el = document.getElementById("content" + this.id);
-      if (this.isOpen) {
-        el.style.height = `${el.scrollHeight}px`;
-      } else el.style.height = `0`;
-    },
-  },
   data() {
     return {
-      isOpen: false,
+      isOpen: this.openAll,
     };
+  },
+  watch: {
+    openAll(newVal) {
+      this.isOpen = newVal;
+    },
+    isOpen(newVal) {
+      this.adjustHeight();
+    },
+  },
+  methods: {
+    toggleOpen() {
+      this.isOpen = !this.isOpen;
+    },
+    adjustHeight() {
+      const el = document.getElementById(`content${this.id}`);
+      if (this.isOpen) {
+        el.style.height = `${el.scrollHeight}px`;
+      } else {
+        el.style.height = "0";
+      }
+    },
+  },
+  mounted() {
+    this.adjustHeight();
   },
 };
 </script>
+
+
 
 <style lang="scss" scoped>
 .bread {
@@ -60,7 +78,7 @@ export default {
     letter-spacing: 0.072px;
   }
   &__data {
-    margin-top: 21px;
+    margin-top: 40px;
   }
 
   &__svg {
