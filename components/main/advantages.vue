@@ -57,7 +57,7 @@ export default {
       font-style: normal;
       font-weight: 500;
       line-height: normal;
-      margin-bottom: 9px;
+      margin-bottom: 8px;
       @include phone {
         font-size: 16px;
       }

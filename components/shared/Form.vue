@@ -114,6 +114,12 @@ export default {
       if (!this.$refs.form.validate()) return;
       try {
         await this.$axios.$post("/applications/", this.form);
+        this.form = {
+          full_name: "",
+          phone_number: "",
+          email: "",
+          comment: "",
+        };
         this.success = true;
       } catch (e) {
         console.log(e);
@@ -128,6 +134,9 @@ export default {
 <style lang="scss" scoped>
 .form {
   background: white;
+  @include phone {
+    background-color: #f8fafb;
+  }
   &__data {
     width: 602px;
     display: flex;
@@ -162,7 +171,6 @@ export default {
   padding-bottom: 80px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  // flex-direction: row;
   align-items: flex-end;
   gap: 43px;
   @include phone {
@@ -170,6 +178,8 @@ export default {
     grid-template-columns: unset;
     flex-direction: column-reverse;
     gap: 40px;
+    padding-top: 20px;
+    padding-bottom: 0px;
   }
 }
 
@@ -177,6 +187,9 @@ export default {
   width: 100%;
   &__title {
     margin-bottom: 40px;
+    @include phone {
+      margin-bottom: 20px;
+    }
   }
   &__button {
     font-size: 18px;
@@ -195,6 +208,10 @@ export default {
     font-weight: 500;
     line-height: 21px;
     margin-bottom: 12px;
+    @include phone {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
     span {
       color: rgba(220, 53, 69, 1);
     }

@@ -278,13 +278,13 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  gap: 141px;
+  gap: 120px;
   padding-bottom: 194px;
   @include phone {
-    padding-bottom: 100px;
-    gap: 0;
     justify-content: space-between;
+    padding-bottom: 100px;
     padding-top: 106px;
+    gap: 0;
   }
 }
 

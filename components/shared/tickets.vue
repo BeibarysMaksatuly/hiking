@@ -47,7 +47,6 @@ export default {
 .tickets {
   position: relative;
   background-color: #fff;
-
   &__data {
     width: 100%;
     display: flex;
