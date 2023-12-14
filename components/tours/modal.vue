@@ -82,11 +82,11 @@
         </div>
         <div
           class="modal__place modal__place--green"
-          v-for="(tag, idx) in tour.tags"
+          v-for="(format, idx) in tour.formats"
           :key="idx"
         >
           <div class="circle"></div>
-          <div>{{ tag.name }}</div>
+          <div>{{ format.name }}</div>
         </div>
       </div>
       <div class="btns">
@@ -104,19 +104,12 @@
 </template>
 
 <script>
+import Close from "@/assets/icons/close.svg?inline";
+import Calendar from "icons/calendar.svg?inline";
 import Swiper, { Navigation, Pagination } from "swiper";
 Swiper.use([Navigation, Pagination]);
 import vClickOutside from "v-click-outside";
-import Close from "@/assets/icons/close.svg?inline";
-import Calendar from "icons/calendar.svg?inline";
 export default {
-  components: {
-    Close,
-    Calendar,
-  },
-  directives: {
-    clickOutside: vClickOutside.directive,
-  },
   props: {
     tour: {
       type: Object,
@@ -124,6 +117,13 @@ export default {
     },
 
     modalOpen: Boolean,
+  },
+  directives: {
+    clickOutside: vClickOutside.directive,
+  },
+  components: {
+    Close,
+    Calendar,
   },
   data() {
     return {
@@ -153,7 +153,7 @@ export default {
       this.show = false;
     },
     formatDate(dateString) {
-      const locale = this.$i18n.locale; // Получение текущей локали
+      const locale = this.$i18n.locale;
       const options = { month: "short", day: "numeric" };
       const date = new Date(dateString);
       return date.toLocaleDateString(locale, options);
@@ -165,7 +165,6 @@ export default {
 <style lang="scss" scoped>
 .modal {
   width: 100%;
-  max-height: 90%;
   display: flex;
   flex-direction: column;
 
@@ -185,6 +184,9 @@ export default {
     margin-left: auto;
     cursor: pointer;
     margin-bottom: 40px;
+    @include phone {
+      margin-bottom: 16px;
+    }
   }
 
   &__header {
@@ -222,8 +224,8 @@ export default {
     cursor: pointer;
     text-decoration-line: underline;
     svg {
-      width: 12px;
-      height: 12px;
+      width: 16px;
+      height: 16px;
       flex-shrink: 0;
       color: $c-main;
     }
@@ -292,7 +294,7 @@ export default {
 
   @include phone {
     width: 100%;
-    height: 180px;
+    height: 293px;
   }
   img {
     width: 100%;
@@ -309,6 +311,7 @@ export default {
   margin-top: 36px;
   @include phone {
     gap: 10px;
+    margin-top: 28px;
     flex-direction: column;
   }
 }
