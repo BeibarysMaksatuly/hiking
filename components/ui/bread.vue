@@ -68,6 +68,9 @@ export default {
     border-radius: 12px;
     background: #fff;
     box-shadow: 0px 8px 16px 0px rgba(18, 27, 33, 0.1);
+    @include phone {
+      height: 48px;
+    }
   }
 
   &__title {
@@ -76,9 +79,16 @@ export default {
     font-weight: 700;
     line-height: 120%; /* 28.8px */
     letter-spacing: 0.072px;
+    @include phone {
+      font-size: 14px;
+      line-height: 120%;
+    }
   }
   &__data {
     margin-top: 40px;
+    @include phone {
+      margin-top: 20px;
+    }
   }
 
   &__svg {
@@ -87,6 +97,10 @@ export default {
     transition: all 0.3s ease;
     &-open {
       transform: rotate(180deg) !important;
+    }
+    @include phone {
+      width: 20px;
+      height: 20px;
     }
   }
 

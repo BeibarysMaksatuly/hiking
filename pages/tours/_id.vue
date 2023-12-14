@@ -97,7 +97,7 @@
       <div class="tour__info">
         <div class="tour__marsh">
           <Map class="tour__svg" />
-          {{ tour.route }}
+          <p>{{ tour.route }}</p>
         </div>
       </div>
       <div class="tour__info">
@@ -163,7 +163,11 @@
                   <div>{{ data.food }}</div>
                 </div>
                 <div class="program__text">{{ data.description }}</div>
-                <div class="tour__marsh">
+                <div
+                  v-if="data.accommodation"
+                  class="tour__marsh"
+                  @click="selectAcc(data.accommodation)"
+                >
                   <Home class="tour__svg" />
                   <div class="tour__titled">Где мы будем жить</div>
                 </div>
@@ -295,6 +299,12 @@
       </div>
     </div>
     <SharedForm />
+    <ToursModalAcc
+      v-if="currentAcc"
+      :acc="currentAcc"
+      :modalOpen="modalOpen"
+      @close-modal="modalOpen = false"
+    />
     <v-overlay :value="$fetchState.pending" z-index="999999">
       <v-progress-circular
         :size="70"
@@ -362,6 +372,8 @@ export default {
       openAllProgramms: false,
       openAllMust: false,
       showAllReviews: false,
+      currentAcc: null,
+      modalOpen: false,
     };
   },
   computed: {
@@ -396,6 +408,10 @@ export default {
     toggleReviews() {
       this.showAllReviews = !this.showAllReviews;
     },
+    selectAcc(acc) {
+      this.currentAcc = acc;
+      this.modalOpen = true;
+    },
   },
 };
 </script>
@@ -409,6 +425,7 @@ export default {
     margin-bottom: 80px;
     @include phone {
       height: 350px;
+      margin-bottom: 40px;
     }
     img {
       width: 100%;
@@ -439,6 +456,9 @@ export default {
     gap: 8px;
     margin-top: 32px;
     margin-bottom: 40px;
+    @include phone {
+      margin: 16px 0;
+    }
   }
 
   &__place {
@@ -466,12 +486,18 @@ export default {
     line-height: 24px;
     white-space: pre-line;
     margin-bottom: 58px;
+    @include phone {
+      margin-bottom: 40px;
+    }
   }
 
   &__advantages {
     display: flex;
     flex-direction: column;
     margin-bottom: 48px;
+    @include phone {
+      margin-bottom: 40px;
+    }
     p {
       color: #324552;
       font-size: 20px;
@@ -479,12 +505,22 @@ export default {
       font-weight: 800;
       line-height: 24px;
       margin-bottom: 24px;
+      @include phone {
+        font-size: 18px;
+      }
     }
     div {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       gap: 50px;
+      @include phone {
+        gap: 16px;
+        display: grid;
+        @media (max-width: 430px) {
+          grid-template-columns: repeat(1, 1fr);
+        }
+      }
     }
     a {
       width: 188px;
@@ -502,6 +538,10 @@ export default {
       border: 1px solid #06d;
       cursor: pointer;
       transition: 0.3s;
+
+      @include phone {
+        width: 100%;
+      }
       &:hover {
         border: 1px solid white;
         background: #06d;
@@ -518,7 +558,8 @@ export default {
 
     @include phone {
       width: 100%;
-      height: 180px;
+      height: 300px;
+      margin-bottom: 55px;
     }
     img {
       width: 100%;
@@ -533,17 +574,28 @@ export default {
     flex-direction: column;
     flex: 1;
     margin-bottom: 25px;
+    @include phone {
+      margin-bottom: 20px;
+      &:nth-of-type(7) {
+        margin-bottom: 0;
+      }
+    }
   }
 
   &__marsh {
-    display: flex;
+    display: grid;
     align-items: center;
+    grid-template-columns: 64px 1fr;
     gap: 16px;
     color: #324552;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
+    @include phone {
+      font-size: 16px;
+      grid-template-columns: 32px 1fr;
+    }
   }
 
   &__svg {
@@ -553,6 +605,11 @@ export default {
     background: #fff;
     border-radius: 38px;
     box-shadow: 0px -1px 15px 0px rgba(105, 112, 117, 0.2);
+    @include phone {
+      width: 32px;
+      height: 32px;
+      padding: 7px;
+    }
   }
 
   &__titled {
@@ -560,6 +617,9 @@ export default {
     font-style: normal;
     font-weight: 800;
     line-height: 24px;
+    @include phone {
+      font-size: 16px;
+    }
   }
 
   &__prices {
@@ -567,19 +627,34 @@ export default {
     flex-direction: column;
     gap: 20px;
     margin-left: 84px;
+    @include phone {
+      gap: 12px;
+      margin-top: 16px;
+      margin-left: 50px;
+    }
   }
 
   &__price {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 25px 1fr;
     gap: 10px;
-    align-items: flex-start;
+    @include phone {
+      grid-template-columns: 20px 1fr;
+      gap: 14px;
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
   }
 
   &__number-data {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    @include phone {
+      gap: 3px;
+    }
   }
 
   &__data-price {
@@ -587,6 +662,10 @@ export default {
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
+    @include phone {
+      font-size: 14px;
+      line-height: 20px;
+    }
   }
 
   &__data-discount {
@@ -595,6 +674,9 @@ export default {
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
+    @include phone {
+      font-size: 12px;
+    }
   }
 
   &__data-descr {
@@ -603,12 +685,19 @@ export default {
     font-weight: 400;
     line-height: 24px;
     white-space: pre-line;
+    @include phone {
+      font-size: 12px;
+      line-height: 20px;
+    }
   }
 
   &__program {
     display: flex;
     flex-direction: column;
     margin-top: 55px;
+    @include phone {
+      margin-top: 44px;
+    }
   }
 
   .last {
@@ -626,6 +715,11 @@ export default {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    @include phone {
+      height: 158px;
+      margin-left: 0px;
+      margin-top: 16px;
+    }
   }
 }
 
@@ -641,18 +735,33 @@ export default {
   grid-template-columns: 1fr 348px;
   gap: 35px;
   margin-bottom: 40px;
+  @include phone {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: unset;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
   &__title {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 40px;
+    @include phone {
+      align-items: center;
+      margin-bottom: 20px;
+    }
     a {
       color: #06d;
       font-size: 20px;
       font-style: normal;
       font-weight: 700;
       line-height: 24px;
+      @include phone {
+        font-size: 12px;
+        font-weight: 600;
+      }
     }
   }
   &__cont {
@@ -660,12 +769,19 @@ export default {
     flex-direction: column;
     gap: 16px;
     padding-left: 5px;
+    @include phone {
+      gap: 12px;
+    }
   }
 
   &__swiper {
     width: 348px;
     height: 345px;
     border-radius: 10px;
+    @include phone {
+      width: 100%;
+      height: 300px;
+    }
     img {
       width: 100%;
       height: 100%;
@@ -682,6 +798,11 @@ export default {
     display: flex;
     align-items: center;
     gap: 10px;
+    @include phone {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+    }
   }
 
   &__text {
@@ -689,6 +810,11 @@ export default {
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
+    @include phone {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+    }
   }
 
   .tour__marsh {
@@ -705,6 +831,12 @@ export default {
   line-height: 24px;
   margin-top: 15px;
   margin-bottom: 52px;
+  @include phone {
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }
 }
 
 .must_know-desc {
@@ -714,12 +846,18 @@ export default {
   font-weight: 400;
   line-height: 28px; /* 140% */
   letter-spacing: 0.06px;
+  @include phone {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+  }
 }
 
 .reviews {
   width: 100%;
   display: flex;
   flex-direction: column;
+  margin-top: 40px;
   &__title {
     display: flex;
     flex-direction: row;
@@ -742,11 +880,18 @@ export default {
     background: #ef7f1a;
     margin-top: 24px;
     margin-bottom: 28px;
+    @include phone {
+      margin-top: 12px;
+    }
   }
   &__info {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 28px 22px;
+    @include phone {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
   }
   &__more {
     color: #324552;
@@ -755,7 +900,7 @@ export default {
     font-weight: 500;
     line-height: normal;
     text-decoration-line: underline;
-    margin-top: 19px;
+    margin-top: 20px;
     cursor: pointer;
   }
 }
@@ -764,6 +909,9 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 19px;
+  @include phone {
+    gap: 12px;
+  }
   &__header {
     display: flex;
     flex-direction: row;
@@ -815,6 +963,14 @@ export default {
   svg {
     width: 40px !important;
     height: 40px !important;
+  }
+  @include phone {
+    width: 25px !important;
+    height: 25px !important;
+    svg {
+      width: 25px !important;
+      height: 25px !important;
+    }
   }
 }
 .swiper-button-prev,
