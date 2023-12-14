@@ -64,10 +64,10 @@ export default {
     flex-direction: column;
     border-radius: 10px;
     background-color: #fff;
-    height: 376px;
+    // height: 376px;
     cursor: pointer;
     @include phone {
-      height: 305px;
+      height: auto;
     }
   }
 }

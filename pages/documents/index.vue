@@ -57,7 +57,10 @@ export default {
 
 <style lang="scss" scoped>
 .documents {
-  padding-bottom: 80px;
+  padding-bottom: 120px;
+  @include phone {
+    padding-bottom: 80px;
+  }
   &__title {
     margin-bottom: 60px;
     @include phone {
@@ -90,8 +93,8 @@ export default {
   }
   @media (max-width: 405px) {
     display: flex;
-		flex-direction: column;
-		width: 100%;
+    flex-direction: column;
+    width: 100%;
   }
   &:hover {
     opacity: 0.8;

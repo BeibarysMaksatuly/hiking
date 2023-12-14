@@ -1,11 +1,8 @@
 <template>
-  <div
-    :class="['header', { 'main-header': isMain && !(scrollPosition > 600) }]"
-  >
+  <div class="header">
     <div class="container-1">
       <nuxt-link to="/">
         <img src="@/assets/icons/logo.png" alt="" class="header__logo" />
-        <!-- <Logo class="header__logo" /> -->
       </nuxt-link>
       <div class="header__links" v-if="input">
         <nuxt-link
@@ -59,6 +56,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import Logo from "icons/logo.svg?inline";
 import Search from "icons/search.svg?inline";
@@ -67,14 +65,20 @@ import Drag from "icons/drag.svg?inline";
 import vClickOutside from "v-click-outside";
 export default {
   name: "SharedHeader",
-  directives: {
-    clickOutside: vClickOutside.directive,
-  },
   props: {
     isMain: {
       type: Boolean,
       default: false,
     },
+  },
+  directives: {
+    clickOutside: vClickOutside.directive,
+  },
+  components: {
+    Logo,
+    Search,
+    Call,
+    Drag,
   },
   data() {
     return {
@@ -90,40 +94,6 @@ export default {
     }
     this.lang = this.$i18n.locale;
     window.addEventListener("scroll", this.updateScroll);
-  },
-  methods: {
-    showInput() {
-      this.input = !this.input;
-    },
-    hideInput() {
-      this.input = true;
-    },
-    searchYandex() {
-      window.open(
-        `https://yandex.ru/search/?text=${this.search}&?url:http://86.107.45.254/`
-      );
-      this.showInput();
-    },
-    changeLocale(id) {
-      if (this.locale === id) {
-        return;
-      }
-      this.lang = id;
-      if (this.$route.path !== this.switchLocalePath(id)) {
-        this.$router.replace(this.switchLocalePath(id));
-      }
-    },
-    updateScroll() {
-      if (process.client) {
-        this.scrollPosition = window.scrollY;
-      }
-    },
-  },
-  components: {
-    Logo,
-    Search,
-    Call,
-    Drag,
   },
   computed: {
     headerLinks() {
@@ -195,8 +165,37 @@ export default {
       return this.languages.find((item) => item.id === this.locale).name;
     },
   },
+  methods: {
+    showInput() {
+      this.input = !this.input;
+    },
+    hideInput() {
+      this.input = true;
+    },
+    searchYandex() {
+      window.open(
+        `https://yandex.ru/search/?text=${this.search}&?url:http://86.107.45.254/`
+      );
+      this.showInput();
+    },
+    changeLocale(id) {
+      if (this.locale === id) {
+        return;
+      }
+      this.lang = id;
+      if (this.$route.path !== this.switchLocalePath(id)) {
+        this.$router.replace(this.switchLocalePath(id));
+      }
+    },
+    updateScroll() {
+      if (process.client) {
+        this.scrollPosition = window.scrollY;
+      }
+    },
+  },
 };
 </script>
+
 <style lang="scss" scoped>
 .active-link {
   &:after {
@@ -214,37 +213,6 @@ svg {
     }
   }
 }
-.hey {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  flex: 1;
-  align-items: center;
-
-  button {
-    width: max-content;
-    height: 46px;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 21px;
-    text-align: center;
-    @include phone {
-      height: 39px;
-      font-size: 16px;
-    }
-  }
-}
-.search-enter-active {
-  transition: all 0.3s linear;
-}
-.search-leave {
-  opacity: 0;
-  position: absolute;
-  display: none;
-}
-.search-enter {
-  transform: translateY(-70px);
-}
 
 .container-1 {
   display: flex;
@@ -253,12 +221,12 @@ svg {
   height: 76px;
   gap: 40px;
   max-width: 1280px;
-
   @include phone {
     flex-direction: row-reverse;
     height: 56px;
   }
 }
+
 .header {
   box-shadow: 0px 5px 15px 0px rgba(105, 112, 117, 0.1);
   transition: all 0.3s ease;
@@ -276,12 +244,7 @@ svg {
       margin-top: 5px;
     }
   }
-  &__lang {
-    width: 63px !important;
-    @include phone {
-      display: none !important;
-    }
-  }
+
   &__links {
     display: flex;
     gap: 40px;
@@ -321,6 +284,13 @@ svg {
       &:after {
         width: 100%;
       }
+    }
+  }
+	
+  &__lang {
+    width: 63px !important;
+    @include phone {
+      display: none !important;
     }
   }
 
@@ -363,16 +333,37 @@ svg {
   }
 }
 
-// .main-header {
-//   background-color: transparent !important;
-//   .header__link {
-//     color: #fff;
-//   }
-//   .phone__text {
-//     color: #fff;
-//   }
-//   box-shadow: none !important;
-// }
+.hey {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex: 1;
+  align-items: center;
+
+  button {
+    width: max-content;
+    height: 46px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 21px;
+    text-align: center;
+    @include phone {
+      height: 39px;
+      font-size: 16px;
+    }
+  }
+}
+.search-enter-active {
+  transition: all 0.3s linear;
+}
+.search-leave {
+  opacity: 0;
+  position: absolute;
+  display: none;
+}
+.search-enter {
+  transform: translateY(-70px);
+}
 
 .phone {
   &__icon {

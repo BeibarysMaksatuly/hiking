@@ -1,75 +1,62 @@
 <template>
   <div class="footer">
-    <div class="container-1">
-      <div class="footer__data">
-        <Logo class="footer__logo" />
-        <div class="footer__links">
-          <nuxt-link
-            v-for="(link, idx) in headerLinks"
-            :to="localePath(link.to)"
-            :key="idx"
-            class="footer__link"
-          >
-            {{ link.name }}
-          </nuxt-link>
-        </div>
-        <div class="footer__links" v-if="documents && documents.length">
-          <nuxt-link :to="localePath('/documents')" class="contact__header">{{
-            $t("header.document")
-          }}</nuxt-link>
+    <div class="footer__data container-1">
+      <Logo class="footer__logo" />
+      <div class="footer__links">
+        <nuxt-link
+          v-for="(link, idx) in headerLinks"
+          :to="localePath(link.to)"
+          :key="idx"
+          class="footer__link"
+        >
+          {{ link.name }}
+        </nuxt-link>
+      </div>
+      <div class="footer__links" v-if="documents && documents.length">
+        <nuxt-link :to="localePath('/documents')" class="contact__header">{{
+          $t("header.document")
+        }}</nuxt-link>
+        <a
+          v-for="document in documents.slice(0, 5)"
+          :key="document.id"
+          :href="document.file"
+          class="footer__link"
+          target="_blank"
+        >
+          {{ document.title }}
+        </a>
+      </div>
+      <div class="footer__contact">
+        <nuxt-link :to="localePath('/contacts')" class="contact__header">{{
+          $t("header.contacts")
+        }}</nuxt-link>
+        <div class="contact__info">
+          <a href="tel:+7 (707) 617 - 41 - 89">+7 (707) 617 - 41 - 89</a>
+          <a href="mailto:kazcamping@gmail.com">kazcamping@gmail.com</a>
           <a
-            v-for="document in documents"
-            :key="document.id"
-            :href="document.file"
-            class="footer__link"
+            href="https://2gis.kz/almaty/geo/9430047375134121?m=76.98372%2C43.299308%2F15.54"
+            target="_blank"
+            >{{ $t("footer.address") }}</a
+          >
+        </div>
+        <div class="contact__socials">
+          <a
+            href="https://www.facebook.com/campinglife.kz?mibextid=LQQJ4d"
             target="_blank"
           >
-            {{ document.title }}
+            <Facebook class="socials__icon" />
+          </a>
+          <a href="" target="_blank">
+            <Youtube class="socials__icon" />
+          </a>
+          <a
+            href="https://instagram.com/campinglife.kz?igshid=enN5MWVnaG9mMWs="
+            target="_blank"
+          >
+            <Instagram class="socials__icon" />
           </a>
         </div>
-        <div class="footer__contact">
-          <nuxt-link :to="localePath('/contacts')" class="contact__header">{{
-            $t("header.contacts")
-          }}</nuxt-link>
-          <div class="contact__info">
-            <a href="tel:+7 (707) 617 - 41 - 89">+7 (707) 617 - 41 - 89</a>
-            <a href="mailto:kazcamping@gmail.com">kazcamping@gmail.com</a>
-            <a
-              href="https://2gis.kz/almaty/geo/9430047375134121?m=76.98372%2C43.299308%2F15.54"
-              target="_blank"
-              >{{ $t("footer.address") }}</a
-            >
-          </div>
-          <div class="contact__socials">
-            <a
-              href="https://www.facebook.com/campinglife.kz?mibextid=LQQJ4d"
-              target="_blank"
-            >
-              <Facebook class="socials__icon" />
-            </a>
-            <!-- <a href="" target="_blank">
-              <Linkedin class="socials__icon" />
-            </a> -->
-            <a href="" target="_blank">
-              <Youtube class="socials__icon" />
-            </a>
-            <a
-              href="https://instagram.com/campinglife.kz?igshid=enN5MWVnaG9mMWs="
-              target="_blank"
-            >
-              <Instagram class="socials__icon" />
-            </a>
-          </div>
-        </div>
       </div>
-      <div class="footer__line"></div>
-      <a
-        v-if="privacy.length"
-        class="footer__policy"
-        :href="privacy[0].file"
-        target="_blank"
-        >{{ $t("footer.privacy") }}</a
-      >
     </div>
   </div>
 </template>
@@ -77,7 +64,6 @@
 import Logo from "icons/logo.svg?inline";
 import Facebook from "icons/facebook.svg?inline";
 import Instagram from "icons/instagram.svg?inline";
-import Linkedin from "icons/linkedin.svg?inline";
 import Youtube from "icons/youtube.svg?inline";
 export default {
   name: "SharedFooter",
@@ -85,13 +71,11 @@ export default {
     Logo,
     Facebook,
     Instagram,
-    Linkedin,
     Youtube,
   },
   data() {
     return {
       documents: [],
-      privacy: [],
     };
   },
   watch: {
@@ -101,7 +85,6 @@ export default {
   },
   async fetch() {
     this.documents = await this.$axios.$get("/documents/");
-    this.privacy = await this.$axios.$get("/privacy-statements/");
   },
   computed: {
     locale() {
@@ -144,6 +127,9 @@ a {
     color: $c-orange;
   }
 }
+.container-1 {
+  max-width: 1280px;
+}
 .footer {
   margin-top: auto;
   background-color: $c-white;
@@ -159,12 +145,13 @@ a {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 160px;
-    margin-bottom: 20px;
+    padding-top: 80px;
+    padding-bottom: 90px;
     @include phone {
       flex-direction: column;
       gap: 40px;
-      margin-bottom: 0;
+      padding-top: 60px;
+      padding-bottom: 54px;
     }
   }
 
@@ -195,38 +182,6 @@ a {
     display: flex;
     flex-direction: column;
     gap: 20px;
-  }
-
-  &__line {
-    width: 100%;
-    height: 1px;
-    flex-shrink: 0;
-    background-color: $c-main;
-  }
-
-  &__policy {
-    margin-left: auto;
-    color: #324552;
-    text-align: right;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 22px; /* 122.222% */
-    text-decoration-line: underline;
-  }
-}
-
-.container-1 {
-  padding-top: 80px;
-  padding-bottom: 90px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  max-width: 1280px;
-
-  @include phone {
-    padding-top: 60px;
-    padding-bottom: 54px;
   }
 }
 

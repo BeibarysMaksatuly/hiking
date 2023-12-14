@@ -100,7 +100,7 @@ export default {
     margin-bottom: 80px;
 
     @include phone {
-      height: 150px;
+      height: 300px;
     }
     img {
       width: 100%;
@@ -135,7 +135,7 @@ export default {
     height: 420px;
     border-radius: 10px;
     @include phone {
-      height: 150px;
+      height: 250px;
     }
     img {
       border-radius: 10px;
