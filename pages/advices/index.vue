@@ -78,16 +78,13 @@ export default {
 }
 .container-1 {
   padding-bottom: 80px;
-  @include phone {
-    padding-bottom: 140px;
-  }
 }
 
 .category__title {
   font-size: 28px;
   font-style: normal;
   font-weight: 700;
-  line-height: 120%; /* 33.6px */
+  line-height: 120%;
   letter-spacing: 0.084px;
   @include phone {
     font-size: 20px;
