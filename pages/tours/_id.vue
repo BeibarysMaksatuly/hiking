@@ -264,7 +264,7 @@
           </template>
         </UiBread>
       </div>
-      <div class="reviews">
+      <div v-if="tour.reviews.length" class="reviews">
         <div class="reviews__title">
           <div class="circle"></div>
           {{ tour.reviews.length }} отзывов
@@ -278,7 +278,7 @@
             v-show="showAllReviews || idx < 4"
           >
             <div class="review__header">
-              <img src="@/assets/images/reviews.png" alt="" />
+              <img :src="review.image" alt="" />
               <div>
                 <p>{{ review.author }}</p>
                 <p>{{ review.author_age }} лет</p>

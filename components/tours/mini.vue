@@ -73,9 +73,9 @@
             </li>
           </ul>
         </v-tooltip>
-        <div class="info__map">
+        <div class="info__map" v-if="tour.distance">
           <Map />
-          <div>100 км</div>
+          <div>{{ tour.distance }} км</div>
         </div>
       </div>
       <UiButton
