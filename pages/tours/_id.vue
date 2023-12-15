@@ -259,8 +259,9 @@
         >
           <template #title>{{ data.title }}</template>
           <template #data>
-            <div class="must_know-desc"></div>
-            {{ data.text }}
+            <div class="must_know-desc">
+              {{ data.text }}
+            </div>
           </template>
         </UiBread>
       </div>
@@ -846,10 +847,12 @@ export default {
   font-weight: 400;
   line-height: 28px; /* 140% */
   letter-spacing: 0.06px;
+  margin-bottom: 40px;
   @include phone {
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
+    margin-bottom: 20px;
   }
 }
 
