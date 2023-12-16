@@ -6,7 +6,7 @@
           <video autoplay controls>
             <source
               :src="video_source"
-              type='video/mp4; odecs="avc1.42E01E, mp4a.40.2"'
+              type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
             />
           </video>
           <img
@@ -15,13 +15,13 @@
             class="play"
             :style="{ top: playY + 'px', left: playX + 'px' }"
             src="@/assets/images/elipse.svg"
-            style="z-index: 111111"
           />
         </div>
       </div>
     </client-only>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -33,10 +33,22 @@ export default {
   }),
   methods: {
     play(e) {
+      const videoWrapper = this.$el.querySelector(".video_wrapper");
+      const video = videoWrapper.querySelector("video");
       const img = document.getElementById("close_btn");
+
+      const rect = video.getBoundingClientRect();
+      const bottomAreaHeight = 60;
+      const isInControlArea = e.clientY > rect.bottom - bottomAreaHeight;
+
       img.style.display = "block";
-      this.playX = e.clientX;
-      this.playY = e.clientY;
+
+      if (isInControlArea) {
+        img.style.display = "none";
+      } else {
+        this.playX = e.clientX;
+        this.playY = e.clientY;
+      }
     },
     leave(e) {
       const img = document.getElementById("close_btn");
@@ -74,7 +86,7 @@ export default {
       video {
         width: 100%;
         max-width: 100%;
-        max-height: 100vh;
+        max-height: 90vh;
       }
       .play {
         position: absolute;
