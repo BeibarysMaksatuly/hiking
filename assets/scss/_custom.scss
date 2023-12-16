@@ -94,3 +94,9 @@ li:before {
 		background: transparent !important; /* make scrollbar transparent */
 	}
 }
+
+.v-input__slot {
+	@include phone {
+		height: 41px !important;
+	}
+}
