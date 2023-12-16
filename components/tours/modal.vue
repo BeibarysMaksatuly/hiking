@@ -28,7 +28,15 @@
         <client-only>
           <swiper :pagination="true" class="swiper" :options="swiperOptions">
             <swiper-slide v-for="image in tour.images" :key="image.id">
-              <img :src="image.image" alt="mini photo" />
+              <template v-if="isImage(image.image)">
+                <img :src="image.image" alt="mini photo" />
+              </template>
+              <template v-else>
+                <VideoBlock
+                  :video_source="image.image"
+                  @openVideo="(video_open = true), (video_source = image.image)"
+                />
+              </template>
             </swiper-slide>
             <div slot="button-prev" class="swiper-button-prev">
               <svg
@@ -175,6 +183,11 @@
       :success="success"
       @close="completed = false"
     />
+		<VideoPopup
+      v-if="video_open"
+      :video_source="video_source"
+      @closeVideo="(video_open = false), (video_source = null)"
+    />
   </div>
 </template>
 
@@ -223,6 +236,8 @@ export default {
       },
       success: false,
       completed: false,
+			video_open: false,
+      video_source: null
     };
   },
   computed: {
@@ -274,6 +289,9 @@ export default {
       } finally {
         this.completed = true;
       }
+    },
+		isImage(url) {
+      return /\.(jpg|jpeg|png|webp|gif|bmp|tiff)$/.test(url.toLowerCase());
     },
   },
 };

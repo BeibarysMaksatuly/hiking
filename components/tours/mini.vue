@@ -7,7 +7,15 @@
           :key="image.id"
           class="mini__photo"
         >
-          <img :src="image.image" alt="mini photo" />
+          <template v-if="isImage(image.image)">
+            <img :src="image.image" alt="mini photo" />
+          </template>
+          <template v-else>
+            <VideoBlock
+              :video_source="image.image"
+              @openVideo="(video_open = true), (video_source = image.image)"
+            />
+          </template>
         </swiper-slide>
         <div slot="button-prev" class="swiper-button-prev">
           <svg
@@ -90,6 +98,11 @@
         >{{ $t("tours.seeTour") }}</UiButton
       >
     </div>
+    <VideoPopup
+      v-if="video_open"
+      :video_source="video_source"
+      @closeVideo="(video_open = false), (video_source = null)"
+    />
   </div>
 </template>
 
@@ -132,6 +145,8 @@ export default {
         },
       },
       show: false,
+      video_open: false,
+      video_source: null,
     };
   },
   methods: {
@@ -143,6 +158,9 @@ export default {
       const options = { month: "short", day: "numeric" };
       const date = new Date(dateString);
       return date.toLocaleDateString(locale, options);
+    },
+    isImage(url) {
+      return /\.(jpg|jpeg|png|webp|gif|bmp|tiff)$/.test(url.toLowerCase());
     },
   },
 };

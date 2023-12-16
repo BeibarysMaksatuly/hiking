@@ -46,7 +46,15 @@
       <client-only>
         <swiper ref="mySwiper" class="swiper" :options="swiperOptions">
           <swiper-slide v-for="image in tour.images" :key="image.id">
-            <img :src="image.image" alt="mini photo" />
+            <template v-if="isImage(image.image)">
+              <img :src="image.image" alt="mini photo" />
+            </template>
+            <template v-else>
+              <VideoBlock
+                :video_source="image.image"
+                @openVideo="(video_open = true), (video_source = image.image)"
+              />
+            </template>
           </swiper-slide>
           <div slot="button-prev" class="swiper-button-prev">
             <svg
@@ -265,7 +273,7 @@
           </template>
         </UiBread>
       </div>
-      <div v-if="tour.reviews.length" class="reviews">
+      <div v-if="tour.reviews && tour.reviews.length" class="reviews">
         <div class="reviews__title">
           <div class="circle"></div>
           {{ tour.reviews.length }} отзывов
@@ -305,6 +313,11 @@
       :acc="currentAcc"
       :modalOpen="modalOpen"
       @close-modal="modalOpen = false"
+    />
+    <VideoPopup
+      v-if="video_open"
+      :video_source="video_source"
+      @closeVideo="(video_open = false), (video_source = null)"
     />
     <v-overlay :value="$fetchState.pending" z-index="999999">
       <v-progress-circular
@@ -375,6 +388,8 @@ export default {
       showAllReviews: false,
       currentAcc: null,
       modalOpen: false,
+      video_open: false,
+      video_source: null,
     };
   },
   computed: {
@@ -412,6 +427,9 @@ export default {
     selectAcc(acc) {
       this.currentAcc = acc;
       this.modalOpen = true;
+    },
+    isImage(url) {
+      return /\.(jpg|jpeg|png|webp|gif|bmp|tiff)$/.test(url.toLowerCase());
     },
   },
 };
