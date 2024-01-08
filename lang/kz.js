@@ -12,7 +12,7 @@ export default {
 		"english": "Ағылшын",
 		"chooseLang": "Тілді таңдаңыз",
 		"save": "Сақтау",
-		"document": 'Құжаттар'
+		"document": "Құжаттар"
 	},
 	"main": {
 		"hero": {
@@ -50,7 +50,7 @@ export default {
 			"failText": "Өтініш жіберілмеді, кешіріңіз, кейінірек қайталап көріңіз",
 			"done": "Аяқталды",
 			"ok": "Жақсы",
-			"placeholder_name": 'Аты',
+			"placeholder_name": "Аты",
 			"required": "Міндетті өріс",
 			"telephone": "Телефон нөмірін енгізіңіз",
 			"wrong_number": "Дұрыс телефон нөмірін енгізіңіз",
@@ -101,7 +101,7 @@ export default {
 		"specialistsSubtitle": "Біз мамандарымызды қадірлейміз"
 	},
 	"tours": {
-		"country": "Әулет",
+		"country": "Елдер",
 		"season": "Тоқсан",
 		"duration": "Ұзақтығы",
 		"budget": "Баю",
@@ -136,7 +136,33 @@ export default {
 		"otherAdvices": "Басқа кеңестер",
 	},
 	"footer": {
-		"address": 'Улица Волочаевская, 443, Алматы',
-		"privacy": 'Құпиялылық туралы ереже'
+		"address": "Улица Волочаевская, 443, Алматы",
+		"privacy": "Құпиялылық туралы ереже"
+	},
+	"others": {
+		"contact_us": "Бізбен байланысыңыз",
+		"experience": "Жұмыс тәжірибесі:",
+		"years": "жыл",
+		"search": "Іздеу",
+		"countries": "елдер",
+		"formats": "пішімдер",
+		"types": "түрлері",
+		"watch_dates": "Күндерді көру",
+		"km": "км",
+		"days": "күндер",
+		"nights": "түндер",
+		"from": "Бастап",
+		"to": "дейін",
+		"advantages": "Артықшылықтары",
+		"promo": "Науқан аяқталғанға дейін",
+		"open": "Барлығын ашу",
+		"close": "Барлығын жабу",
+		"where_to_live": "Қайда тұрамыз",
+		"schedules": "Турлар кестесі",
+		"reviews": "пікірлер",
+		"open_review": "Барлық пікірлерді жасыру",
+		"close_review": "Барлық пікірлерді көру",
+		"more": "Көбірек ",
+		"no_more": "Азырақ "
 	}
 }

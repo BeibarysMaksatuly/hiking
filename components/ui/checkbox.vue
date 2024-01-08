@@ -21,7 +21,7 @@
       v-if="expandable && options.length > initialDisplayCount"
       @click="toggleShowAll"
     >
-      {{ showAll ? "Меньше " + additionalText : "Больше " + additionalText }}
+      {{ showAll ? $t('others.no_more') + additionalText : $t('others.more') + additionalText }}
     </button>
   </div>
 </template>

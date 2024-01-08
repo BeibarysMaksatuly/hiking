@@ -4,7 +4,7 @@
       <div class="security__subtitle">{{ $t("about.securitySubtitle") }}</div>
       <div class="security__title">{{ $t("about.securityTitle") }}</div>
       <button class="security__btn" @click="$router.push('/contacts')">
-        Свяжитесь с нами
+        {{ $t("others.contact_us") }}
       </button>
     </div>
     <div class="security__cont-1">
@@ -93,7 +93,7 @@
     }
     @media (max-width: 375px) {
       width: 100%;
-			padding: 10px 10px;
+      padding: 10px 10px;
     }
   }
 

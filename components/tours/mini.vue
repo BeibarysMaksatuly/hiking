@@ -71,7 +71,7 @@
               v-click-outside="hideShow"
             >
               <Calendar />
-              <div>Посмотреть даты</div>
+              <div>{{ $t("others.watch_dates") }}</div>
             </div>
           </template>
           <ul>
@@ -83,7 +83,7 @@
         </v-tooltip>
         <div class="info__map" v-if="tour.distance">
           <Map />
-          <div>{{ tour.distance }} км</div>
+          <div>{{ tour.distance }} {{ $t("others.km")}} </div>
         </div>
       </div>
       <UiButton

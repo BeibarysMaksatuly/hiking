@@ -13,7 +13,7 @@
                 v-click-outside="hideShow"
               >
                 <Calendar />
-                <div>Посмотреть даты</div>
+                <div>{{ $t("others.watch_dates") }}</div>
               </div>
             </template>
             <ul>

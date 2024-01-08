@@ -27,7 +27,7 @@
       </div>
       <div class="tour__text" v-html="tour.description"></div>
       <div class="tour__advantages" v-click-outside="hideShow">
-        <p>Преимущества</p>
+        <p>{{ $t("others.advantages") }}</p>
         <div>
           <div v-for="advantage in tour.advantages" :key="advantage.id">
             <v-tooltip bottom :value="show === advantage.id" max-width="257px">
@@ -138,7 +138,7 @@
                 {{ td.price }} {{ td.currency }}
               </div>
               <div v-if="td.discount_till_date" class="tour__data-discount">
-                Промоакция до {{ td.discount_till_date }}
+                {{ $t("others.promo") }} {{ td.discount_till_date }}
               </div>
               <div class="tour__data-descr" v-html="td.text"></div>
             </div>
@@ -149,7 +149,7 @@
         <div class="program__title">
           <UiHeading>{{ $t("tours.program") }}</UiHeading>
           <a @click="openAllProgramms = !openAllProgramms">
-            {{ !openAllProgramms ? "Раскрыть все" : "Закрыть все" }}
+            {{ !openAllProgramms ? $t("tours.open") : $t("tours.close") }}
           </a>
         </div>
         <UiBread
@@ -177,7 +177,9 @@
                   @click="selectAcc(data.accommodation)"
                 >
                   <Home class="tour__svg" />
-                  <div class="tour__titled">Где мы будем жить</div>
+                  <div class="tour__titled">
+                    {{ $t("others.where_to_live") }}
+                  </div>
                 </div>
               </div>
               <client-only>
@@ -243,7 +245,7 @@
       <div class="tour__info last">
         <div class="tour__marsh">
           <Calendar class="tour__svg" />
-          <div class="tour__titled">Расписание туров</div>
+          <div class="tour__titled">{{ $t("others.schedules") }}</div>
         </div>
         <ul class="tour__data texti">
           <li v-for="date in tour.dates" :key="date.id">
@@ -256,7 +258,7 @@
         <div class="program__title">
           <UiHeading>{{ $t("tours.important") }}</UiHeading>
           <a @click="openAllMust = !openAllMust">
-            {{ !openAllMust ? "Раскрыть все" : "Закрыть все" }}
+            {{ !openAllMust ? $t("others.open") : $t("others.close") }}
           </a>
         </div>
         <UiBread
@@ -276,7 +278,7 @@
       <div v-if="tour.reviews && tour.reviews.length" class="reviews">
         <div class="reviews__title">
           <div class="circle"></div>
-          {{ tour.reviews.length }} отзывов
+          {{ tour.reviews.length }} {{ $t("others.reviews") }}
         </div>
         <div class="reviews__line"></div>
         <div class="reviews__info">
@@ -290,7 +292,7 @@
               <img :src="review.image" alt="" />
               <div>
                 <p>{{ review.author }}</p>
-                <p>{{ review.author_age }} лет</p>
+                <p>{{ review.author_age }} {{ $t("others.years") }}</p>
               </div>
             </div>
             <div class="review__text">
@@ -303,7 +305,7 @@
           class="reviews__more"
           @click="toggleReviews"
         >
-          {{ showAllReviews ? "Скрыть все отзывы" : "Посмотреть все отзывы" }}
+          {{ showAllReviews ? $t("others.open_review") : $t("others.close_review") }}
         </div>
       </div>
     </div>

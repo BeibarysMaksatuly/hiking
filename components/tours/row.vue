@@ -81,11 +81,11 @@
       <div class="info__days">
         <div>
           <img src="@/assets/images/sun.svg" alt="" />
-          {{ tour.days }} дней
+          {{ tour.days }} {{ $t("others.days") }}
         </div>
         <div>
           <img src="@/assets/images/moon.svg" alt="" />
-          {{ tour.nights }} ночей
+          {{ tour.nights }} {{ $t("others.nights") }}
         </div>
       </div>
       <v-tooltip bottom v-model="show">
@@ -96,7 +96,7 @@
             v-click-outside="hideShow"
           >
             <Calendar />
-            <div>Посмотреть даты</div>
+            <div>{{ $t("others.watch_dates") }}</div>
           </div>
         </template>
         <ul>

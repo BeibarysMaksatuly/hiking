@@ -21,7 +21,7 @@
         <div v-if="!input" class="hey" v-click-outside="hideInput">
           <v-text-field
             v-model="search"
-            placeholder="Поиск"
+            :placeholder="$t('others.search')"
             solo
             dense
             hide-details=""
@@ -286,7 +286,7 @@ svg {
       }
     }
   }
-	
+
   &__lang {
     width: 63px !important;
     @include phone {

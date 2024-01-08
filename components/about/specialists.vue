@@ -29,7 +29,8 @@
                 <div class="specialist__info">
                   <div class="specialist__name">{{ spec.full_name }}</div>
                   <div class="specialist__work">
-                    Опыт работы: {{ spec.experience }} лет
+                    {{ $t("others.experience") }} {{ spec.experience }}
+                    {{ $t("others.years") }}
                   </div>
                   <div class="specialist__descr">{{ spec.description }}</div>
                 </div>

@@ -12,7 +12,7 @@ export default {
 		"english": "English",
 		"chooseLang": "Choose Language",
 		"save": "Save",
-		"document": 'Documents'
+		"document": "Documents"
 	},
 	"main": {
 		"hero": {
@@ -50,7 +50,7 @@ export default {
 			"failText": "Failed to send request, please try again later",
 			"done": "Done",
 			"ok": "Ok",
-			"placeholder_name": 'Name',
+			"placeholder_name": "Name",
 			"required": "Required field",
 			"telephone": "Enter phone number",
 			"wrong_number": "Enter a valid phone number",
@@ -136,7 +136,33 @@ export default {
 		"otherAdvices": "Other Advice",
 	},
 	"footer": {
-		"address": 'Volochaevskaya Street, 443, Almaty',
-		"privacy": 'Privacy Statement'
+		"address": "Volochaevskaya Street, 443, Almaty",
+		"privacy": "Privacy Statement"
+	},
+	"others": {
+		"contact_us": "Contact Us",
+		"experience": "Experience:",
+		"years": "years",
+		"search": "Search",
+		"countries": "countries",
+		"formats": "formats",
+		"types": "types",
+		"watch_dates": "View dates",
+		"km": "km",
+		"days": "days",
+		"nights": "nights",
+		"from": "From",
+		"to": "To",
+		"advantages": "Advantages",
+		"promo": "Promotion until",
+		"open": "Open all",
+		"close": "Close all",
+		"where_to_live": "Where we will live",
+		"schedules": "Tour Schedules",
+		"reviews": "reviews",
+		"open_review": "Hide all reviews",
+		"close_review": "View all reviews",
+		"more": "More ",
+		"no_more": "Less "
 	}
 }

@@ -11,7 +11,8 @@
       @change="() => $emit('input', range)"
     ></v-range-slider>
     <div class="slider__result">
-      От <span>{{ range[0] }}</span> до <span>{{ range[1] }}</span> {{ title }}
+      {{ $t("others.from") }} <span>{{ range[0] }}</span> {{ $t("others.to") }}
+      <span>{{ range[1] }}</span> {{ title }}
     </div>
   </div>
 </template>

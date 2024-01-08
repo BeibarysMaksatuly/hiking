@@ -7,7 +7,7 @@
           :options="chosenCountries"
           :checked="query.countries"
           @input="updateFilter('countries', $event)"
-          :additionalText="'стран'"
+          :additionalText="$t('others.countries')"
           :initialDisplayCount="isMobile ? 6 : 3"
           :class="{ checkbox_grid: isMobile }"
         />
@@ -45,14 +45,14 @@
           :options="chosenFormats"
           :checked="query.formats"
           @input="updateFilter('formats', $event)"
-          :additionalText="'форматов'"
+          :additionalText="$t('others.formats')"
         />
         <UiCheckbox
           :label="$t('tours.placement')"
           :options="chosenPlacements"
           :checked="query.placements"
           @input="updateFilter('placements', $event)"
-          :additionalText="'типов'"
+          :additionalText="$t('others.types')"
         />
       </div>
     </div>
